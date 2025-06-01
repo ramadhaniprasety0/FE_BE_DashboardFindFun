@@ -376,6 +376,7 @@ const Music = {
   },
 
   // Remove music from artist
+  
   removeMusicFromArtist: (musicId, artistId, callback) => {
     const query = 'DELETE FROM music_artists WHERE music_id = ? AND artist_id = ?';
     db.query(query, [musicId, artistId], callback);

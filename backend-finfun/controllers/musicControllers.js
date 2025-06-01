@@ -299,9 +299,27 @@ const musicControllers = {
   
   delete: (req, res) => {
     const id = req.params.id;
+    const artistId = req.params.artistId;
+    const albumId = req.params.albumId;
 
     if (!id || isNaN(id)) {
       return res.status(400).json({ error: 'Invalid ID format' });
+    }
+
+    if (artistId && !isNaN(artistId)) {
+      Music.removeMusicFromArtistAll(id, (err) => {
+        if (err) {
+          console.error('Error removing artist relation:', err);
+        }
+      });
+    }
+
+    if (albumId && !isNaN(albumId)) {
+      Music.removeMusicFromAlbumAll(id, (err) => {
+        if (err) {
+          console.error('Error removing album relation:', err);
+        }
+      });
     }
 
     Music.delete(id, (err, result) => {

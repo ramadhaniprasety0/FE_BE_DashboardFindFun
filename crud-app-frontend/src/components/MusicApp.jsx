@@ -22,8 +22,10 @@ const MusicApp = () => {
       }
    };
 
+
+
 //    Hapus Music
-   const handleDeleteMusic = async (id, title) => {
+   const handleDeleteMusic = async (id, title, artist, album) => {
       Swal.fire({
         title: `Hapus music "${title}"?`,
         text: "Apakah Anda yakin ingin menghapus music ini?",
@@ -36,7 +38,7 @@ const MusicApp = () => {
       }).then(async (result) => {
       if (result.isConfirmed) {
         try {
-          await axios.delete(`http://localhost:3000/music/deletemusic/${id}`);
+          await axios.delete(`http://localhost:3000/api/music/${id}`);
           await Swal.fire('Terhapus!', 'Music berhasil dihapus.', 'success');
           getData(); // refresh data
         } catch (error) {
@@ -122,7 +124,7 @@ const MusicApp = () => {
                                         <td className="text-center">
                                             <div className="d-flex gap-2">
                                                 <Link to={`/dashboard/editmusic/${music.id}`} title="Edit Music"><i className="bi bi-pencil text-primary"></i></Link>
-                                                <Link onClick={() => handleDeleteMusic(music.id, music.title)} title="Delete Music"><i className="bi bi-trash text-danger"></i></Link>
+                                                <Link onClick={() => handleDeleteMusic(music.id, music.title, )} title="Delete Music"><i className="bi bi-trash text-danger"></i></Link>
                                             </div>
                                         </td>
                                     </tr>
