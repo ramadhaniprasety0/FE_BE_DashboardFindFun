@@ -77,9 +77,26 @@ CREATE TABLE IF NOT EXISTS `artists` (
 
 -- Dumping data for table findfun_db.artists: ~2 rows (approximately)
 INSERT INTO `artists` (`id`, `name`, `bio`, `birth_date`, `country`, `genre`, `image`, `active_year_start`, `active_year_end`, `instagram`, `twitter`, `youtube`, `website`, `popularity`, `created_at`, `updated_at`) VALUES
-	(1, 'Taylor Swift', 'American singer-songwriter', '1989-12-13', 'USA', 'Pop', 'https://example.com/taylor.jpg', 2004, NULL, '@taylorswift', '@taylorswift13', NULL, 'https://taylorswift.com', 95, '2025-05-24 18:27:47', '2025-05-24 18:27:47'),
-	(2, ' Swift', 'American singer-songwriter', '1989-12-13', 'USA', 'Pop', 'https://example.com/.jpg', 2004, NULL, '@taylorswift', '@taylorswift13', NULL, 'https://taylorswift.com', 70, '2025-05-24 18:47:42', '2025-05-24 18:47:42'),
-	(3, 'uajangg', 'American singer-songwriter', '1989-12-13', 'USA', 'Pop', 'https://example.com/.jpg', 2004, NULL, '@taylorswift', '@taylorswift13', NULL, 'https://taylorswift.com', 70, '2025-05-24 18:47:52', '2025-05-24 18:47:52');
+	(1, 'Taylor Swift', 'American singer-songwriter', '1989-12-13', 'USA', 'Pop', 'uploads/0a1b5f2c22e224d792ff13a7f1140d87', 2004, NULL, '@taylorswift', '@taylorswift13', NULL, 'https://taylorswift.com', 95, '2025-05-24 18:27:47', '2025-06-03 05:08:32'),
+	(2, ' Swift', 'American singer-songwriter', '1989-12-13', 'USA', 'Pop', 'uploads/0a1b5f2c22e224d792ff13a7f1140d87', 2004, NULL, '@taylorswift', '@taylorswift13', NULL, 'https://taylorswift.com', 70, '2025-05-24 18:47:42', '2025-06-03 05:08:35'),
+	(3, 'uajangg', 'American singer-songwriter', '1989-12-13', 'USA', 'Pop', 'uploads/0a1b5f2c22e224d792ff13a7f1140d87', 2004, NULL, '@taylorswift', '@taylorswift13', NULL, 'https://taylorswift.com', 70, '2025-05-24 18:47:52', '2025-06-03 05:08:38');
+
+-- Dumping structure for table findfun_db.carousel_items
+CREATE TABLE IF NOT EXISTS `carousel_items` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `title` varchar(255) DEFAULT NULL,
+  `image` varchar(255) DEFAULT NULL,
+  `deskripsi` varchar(255) DEFAULT NULL,
+  `status` int DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+-- Dumping data for table findfun_db.carousel_items: ~4 rows (approximately)
+INSERT INTO `carousel_items` (`id`, `title`, `image`, `deskripsi`, `status`) VALUES
+	(1, 'uploads/carousel_image/wakandatitle.png', 'uploads/carousel_image/wakanda.jpg', 'Action & Adventure | 2022', 1),
+	(2, 'uploads/carousel_image/breakingbadtitle.png', 'uploads/carousel_image/breakingbad.jpg', 'Action & Adventure | 2023', 1),
+	(3, 'uploads/carousel_image/drivetitle.png', 'uploads/carousel_image/drive.jpg', 'Action & Adventure | 2024', 1),
+	(4, 'uploads/carousel_image/theboystitle.png', 'uploads/carousel_image/theboys.jpg', 'Action & Adventure | 2025', 1);
 
 -- Dumping structure for table findfun_db.films
 CREATE TABLE IF NOT EXISTS `films` (
@@ -132,12 +149,10 @@ CREATE TABLE IF NOT EXISTS `music` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Dumping data for table findfun_db.music: ~7 rows (approximately)
+-- Dumping data for table findfun_db.music: ~6 rows (approximately)
 INSERT INTO `music` (`id`, `title`, `lirik`, `release_year`, `rating`, `genre1`, `genre2`, `genre3`, `image`, `like_user`, `dislike`, `spotify_link`, `apple_link`, `youtube_link`, `deezer_link`, `created_at`, `updated_at`) VALUES
-	(1, 'Anti-Hero', 'akjdnkadkandkahldldjlw', 2022, 8, 'Pop', 'Alternative', '', 'uploads/47efe04a5c3907a5dd4046957e02dfc6', 0, 0, 'https://spotify.com/antihero', 'https://music.apple.com/antihero', 'https://youtube.com/antihero', 'http://localhost:3000/api/music/1', '2025-05-24 18:35:42', '2025-06-01 15:00:36'),
 	(2, 'Jakarta Hot ', 'agdjkagkd', 2012, 1, 'pop', 'rege', '', 'uploads/ccf6d826b53a66708ca2d94f980ff401', 0, 0, 'http://localhost:5173/dashboard/addmusic', 'http://localhost:5173/dashboard/addmusic', 'http://localhost:3000/api/music/', 'http://localhost:5173/dashboard/addmusic', '2025-05-31 09:08:15', '2025-06-01 15:00:26'),
 	(3, 'Jakarta Hot 212', 'dadwd', 2012, 1, 'POP', 'rege', '', 'uploads/0a1b5f2c22e224d792ff13a7f1140d87', 0, 0, 'http://localhost:5173/dashboard/addmusic', 'http://localhost:5173/dashboard/addmusic', 'http://localhost:3000/api/music/', 'http://localhost:5173/dashboard/addmusic', '2025-05-31 09:18:07', '2025-06-01 14:56:55'),
-	(4, 'Panjul Si petualang2', 'adawdwadhghfhf', 2012, 1, 'pop', 'Happy', 'wd', 'uploads/3945626491421ba36eef737ed7a1f8ed', 0, 0, 'http://localhost:5173/dashboard/addmusic', 'gfhjgjg', 'ujtgjgj', 'hgfhgfh', '2025-05-31 16:02:26', '2025-06-01 14:57:04'),
 	(5, 'Panjul Si petualang22', 'asdw', 2012, 1, 'POP', 'rege', '', 'uploads/b584776b6eda0f880b399f86facda2f4', 0, 0, 'http://localhost:5173/dashboard/addmusic', 'http://localhost:5173/dashboard/addmusic', 'http://localhost:3000/api/music/', 'http://localhost:5173/dashboard/addmusic', '2025-06-01 07:58:01', '2025-06-01 07:58:01'),
 	(6, 'Panjul Si petualang2223', 'gfdhghgfh', 2012, 1, 'POP', 'Happy', '', 'uploads/dbf890ed769f60056b531f36a659abe8', 0, 0, 'http://localhost:5173/dashboard/addmusic', 'http://localhost:5173/dashboard/addmusic', 'http://localhost:3000/api/music/', 'http://localhost:5173/dashboard/addmusic', '2025-06-01 08:15:07', '2025-06-01 15:01:09'),
 	(7, 'Panjul Si petualang222ds', 'awad', 2012, 1, 'POP', 'COLLq', '', 'uploads/8ab4647c6762201989e907c16c601383', 0, 0, 'http://localhost:5173/dashboard/addmusic', 'http://localhost:5173/dashboard/addmusic', 'http://localhost:3000/api/music/', 'http://localhost:5173/dashboard/addmusic', '2025-06-01 08:28:41', '2025-06-01 15:01:23');
@@ -152,13 +167,9 @@ CREATE TABLE IF NOT EXISTS `music_albums` (
   CONSTRAINT `music_albums_ibfk_2` FOREIGN KEY (`album_id`) REFERENCES `albums` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Dumping data for table findfun_db.music_albums: ~6 rows (approximately)
+-- Dumping data for table findfun_db.music_albums: ~7 rows (approximately)
 INSERT INTO `music_albums` (`music_id`, `album_id`) VALUES
-	(1, 3),
-	(4, 3),
 	(5, 3),
-	(1, 4),
-	(4, 4),
 	(6, 5),
 	(3, 14),
 	(2, 15),
@@ -176,21 +187,32 @@ CREATE TABLE IF NOT EXISTS `music_artists` (
   CONSTRAINT `music_artists_ibfk_2` FOREIGN KEY (`artist_id`) REFERENCES `artists` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Dumping data for table findfun_db.music_artists: ~14 rows (approximately)
+-- Dumping data for table findfun_db.music_artists: ~8 rows (approximately)
 INSERT INTO `music_artists` (`music_id`, `artist_id`) VALUES
-	(1, 1),
 	(2, 1),
 	(3, 1),
-	(4, 1),
 	(5, 1),
 	(6, 1),
-	(1, 2),
-	(4, 2),
 	(6, 2),
 	(3, 3),
-	(4, 3),
 	(5, 3),
 	(7, 3);
+
+-- Dumping structure for table findfun_db.users
+CREATE TABLE IF NOT EXISTS `users` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `email` varchar(255) NOT NULL,
+  `username` varchar(255) DEFAULT NULL,
+  `password` varchar(255) NOT NULL,
+  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `email` (`email`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+-- Dumping data for table findfun_db.users: ~0 rows (approximately)
+INSERT INTO `users` (`id`, `email`, `username`, `password`, `created_at`, `updated_at`) VALUES
+	(1, 'userAdmin@admin.com', 'Admin', '$2b$10$VG7JvZZ8orYsRBLHhqY0YOaT.4wxK07Sq3kNXKJWHtqJ9.t8psOMK', '2025-06-02 04:51:32', '2025-06-02 04:51:32');
 
 /*!40103 SET TIME_ZONE=IFNULL(@OLD_TIME_ZONE, 'system') */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;

@@ -1,10 +1,14 @@
 const express = require('express');
+const authController = require('../controllers/authControllers');
+const authenticateToken = require('../middleware/authMiddleware');
 const router = express.Router();
 
 const albumControllers = require('../controllers/albumControllers');
 const filmControllers = require('../controllers/filmControllers');
 const musicControllers = require('../controllers/musicControllers');
 const artistControllers = require('../controllers/artistControllers');
+
+const caroselControllers = require('../controllers/caroselControllers');
 
 // Basic middleware for logging
 router.use((req, res, next) => {
@@ -14,6 +18,19 @@ router.use((req, res, next) => {
 
 const multer = require('multer');
 const upload = multer({ dest: 'uploads/' });
+
+// ===== Dashboard ROUTES =====
+router.post('/login', authController.login);
+router.post('/register', authController.register);
+
+// ==== ROUTE DASHBOARD (PROTEKSI) ====
+router.get('/dashboard', authenticateToken, (req, res) => {
+  res.json({ message: 'Berhasil masuk ke Dashboard!' });
+});
+
+// ==== ROUTE Carousel ====
+router.get('/carousel/all', caroselControllers.getAllCarousel);
+
 
 // ===== ALBUM ROUTES =====
 router.get('/albums', albumControllers.getAll);
@@ -68,6 +85,7 @@ router.put('/music/:musicId/artists', musicControllers.setArtistsForMusic);
 // ===== COMPLETE DATA ROUTES =====
 router.get('/music/:musicId/complete', musicControllers.getMusicComplete);
 router.get('/albums/:albumId/complete', musicControllers.getAlbumComplete);
+
 
 // ===== UTILITY ROUTES =====
 router.get('/health', (req, res) => {

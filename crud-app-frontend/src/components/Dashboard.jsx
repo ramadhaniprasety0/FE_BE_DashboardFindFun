@@ -1,29 +1,37 @@
 import { useState, useEffect  } from 'react';
 import { Routes, Route, Link, useLocation, useNavigate } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
+import Swal from 'sweetalert2';
+import 'sweetalert2/dist/sweetalert2.min.css';
 import 'react-toastify/dist/ReactToastify.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 
+// Login
+import Login from './LoginComponents/Login';
+
+// Carausel
+import CarouselComponent from './CarouselItemsComponentsHome/CarouselHomePage';
+
 // Films
-import AppCRUD from './AppCRUD';
-import FormAddData from './FormAddData';
-import FormEditData from './FormEditData';
+import AppCRUD from './FilmsComponentsDashboard/FilmsApp';
+import FormAddData from './FilmsComponentsDashboard/FormAddFilm';
+import FormEditData from './FilmsComponentsDashboard/FormEditFilm';
 
 // Music
-import MusicApp from './MusicApp';
-import FormAddMusic from './FormAddMusic';
-import FormEditMusic from './FormEditMusic';
+import MusicApp from './MusicComponentsDashboard/MusicApp';
+import FormAddMusic from './MusicComponentsDashboard/FormAddMusic';
+import FormEditMusic from './MusicComponentsDashboard/FormEditMusic';
 
 // Artist
-import ArtistApp from './ArtistApp';
-import FormAddArtist from './FormAddArtist';
-import FormEditArtist from './FormEditArtist';
+import ArtistApp from './ArtistComponentsDashboard/ArtistApp';
+import FormAddArtist from './ArtistComponentsDashboard/FormAddArtist';
+import FormEditArtist from './ArtistComponentsDashboard/FormEditArtist';
 
 // Album
-import AlbumApp from './AlbumApp';
-import FormAddAlbum from './FormAddAlbum';
-import FormEditAlbum from './FormEditAlbum';
+import AlbumApp from './AlbumsComponentsDashboard/AlbumApp';
+import FormAddAlbum from './AlbumsComponentsDashboard/FormAddAlbum';
+import FormEditAlbum from './AlbumsComponentsDashboard/FormEditAlbum';
 
 import axios from 'axios';
 
@@ -41,6 +49,19 @@ const Dashboard = () => {
   
   const toggleSidebar = () => {
     setCollapsed(!collapsed);
+  };
+
+  const handleLogout = () => {
+    // Menghapus token dari localStorage
+    localStorage.removeItem('token');
+    Swal.fire({
+      title: 'Logout!',
+      text: 'Anda telah berhasil logout.',
+      icon: 'success',
+      confirmButtonText: 'OK',
+    }).then(() => {
+      window.location.href = '/login';  
+    });
   };
 
   return (
@@ -122,8 +143,19 @@ const Dashboard = () => {
             <i className="bi bi-gear me-2"></i>
             {!collapsed && 'Pengaturan'}
           </Link>
+          <Link 
+                onClick={handleLogout}
+                className={`nav-link text-start text-white border-0 mb-2 ${isMenuActive(location.pathname, 'logout') ? 'slider-active' : ''}`}
+                style={{ transition: 'all 0.3s ease-in-out', width: collapsed ? '46px' : '100%' }}
+              >
+                <i className="bi bi-box-arrow-left me-2"></i>
+                {!collapsed && 'Logout'}
+              </Link>
         </div>
       </div>
+      
+      
+      
 
       {/* Main Content */}
       <div className="flex-grow-1">
@@ -153,8 +185,9 @@ const Dashboard = () => {
         </header>
 
         {/* Page Content */}
-        <div className="p-4">
+        <div className="p-4" style={{backgroundColor: '#f8f9fa', minHeight: '100vh'}}>
           <Routes>
+            <Route path="/login" element={<Login />} />
             <Route path="/" element={<DashboardHome />} />
             {/* Route Films */}
             <Route path="/films" element={<FilmsManagement />} />
@@ -199,7 +232,7 @@ const DashboardHome = () => {
     const fetchFilmCount = async () => {
       try {
         setLoading(true);
-        const { data } = await axios.get("http://localhost:3000/films/getfilms");
+        const { data } = await axios.get("http://localhost:3000/api/films");
         
         // Update stats with actual film count
         setStats(prevStats => ({
@@ -217,9 +250,8 @@ const DashboardHome = () => {
     const fetchMusicCount = async () => {
       try {
         setLoading(true);
-        const { data } = await axios.get("http://localhost:3000/music/getmusic");
+        const { data } = await axios.get("http://localhost:3000/api/music");
         
-        // Update stats with actual film count
         setStats(prevStats => ({
           ...prevStats,
           totalMusic: data.data.length
@@ -288,21 +320,6 @@ const DashboardHome = () => {
           <div className="card border-0 shadow-sm mb-3">
             <div className="card-body">
               <div className="d-flex align-items-center">
-                <div className="bg-warning bg-opacity-10 p-3 rounded me-3">
-                  <i className="bi bi-star text-warning fs-4"></i>
-                </div>
-                <div>
-                  <h6 className="text-muted mb-1">Rating Tertinggi</h6>
-                  <h4 className="mb-0">4.9</h4>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div className="col-md-3">
-          <div className="card border-0 shadow-sm mb-3">
-            <div className="card-body">
-              <div className="d-flex align-items-center">
                 <div className="bg-info bg-opacity-10 p-3 rounded me-3">
                   <i className="bi bi-calendar-check text-info fs-4"></i>
                 </div>
@@ -317,23 +334,26 @@ const DashboardHome = () => {
       </div>
 
       <div className="row">
-        <div className="col-md-6">
+        <div className="col-md-12">
           <div className="card border-0 shadow-sm mb-4">
-            <div className="card-header bg-white">
+            <div className="card-header bg-white d-flex justify-content-between align-items-center">
               <h5 className="card-title m-0">Carousel Film Yang Sedang Tayang</h5>
+              <Link to="/dashboard/carousel" className="btn btn-sm btn-add">Edit Carousel</Link>
             </div>
-            <div className="card-body">
-              <div className="bg-light p-4 rounded d-flex align-items-center justify-content-center" style={{ height: '300px' }}>
-                <p className="text-muted">Menampilkan Carousel Film</p>
+            <div className="card-body card-carousel-dashboard">
+              <div className="rounded d-flex align-items-center justify-content-center " style={{ height: '433px'}}>
+              <CarouselComponent  className="rounded-4" />
               </div>
             </div>
           </div>
         </div>
-        <div className="col-md-3">
+      </div>
+      <div className="row">
+      <div className="col-md-6">
           <div className="card border-0 shadow-sm mb-4">
             <div className="card-header bg-white d-flex justify-content-between align-items-center">
               <h5 className="card-title m-0">Film Terbaru</h5>
-              <button className="btn btn-sm btn-light">Lihat Semua</button>
+              <button className="btn btn-sm btn-add">Lihat Semua</button>
             </div>
             <div className="card-body p-0">
               <ul className="list-group list-group-flush">
@@ -385,11 +405,11 @@ const DashboardHome = () => {
             </div>
           </div>
         </div>
-        <div className="col-md-3">
+        <div className="col-md-6">
           <div className="card border-0 shadow-sm mb-4">
             <div className="card-header bg-white d-flex justify-content-between align-items-center">
               <h5 className="card-title m-0">Music Terbaru</h5>
-              <button className="btn btn-sm btn-light">Lihat Semua</button>
+              <button className="btn btn-sm btn-add">Lihat Semua</button>
             </div>
             <div className="card-body p-0">
               <ul className="list-group list-group-flush">
