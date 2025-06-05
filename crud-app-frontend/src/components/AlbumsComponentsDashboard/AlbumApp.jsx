@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
-import { toast } from "react-toastify";
+import Swal from 'sweetalert2';
+import 'sweetalert2/dist/sweetalert2.min.css';
 
 const AlbumApp = () => {
     const [albums, setAlbums] = useState([]);
@@ -10,12 +11,12 @@ const AlbumApp = () => {
     const getAlbums = async () => {
         try {
             setLoading(true);
-            const { data } = await axios.get("http://localhost:3000/album/getalbums");
+            const { data } = await axios.get("http://localhost:3000/api/albums");
             setAlbums(data.data);
             setLoading(false);
         } catch (error) {
             console.error(error);
-            toast.error("Gagal mengambil data album");
+            Swal.fire('Gagal!', 'Terjadi kesalahan saat mengambil data album.', 'error');
         } finally {
             setLoading(false);
         }
@@ -26,16 +27,27 @@ const AlbumApp = () => {
     }, []);
 
     const handleDelete = async (id, title) => {
-        if (window.confirm(`Apakah Anda yakin ingin menghapus album "${title}"?`)) {
+        Swal.fire({
+            title: `Hapus album "${title}"?`,
+            text: "Apakah Anda yakin ingin menghapus album ini?",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#8E97FD',
+            cancelButtonColor: '#6c757d',
+            confirmButtonText: 'Ya, Hapus',
+            cancelButtonText: 'Batal',
+        }).then(async (result) => {
+        if (result.isConfirmed) {
             try {
-                await axios.delete(`http://localhost:3000/album/deletealbum/${id}`);
-                toast.success("Album berhasil dihapus");
-                setAlbums(albums.filter((album) => album._id !== id));
+                await axios.delete(`http://localhost:3000/api/albums/${id}`);
+                await Swal.fire('Terhapus!', 'Album berhasil dihapus.', 'success');
+                getAlbums(); // refresh data
             } catch (error) {
                 console.error(error);
-                toast.error("Terjadi kesalahan saat menghapus album");
+                Swal.fire('Gagal!', 'Terjadi kesalahan saat menghapus album.', 'error');
             }
         }
+        });
     };
 
     const truncateText = (text, maxLength) => {
@@ -63,7 +75,6 @@ const AlbumApp = () => {
                                 <th>Poster</th>
                                 <th>Judul</th>
                                 <th>Deskripsi</th>
-                                <th>Artist</th>
                                 <th>Genre</th>
                                 <th>Tahun Rilis</th>
                                 <th>Action</th>
@@ -76,7 +87,7 @@ const AlbumApp = () => {
                                 </tr>
                             ) : ( 
                                 albums.map((album, index) => (
-                                    <tr key={album._id}>
+                                    <tr key={album.id}>
                                         <td>{index + 1}</td>
                                         <td>{album.image ? (
                                             <img 
@@ -97,14 +108,13 @@ const AlbumApp = () => {
                                         }
                                         </td>
                                         <td>{album.title}</td>
-                                        <td>{truncateText(album.deskripsi, 5)}</td>
-                                        <td>{truncateText(album.artist?.map((artist) => artist.name).join(", "), 10)}</td>
+                                        <td>{truncateText(album.deskripsi, 20)}</td>
                                         <td>{album.genre}</td>
                                         <td>{album.release_year}</td>
                                         <td>
                                             <div className="d-flex gap-2 align-items-center">
-                                                <Link to={`/dashboard/editalbums/${album._id}`} title="Edit Album"><i className="bi bi-pencil text-primary"></i></Link>
-                                                <Link onClick={() => handleDelete(album._id, album.title)} title="Hapus Album"><i className="bi bi-trash text-danger"></i></Link>
+                                                <Link to={`/dashboard/editalbums/${album.id}`} title="Edit Album"><i className="bi bi-pencil text-primary"></i></Link>
+                                                <Link onClick={() => handleDelete(album.id, album.title)} title="Hapus Album"><i className="bi bi-trash text-danger"></i></Link>
                                             </div>
                                         </td>                                        
                                     </tr>

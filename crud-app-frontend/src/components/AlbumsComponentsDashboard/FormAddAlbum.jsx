@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+import Swal from 'sweetalert2';
+import 'sweetalert2/dist/sweetalert2.min.css';
 
 const FormAddAlbum = () => {
     const navigate = useNavigate();
@@ -19,7 +20,7 @@ const FormAddAlbum = () => {
 
     const getData = async () =>{
         try {
-            const { data } = await axios.get("http://localhost:3000/album/getalbum");
+            const { data } = await axios.get("http://localhost:3000/api/album");
             setDataAlbum(data.data);
         } catch (error) {
             console.error(error);
@@ -28,10 +29,11 @@ const FormAddAlbum = () => {
 
     const getArtists = async () => {
         try {
-            const { data } = await axios.get("http://localhost:3000/artist/getartists");
+            const { data } = await axios.get("http://localhost:3000/api/artists");
             setArtists(data.data);
         } catch (error) {
             console.error(error);
+            Swal.fire('Gagal!', 'Terjadi kesalahan saat mengambil data artist.', 'error');
         }
     };
 
@@ -50,45 +52,52 @@ const FormAddAlbum = () => {
 
     const handleAddAlbum = async (e) => {
         e.preventDefault();
-
-        const exitingAlbum = dataAlbum.find(album => album.title.toLowerCase() === title.toLowerCase());
-        if (exitingAlbum) {
-            return toast.error("Album dengan judul ini sudah terdaftar");
+    
+        const existingAlbum = dataAlbum.find(album => album.title.toLowerCase() === title.toLowerCase());
+        if (existingAlbum) {
+            return Swal.fire('Gagal!', 'Album dengan judul yang sama sudah ada.', 'error');
         }
-
-        if (!title || !releaseYear || !genre || !artist || !deskripsi) {
-            return toast.warning("Harap lengkapi semua bidang yang diperlukan");
+    
+        if (!title || !releaseYear || !genre || !artist || !deskripsi || !image) {
+            return Swal.fire('Gagal!', 'Harap lengkapi semua bidang yang diperlukan.', 'error');
         }
-
+    
         try {
             setSubmitting(true);
-
+    
             const formData = new FormData();
             formData.append("title", title);
             formData.append("release_year", releaseYear);
-            formData.append("artist", artist);
+            formData.append("artist_id", artist);  // Ensure that this is passing the correct artist ID
             formData.append("deskripsi", deskripsi);
             formData.append("genre", genre);
-
+    
             if (image) {
-                formData.append("image", image);
+                formData.append("image", image);  // Image is attached here
             }
-
-            await axios.post("http://localhost:3000/album/addalbum", formData, {
+    
+            // Debugging: Checking form data
+            for (let [key, value] of formData.entries()) {
+                console.log(`${key}:`, value);
+            }
+    
+            await axios.post("http://localhost:3000/api/albums", formData, {
                 headers: {
                     "Content-Type": "multipart/form-data",
                 },
             });
-
-            toast.success("Album berhasil ditambahkan");
+    
+            Swal.fire('Berhasil!', 'Album berhasil ditambahkan.', 'success');
             navigate("/dashboard/albums");
         } catch (error) {
             console.error(error);
-            toast.error("Terjadi kesalahan saat menambahkan album");
+            Swal.fire('Gagal!', 'Terjadi kesalahan saat menambahkan album.', 'error');
         } finally {
             setSubmitting(false);
         }
     };
+    
+    
 
     useEffect(() => {
         return () => {
@@ -197,7 +206,7 @@ const FormAddAlbum = () => {
                                     >
                                         <option value="">Pilih Artis</option>
                                         {artists.map((artist) => (
-                                            <option key={artist._id} value={artist._id}>{artist.name}</option>
+                                            <option key={artist._id} value={artist.id}>{artist.name}</option>
                                         ))}
                                     </select>
                                 </div>

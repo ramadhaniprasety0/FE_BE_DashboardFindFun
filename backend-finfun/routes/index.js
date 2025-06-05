@@ -18,6 +18,9 @@ router.use((req, res, next) => {
 
 const multer = require('multer');
 const upload = multer({ dest: 'uploads/' });
+const uploadartist = multer({ dest: 'uploads/artists/' });
+const uploadalbum = multer({ dest: 'uploads/albums/' });
+const uploadcarousel = multer({ dest: 'uploads/carousel_image/' });
 
 // ===== Dashboard ROUTES =====
 router.post('/login', authController.login);
@@ -29,14 +32,27 @@ router.get('/dashboard', authenticateToken, (req, res) => {
 });
 
 // ==== ROUTE Carousel ====
-router.get('/carousel/all', caroselControllers.getAllCarousel);
+router.get('/carousel/all', caroselControllers.getCarousel);
+router.get('/carousel', caroselControllers.getAllCarousel);
+router.put('/carousel/status/:id', caroselControllers.updateStatus);
+router.get('/carousel/:id', caroselControllers.getCarouselById);
+router.put('/carousel/:id', uploadcarousel.fields([
+    { name: 'image', maxCount: 1 },
+    { name: 'titleImage', maxCount: 1 }
+  ]), caroselControllers.update);
+  router.post('/carousel', uploadcarousel.fields([
+    { name: 'image', maxCount: 1 },
+    { name: 'titleImage', maxCount: 1 }
+  ]), caroselControllers.create);
+router.delete('/carousel/:id', caroselControllers.delete);
+
 
 
 // ===== ALBUM ROUTES =====
 router.get('/albums', albumControllers.getAll);
 router.get('/albums/:id', albumControllers.getById);
-router.post('/albums', albumControllers.create);
-router.put('/albums/:id', albumControllers.update);
+router.post('/albums', uploadalbum.single('image'), albumControllers.create);
+router.put('/albums/:id', uploadalbum.single('image'), albumControllers.update);
 router.delete('/albums/:id', albumControllers.delete);
 
 // ===== FILM ROUTES =====
@@ -60,8 +76,8 @@ router.get('/music/genre/:genre', musicControllers.getByGenre);
 // ===== ARTIST ROUTES =====
 router.get('/artists', artistControllers.getAll);
 router.get('/artists/:id', artistControllers.getById);
-router.post('/artists', artistControllers.create);
-router.put('/artists/:id', artistControllers.update);
+router.post('/artists', uploadartist.single('image'), artistControllers.create);
+router.put('/artists/:id',uploadartist.single('image'), artistControllers.update);
 router.delete('/artists/:id', artistControllers.delete);
 router.get('/artists/search', artistControllers.search); // ?q=searchTerm
 router.get('/artists/genre/:genre', artistControllers.getByGenre);

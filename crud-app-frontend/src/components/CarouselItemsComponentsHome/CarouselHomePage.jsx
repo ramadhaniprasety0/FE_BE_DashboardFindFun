@@ -43,7 +43,7 @@ const CarouselComponent = () => {
             />
             <Carousel.Caption className="d-flex flex-column align-items-start gap-1 justify-content-center" style={{ textAlign: 'left' }}>
               <img
-                src={`http://localhost:3000/${item.title}`}
+                src={`http://localhost:3000/${item.titleImage}`}
                 alt="Carousel Title"
                 className="img-fluid"
               />

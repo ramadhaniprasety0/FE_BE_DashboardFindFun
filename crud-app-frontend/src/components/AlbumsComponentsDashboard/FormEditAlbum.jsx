@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
-import { toast } from "react-toastify";
+import Swal from 'sweetalert2';
+import 'sweetalert2/dist/sweetalert2.min.css';
 
 const FormEditAlbum = () => {
     const { id } = useParams();
@@ -10,27 +11,26 @@ const FormEditAlbum = () => {
     const [title, setTitle] = useState("");
     const [releaseYear, setReleaseYear] = useState("");
     const [genre, setGenre] = useState("");
-    const [artist, setArtist] = useState("");
     const [deskripsi, setDeskripsi] = useState("");
     const [image, setImage] = useState(null);
+    const [existingImage, setExistingImage] = useState(""); // Store the existing image path
     const [previewImage, setPreviewImage] = useState("");
     const [submitting, setSubmitting] = useState(false);
-    const [artists, setArtists] = useState([]);
 
     useEffect(() => {
         const fetchAlbum = async () => {
             try {
-                const { data } = await axios.get(`http://localhost:3000/album/getalbum/${id}`);
+                const { data } = await axios.get(`http://localhost:3000/api/albums/${id}`);
                 const album = data.data;
                 setTitle(album.title);
                 setReleaseYear(album.release_year);
                 setGenre(album.genre);
-                setArtist(album.artist);
                 setDeskripsi(album.deskripsi);
-                setPreviewImage(`http://localhost:3000/${album.image}`);
+                setExistingImage(album.image);  // Store the current image URL
+                setPreviewImage(`http://localhost:3000/${album.image}`);  // Set preview image
             } catch (error) {
                 console.error(error);
-                toast.error("Gagal mengambil data album");
+                Swal.fire('Gagal!', 'Terjadi kesalahan saat mengambil data album.', 'error');
             }
         };
 
@@ -45,20 +45,11 @@ const FormEditAlbum = () => {
         }
     };
 
-    const getArtists = async () => {
-        try {
-            const { data } = await axios.get("http://localhost:3000/artist/getartists");
-            setArtists(data.data);
-        } catch (error) {
-            console.error(error);
-        }
-    };
-
     const handleEditAlbum = async (e) => {
         e.preventDefault();
 
         if (!title || !releaseYear || !genre) {
-            return toast.warning("Harap lengkapi semua bidang yang diperlukan");
+            return Swal.fire('Gagal!', 'Harap lengkapi semua bidang yang diperlukan.', 'error');
         }
 
         try {
@@ -67,34 +58,32 @@ const FormEditAlbum = () => {
             formData.append("title", title);
             formData.append("release_year", releaseYear);
             formData.append("genre", genre);
-            formData.append("artist", artist);
             formData.append("deskripsi", deskripsi);
 
+    
             if (image) {
                 formData.append("image", image);
+            } else if (existingImage) {
+                formData.append("image", existingImage);
             }
 
-            await axios.put(`http://localhost:3000/album/editalbum/${id}`, formData, {
+            await axios.put(`http://localhost:3000/api/albums/${id}`, formData, {
                 headers: {
                     "Content-Type": "multipart/form-data",
                 },
             });
 
-            toast.success("Album berhasil diperbarui");
+            Swal.fire('Berhasil!', 'Album berhasil diperbarui.', 'success');
             navigate("/dashboard/albums");
         } catch (error) {
             console.error(error);
-            toast.error("Terjadi kesalahan saat memperbarui album");
+            Swal.fire('Gagal!', 'Terjadi kesalahan saat memperbarui album.', 'error');
         } finally {
             setSubmitting(false);
         }
     };
 
     const currentYear = new Date().getFullYear();
-
-    useEffect(() => {
-        getArtists();
-    }, []);
 
     return (
         <div className="container">
@@ -103,7 +92,7 @@ const FormEditAlbum = () => {
                     <h5>Edit Album</h5>
                 </div>
                 <div className="card-body">
-                <form onSubmit={handleEditAlbum}>
+                    <form onSubmit={handleEditAlbum}>
                         <div className="row mb-3">
                             <div className="col-md-6">
                                 <div className="mb-3">
@@ -134,7 +123,7 @@ const FormEditAlbum = () => {
                                 </div>
                             </div>
                         </div>
-                        
+
                         <div className="row mb-3">
                             <div className="col-md-6">
                                 <div className="mb-3">
@@ -159,68 +148,54 @@ const FormEditAlbum = () => {
 
                         <div className="row mb-3">
                             <div className="col-md-6">
-                                    <div className="mb-3">
-                                        <label htmlFor="image" className="form-label">Cover Album</label>
-                                        <input
-                                            type="file"
-                                            className="form-control"
-                                            id="image"
-                                            accept="image/*"
-                                            onChange={handleImageChange}
-                                        />
-                                        <small className="text-muted">
-                                            Format yang didukung: JPG, JPEG, PNG, GIF (max: 5MB) - Biarkan kosong jika tidak ingin mengubah gambar.
-                                        </small>
-                                        {previewImage && (
-                                            <div className="mt-2">
-                                                <img 
-                                                src={previewImage} 
+                                <div className="mb-3">
+                                    <label htmlFor="image" className="form-label">Cover Album</label>
+                                    <input
+                                        type="file"
+                                        className="form-control"
+                                        id="image"
+                                        accept="image/*"
+                                        onChange={handleImageChange}
+                                    />
+                                    <small className="text-muted">
+                                        Format yang didukung: JPG, JPEG, PNG, GIF (max: 5MB) - Biarkan kosong jika tidak ingin mengubah gambar.
+                                    </small>
+                                    {previewImage && (
+                                        <div className="mt-2">
+                                            <img
+                                                src={previewImage}
                                                 alt="Preview"
-                                                style={{height: '150px', objectFit: 'cover'}} 
-                                                className="img-thumbnail" />
-                                            </div>
-                                        )}
-                                    </div>
+                                                style={{ height: '150px', objectFit: 'cover' }}
+                                                className="img-thumbnail"
+                                            />
+                                        </div>
+                                    )}
                                 </div>
-                                <div className="col-md-6">
-                                    <label htmlFor="artist1" className="form-label">Artis 1 <span className="text-danger">*</span></label>
-                                    <select 
-                                        className="form-control" 
-                                        id="artist1" 
-                                        value={artist} 
-                                        onChange={(e) => setArtist(e.target.value)} 
-                                        required
-                                    >
-                                        <option value="">Pilih Artis</option>
-                                        {artists.map((artist) => (
-                                            <option key={artist._id} value={artist._id}>{artist.name}</option>
-                                        ))}
-                                    </select>
-                                </div>
+                            </div>
                         </div>
+
                         <div className="d-flex justify-content-end gap-2 mt-4">
-                            <button 
-                                    type="button" 
-                                    className="btn btn-secondary" 
-                                    onClick={() => navigate("/dashboard/albums")}
-                                    disabled={submitting}
-                                >
-                                    Batal
+                            <button
+                                type="button"
+                                className="btn btn-secondary"
+                                onClick={() => navigate("/dashboard/albums")}
+                                disabled={submitting}
+                            >
+                                Batal
                             </button>
-                            <button 
-                                    type="submit" 
-                                    className="btn btn-add"
-                                     
-                                    disabled={submitting}
-                                >
-                                    {submitting ? (
+                            <button
+                                type="submit"
+                                className="btn btn-add"
+                                disabled={submitting}
+                            >
+                                {submitting ? (
                                     <>
                                         <span className="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
                                         Menyimpan...
                                     </>
-                                    ) : (
-                                    "Simpan Film"
-                                    )}
+                                ) : (
+                                    "Simpan Album"
+                                )}
                             </button>
                         </div>
                     </form>

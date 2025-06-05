@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
-import { toast } from 'react-toastify';
+import Swal from 'sweetalert2';
+import 'sweetalert2/dist/sweetalert2.min.css';
 
 const FormEditArtis = () => {
     const navigate = useNavigate();
@@ -38,26 +39,18 @@ const FormEditArtis = () => {
                     const artist = data.data;
                     setName(artist.name || "");
                     setBio(artist.bio || "");
-                    
-                    // Format birth date for input field (YYYY-MM-DD)
                     if (artist.birth_date) {
                         const birthDate = new Date(artist.birth_date);
                         setBirthDate(birthDate.toISOString().split('T')[0]);
                     }
-                    
                     setCountry(artist.country || "");
                     setGenre(artist.genre || "");
                     setActiveYearStart(artist.active_year_start || "");
                     setActiveYearEnd(artist.active_year_end || "");
-                    
-                    // Set social media data
-                    if (artist.social_media) {
-                        setInstagram(artist.social_media.instagram || "");
-                        setTwitter(artist.social_media.twitter || "");
-                        setYoutube(artist.social_media.youtube || "");
-                        setWebsite(artist.social_media.website || "");
-                    }
-                    
+                    setInstagram(artist.instagram || "");
+                    setTwitter(artist.twitter || "");
+                    setYoutube(artist.youtube || "");
+                    setWebsite(artist.website || "");
                     setPopularity(artist.popularity || "");
                     
                     // Set image data
@@ -71,14 +64,14 @@ const FormEditArtis = () => {
                         setRelatedMusic(artist.songs);
                     }
                 } else {
-                    toast.error("Artist data not found");
+                    Swal.fire('Gagal!', 'Artist tidak ditemukan', 'error');
                     navigate("/dashboard/artists");
                 }
                 setLoading(false);
             } catch (error) {
                 console.error("Error fetching artist data:", error);
                 setLoading(false);
-                toast.error("Gagal mengambil data artist");
+                Swal.fire('Gagal!', 'Terjadi kesalahan saat mengambil data artist', 'error');
                 navigate("/dashboard/artists");
             }
         };
@@ -105,7 +98,7 @@ const FormEditArtis = () => {
 
         // Validate required fields
         if (!name) {
-            return toast.warning("Nama artist harus diisi");
+            return Swal.fire('Gagal!', 'Nama artist harus diisi', 'error');
         }
 
         try {
@@ -125,26 +118,29 @@ const FormEditArtis = () => {
             formData.append("website", website);
             if (popularity) formData.append("popularity", popularity);
 
+            // If there's a new image, add it to FormData
             if (imageFile) {
                 formData.append("image", imageFile);
+            } else if (existingImage) {
+                // Retain the existing image if no new one is uploaded
+                formData.append("image", existingImage);
             }
 
-            await axios.put(`http://localhost:3000/artist/editartist/${id}`, formData, {
+            await axios.put(`http://localhost:3000/api/artists/${id}`, formData, {
                 headers: {
                     "Content-Type": "multipart/form-data",
                 },
             });
 
-            toast.success("Artist berhasil diupdate");
+            Swal.fire('Berhasil!', 'Data artist berhasil diperbarui', 'success');
             navigate("/dashboard/artists");
         } catch (error) {
             console.error("Error updating artist data:", error);
-            toast.error("Gagal memperbarui data artist");
+            Swal.fire('Gagal!', 'Terjadi kesalahan saat memperbarui data artist', 'error');
             setSubmitting(false);
         }
     };
 
-    // Clean up preview URL on component unmount
     useEffect(() => {
         return () => {
             if (imageFile) {

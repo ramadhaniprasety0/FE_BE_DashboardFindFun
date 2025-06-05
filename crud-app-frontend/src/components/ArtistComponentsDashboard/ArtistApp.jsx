@@ -24,28 +24,6 @@ const ArtisApp = () => {
 
    // Delete Artist
    const handleDeleteArtist = async (id, name) => {
-      // if (window.confirm(`Apakah Anda yakin ingin menghapus artist "${name}"?`)) {
-      //    try {
-      //       await axios.delete(`http://localhost:3000/api/artists/${id}`);
-      //       Swal.fire("Terhapus!", "Artist berhasil dihapus.", "success");
-      //       getData(); 
-      //    } catch (error) {
-      //       console.error("Error deleting artist:", error);
-      //       if(error.response) {
-      //           if (error.response.status === 400) {
-      //               Swal.fire("Gagal!", "Terjadi kesalahan saat menghapus artist.", "error");
-      //           } else if (error.response.status === 404) {
-      //               Swal.fire("Gagal!", "Artist tidak ditemukan.", "error");
-      //           } else {
-      //               Swal.fire("Gagal!", "Terjadi kesalahan saat menghapus artist.", "error");
-      //           }
-      //       } else if (error.request) {
-      //           Swal.fire("Gagal!", "Terjadi kesalahan saat menghapus artist.", "error");
-      //       } else {
-      //           Swal.fire("Gagal!", "Terjadi kesalahan saat menghapus artist." + error.message, "error");
-      //       }
-      //    }
-      // }
       Swal.fire({
          title: `Hapus music "${name}"?`,
          text: "Apakah Anda yakin ingin menghapus Artist ini?",
@@ -165,7 +143,7 @@ const ArtisApp = () => {
                               </td>
                               <td className="action-buttons">
                                  <div className="d-flex gap-2 align-items-center">
-                                    <Link to={`/dashboard/editartists/${artist._id}`} title="Edit Artist"><i className="bi bi-pencil text-primary"></i></Link>
+                                    <Link to={`/dashboard/editartists/${artist.id}`} title="Edit Artist"><i className="bi bi-pencil text-primary"></i></Link>
                                     <Link onClick={() => handleDeleteArtist(artist.id, artist.name)} title="Hapus Artist"><i className="bi bi-trash text-danger"></i></Link>
                                  </div>
                               </td>

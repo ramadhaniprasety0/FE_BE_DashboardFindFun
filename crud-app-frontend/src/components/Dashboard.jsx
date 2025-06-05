@@ -12,16 +12,21 @@ import Login from './LoginComponents/Login';
 
 // Carausel
 import CarouselComponent from './CarouselItemsComponentsHome/CarouselHomePage';
+import CaraouselApp from './CarouselItemsComponentsHome/CarauselApp';
+import FormAddCarousel from './CarouselItemsComponentsHome/FormAddCarousel';
+import FormEditCarousel from './CarouselItemsComponentsHome/FormEditCarousel';
 
 // Films
 import AppCRUD from './FilmsComponentsDashboard/FilmsApp';
 import FormAddData from './FilmsComponentsDashboard/FormAddFilm';
 import FormEditData from './FilmsComponentsDashboard/FormEditFilm';
+import FilmsTerbaruComponents from './FilmsComponentsDashboard/FilmsTerbaruComponents';
 
 // Music
 import MusicApp from './MusicComponentsDashboard/MusicApp';
 import FormAddMusic from './MusicComponentsDashboard/FormAddMusic';
 import FormEditMusic from './MusicComponentsDashboard/FormEditMusic';
+import MusicTerbaruComponents from './MusicComponentsDashboard/MusicTerbaruComponents';
 
 // Artist
 import ArtistApp from './ArtistComponentsDashboard/ArtistApp';
@@ -39,6 +44,7 @@ import axios from 'axios';
 // Komponen baru untuk dashboard
 const Dashboard = () => {
   const [collapsed, setCollapsed] = useState(false);
+  const [musicDropdownOpen, setMusicDropdownOpen] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -50,6 +56,10 @@ const Dashboard = () => {
   const toggleSidebar = () => {
     setCollapsed(!collapsed);
   };
+
+  const toggleMusicDropdown = () => {
+    setMusicDropdownOpen(!musicDropdownOpen);  
+};
 
   const handleLogout = () => {
     // Menghapus token dari localStorage
@@ -95,14 +105,44 @@ const Dashboard = () => {
             <i className="bi bi-film me-2"></i>
             {!collapsed && 'Data Film'}
           </Link>
-          <Link 
-            to="/dashboard/music" 
-            className={`nav-link text-start text-white border-0 mb-2 ${isMenuActive(location.pathname, 'music') ? 'slider-active' : ''} ${isMenuActive(location.pathname, 'albums') ? 'slider-active' : ''}`} 
-            style={{ transition: 'all 0.3s ease-in-out', width: collapsed ? '46px' : '100%' }}
-          >
-            <i className="bi bi-file-music me-2"></i>
-            {!collapsed && 'Data Music'}
-          </Link>
+          <div>
+                <button
+                    className={`nav-link text-start text-white border-0 mb-2 ${isMenuActive(location.pathname, 'music') || isMenuActive(location.pathname, 'albums') ? 'slider-active' : ''}`}
+                    onClick={toggleMusicDropdown}
+                    style={{ transition: 'all 0.3s ease-in-out', width: collapsed ? '46px' : '100%' }}
+                >
+                  <div className="d-flex align-items-center justify-content-between">
+                    <div>
+                      <i className="bi bi-file-music me-2"></i>
+                      {!collapsed && 'Data Music'}
+                    </div>
+                    
+                    <i className={`bi ${musicDropdownOpen ? 'bi-chevron-up' : 'bi-chevron-down'} ms-2`} style={{ display: collapsed ? 'none' : 'inline-block' }}></i>
+                  </div>
+                </button>
+
+                {musicDropdownOpen && (  // Only show these if dropdown is open
+                    <div className={!collapsed && 'ms-3'}>
+                        <Link
+                            to="/dashboard/music"
+                            className={`nav-link text-start text-white border-0 mb-2 ${isMenuActive(location.pathname, 'music') ? 'slider-active' : ''}`}
+                            style={{ transition: 'all 0.3s ease-in-out', width: collapsed ? '46px' : '100%' }}
+                        >
+                            <i className="bi bi-music-note me-2"></i>
+                            {!collapsed && 'Music List'}
+                        </Link>
+
+                        <Link
+                            to="/dashboard/albums"
+                            className={`nav-link text-start text-white border-0 mb-2 ${isMenuActive(location.pathname, 'albums') ? 'slider-active' : ''}`}
+                            style={{ transition: 'all 0.3s ease-in-out', width: collapsed ? '46px' : '100%' }}
+                        >
+                            <i className="bi bi-journal-text me-2"></i>
+                            {!collapsed && 'Albums'}
+                        </Link>
+                    </div>
+                )}
+            </div>
           <Link 
             to="/dashboard/artists" 
             className={`nav-link text-start text-white border-0 mb-2 ${isMenuActive(location.pathname, 'artists') ? 'slider-active' : ''}`} 
@@ -189,6 +229,11 @@ const Dashboard = () => {
           <Routes>
             <Route path="/login" element={<Login />} />
             <Route path="/" element={<DashboardHome />} />
+            {/* Route Carousel */}
+            <Route path="/carousel" element={<Caraousel />} />
+            <Route path="/addcarousel" element={<FormAddCarousel />} />
+            <Route path="/editcarousel/:id" element={<FormEditCarousel />} />
+
             {/* Route Films */}
             <Route path="/films" element={<FilmsManagement />} />
             <Route path="/addfilms" element={<FormAddData />} />
@@ -353,112 +398,46 @@ const DashboardHome = () => {
           <div className="card border-0 shadow-sm mb-4">
             <div className="card-header bg-white d-flex justify-content-between align-items-center">
               <h5 className="card-title m-0">Film Terbaru</h5>
-              <button className="btn btn-sm btn-add">Lihat Semua</button>
+              <Link to="/dashboard/films" className="btn btn-sm btn-add">Lihat Semua</Link>
             </div>
-            <div className="card-body p-0">
-              <ul className="list-group list-group-flush">
-                <li className="list-group-item d-flex justify-content-between align-items-center p-3">
-                  <div className="d-flex align-items-center">
-                    <div className="bg-light rounded d-flex justify-content-center align-items-center me-3" style={{ width: '40px', height: '40px' }}>
-                      <i className="bi bi-film text-muted"></i>
-                    </div>
-                    <div>
-                      <p className="m-0 fw-bold">The Last Adventure</p>
-                      <small className="text-muted">Rating: 4.8 | 2023</small>
-                    </div>
-                  </div>
-                </li>
-                <li className="list-group-item d-flex justify-content-between align-items-center p-3">
-                  <div className="d-flex align-items-center">
-                    <div className="bg-light rounded d-flex justify-content-center align-items-center me-3" style={{ width: '40px', height: '40px' }}>
-                      <i className="bi bi-film text-muted"></i>
-                    </div>
-                    <div>
-                      <p className="m-0 fw-bold">Midnight Express</p>
-                      <small className="text-muted">Rating: 4.7 | 2023</small>
-                    </div>
-                  </div>
-                </li>
-                <li className="list-group-item d-flex justify-content-between align-items-center p-3">
-                  <div className="d-flex align-items-center">
-                    <div className="bg-light rounded d-flex justify-content-center align-items-center me-3" style={{ width: '40px', height: '40px' }}>
-                      <i className="bi bi-film text-muted"></i>
-                    </div>
-                    <div>
-                      <p className="m-0 fw-bold">Dark Waters</p>
-                      <small className="text-muted">Rating: 4.6 | 2023</small>
-                    </div>
-                  </div>
-                </li>
-                <li className="list-group-item d-flex justify-content-between align-items-center p-3">
-                  <div className="d-flex align-items-center">
-                    <div className="bg-light rounded d-flex justify-content-center align-items-center me-3" style={{ width: '40px', height: '40px' }}>
-                      <i className="bi bi-film text-muted"></i>
-                    </div>
-                    <div>
-                      <p className="m-0 fw-bold">The Secret Garden</p>
-                      <small className="text-muted">Rating: 4.5 | 2023</small>
-                    </div>
-                  </div>
-                </li>
-              </ul>
-            </div>
+            <FilmsTerbaruComponents />
           </div>
         </div>
         <div className="col-md-6">
           <div className="card border-0 shadow-sm mb-4">
             <div className="card-header bg-white d-flex justify-content-between align-items-center">
               <h5 className="card-title m-0">Music Terbaru</h5>
-              <button className="btn btn-sm btn-add">Lihat Semua</button>
+              <Link to="/dashboard/music" className="btn btn-sm btn-add">Lihat Semua</Link>
             </div>
-            <div className="card-body p-0">
-              <ul className="list-group list-group-flush">
-                <li className="list-group-item d-flex justify-content-between align-items-center p-3">
-                  <div className="d-flex align-items-center">
-                    <div className="bg-light rounded d-flex justify-content-center align-items-center me-3" style={{ width: '40px', height: '40px' }}>
-                      <i className="bi bi-file-music text-muted"></i>
-                    </div>
-                    <div>
-                      <p className="m-0 fw-bold">The Last Adventure</p>
-                      <small className="text-muted">Rating: 4.8 | 2023</small>
-                    </div>
-                  </div>
-                </li>
-                <li className="list-group-item d-flex justify-content-between align-items-center p-3">
-                  <div className="d-flex align-items-center">
-                    <div className="bg-light rounded d-flex justify-content-center align-items-center me-3" style={{ width: '40px', height: '40px' }}>
-                      <i className="bi bi-file-music text-muted"></i>
-                    </div>
-                    <div>
-                      <p className="m-0 fw-bold">Midnight Express</p>
-                      <small className="text-muted">Rating: 4.7 | 2023</small>
-                    </div>
-                  </div>
-                </li>
-                <li className="list-group-item d-flex justify-content-between align-items-center p-3">
-                  <div className="d-flex align-items-center">
-                    <div className="bg-light rounded d-flex justify-content-center align-items-center me-3" style={{ width: '40px', height: '40px' }}>
-                      <i className="bi bi-file-music text-muted"></i>
-                    </div>
-                    <div>
-                      <p className="m-0 fw-bold">Dark Waters</p>
-                      <small className="text-muted">Rating: 4.6 | 2023</small>
-                    </div>
-                  </div>
-                </li>
-                <li className="list-group-item d-flex justify-content-between align-items-center p-3">
-                  <div className="d-flex align-items-center">
-                    <div className="bg-light rounded d-flex justify-content-center align-items-center me-3" style={{ width: '40px', height: '40px' }}>
-                      <i className="bi bi-file-music text-muted"></i>
-                    </div>
-                    <div>
-                      <p className="m-0 fw-bold">The Secret Garden</p>
-                      <small className="text-muted">Rating: 4.5 | 2023</small>
-                    </div>
-                  </div>
-                </li>
-              </ul>
-            </div>
+            <MusicTerbaruComponents />
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+// Home Page Caraousel
+const Caraousel = () => {
+  const navigate = useNavigate();
+  
+  return (
+    <div>
+      <div className="d-flex justify-content-between align-items-center mb-4">
+        <h4>Manajemen Caraousel FindFun</h4>
+        <button 
+          className="btn btn-add" 
+          onClick={() => navigate('/dashboard/addcarousel')}
+        >
+          <i className="bi bi-plus-circle me-2"></i>
+          Tambah Film
+        </button>
+      </div>
+
+      <div className="card border-0 shadow-sm">
+        <div className="card-body">
+          <div className="table-responsive">
+            <CaraouselApp />
           </div>
         </div>
       </div>
@@ -501,7 +480,6 @@ const MusicManagement = () => {
     <div>
       <div className="d-flex justify-content-between align-items-center mb-4">
         <h4>Manajemen Music</h4>
-        <div className="d-flex gap-2">
         <button 
           className="btn btn-add" 
           onClick={() => navigate('/dashboard/addmusic')}
@@ -509,14 +487,6 @@ const MusicManagement = () => {
           <i className="bi bi-plus-circle me-2"></i>
           Tambah Music
         </button>
-        <button 
-          className="btn btn-add" 
-          onClick={() => navigate('/dashboard/albums')}
-        >
-          <i className="bi bi-eye me-2"></i>
-          Lihat Album
-        </button>
-        </div>
       </div>
 
       <div className="card border-0 shadow-sm">
@@ -539,7 +509,7 @@ const ArtistManagement = () => {
         <h4>Manajemen Artist</h4>
         <button 
           className="btn btn-add" 
-          onClick={() => navigate('/dashboard/artists')}
+          onClick={() => navigate('/dashboard/addartists')}
         >
           <i className="bi bi-plus-circle me-2"></i>
           Tambah Artist

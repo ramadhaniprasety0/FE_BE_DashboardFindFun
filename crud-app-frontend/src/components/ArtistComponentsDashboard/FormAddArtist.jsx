@@ -2,7 +2,8 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import { toast } from 'react-toastify';
+import Swal from 'sweetalert2';
+import 'sweetalert2/dist/sweetalert2.min.css';
 
 const FormAddArtis = () => {
     const navigate = useNavigate();
@@ -54,18 +55,17 @@ const FormAddArtis = () => {
     const handleAddData = async (e) => {
         e.preventDefault();
 
-        // Check for duplicate artist name
+
         const existingArtist = dataArtists.find(artist => 
             artist.name.toLowerCase() === name.toLowerCase()
         );
         
         if (existingArtist) {
-            return toast.error("Artist dengan nama ini sudah terdaftar");
+            return Swal.fire('Gagal!', 'Artist dengan nama ini sudah terdaftar', 'error');
         }
 
-        // Validate required fields
         if (!name) {
-            return toast.warning("Nama artist harus diisi");
+            return Swal.fire('Gagal!', 'Semua kolom harus diisi.', 'warning');
         }
 
         try {
@@ -89,17 +89,21 @@ const FormAddArtis = () => {
                 formData.append("image", imageFile);
             }
 
+            for (let [key, value] of formData.entries()) {
+                console.log(`${key}:`, value);
+              }
+
             await axios.post("http://localhost:3000/api/artists", formData, {
                 headers: {
                     "Content-Type": "multipart/form-data",
                 },
             });
 
-            toast.success("Artist berhasil ditambahkan");
+            Swal.fire("Berhasil!", "Artist berhasil ditambahkan.", "success");
             navigate("/dashboard/artists");
         } catch (error) {
             console.error(error);
-            toast.error("Terjadi kesalahan saat menambahkan artist");
+            Swal.fire("Gagal!", "Artist gagal ditambahkan.", "error");
         } finally {
             setSubmitting(false);
         }

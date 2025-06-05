@@ -132,7 +132,6 @@ const FormAddMusic = () => {
             formData.append("image", imageFile);
           }
       
-          // Log the form data to check what is being sent
           for (let [key, value] of formData.entries()) {
             console.log(`${key}:`, value);
           }
@@ -218,124 +217,133 @@ const FormAddMusic = () => {
                             <label htmlFor="lirik" className="form-label">Lirik Music <span className="text-danger">*</span></label>
                             <textarea id="lirik" className="form-control" value={lirik} onChange={(e) => setLirik(e.target.value)} required placeholder="Masukkan lirik music"></textarea>
                         </div>
-                        <div className="row mb-3">
-                            {genres.map((genre, index) => (
-                            <div className="col-md-4" key={index}>
-                                <div className="mb-3">
+                        <div className="row mb-3 ">
+                            <div className="col-md-12 d-flex justify-content-end align-items-center">
+                                <h6 className="me-2 mb-0 mt-2">Tambah Genre</h6>
+                                <button
+                                type="button"
+                                className="mt-2 btn-sm btn btn-add"
+                                style={{ width: "36px", height: "36px" }}
+                                onClick={handleAddGenre}
+                                >
+                                <i className="bi bi-plus"></i>
+                                </button>
+                            </div>
+                        
+                        {genres.map((genre, index) => (
+                            <div className="col-md-4 mb-3" key={index}>
                                 <label htmlFor={`genre${index + 1}`} className="form-label">
-                                    Genre {index + 1}
+                                Genre {index + 1}
                                 </label>
+                            <div className="mb-3 d-flex flex-row ">
                                 <input
-                                    type="text"
-                                    className="form-control"
-                                    id={`genre${index + 1}`}
-                                    value={genre}
-                                    onChange={(e) => {
+                                type="text"
+                                className="form-control"
+                                id={`genre${index + 1}`}
+                                value={genre}
+                                onChange={(e) => {
                                     const newGenres = [...genres];
                                     newGenres[index] = e.target.value;
                                     setGenres(newGenres);
-                                    }}
-                                    placeholder="Masukkan genre"
+                                }}
+                                placeholder="Masukkan genre"
                                 />
                                 {index > 0 && (
-                                    <button
+                                <button
                                     type="button"
-                                    className="btn btn-danger btn-sm mt-2"
+                                    className="btn btn-danger btn-sm ms-2"
                                     onClick={() => handleRemoveGenre(index)}
-                                    >
-                                    <i className="bi bi-trash"></i>
-                                    </button>
-                                )}
-                                </div>
-                            </div>
-                            ))}
-                            <div className="col-md-4">
-                            <button
-                                type="button"
-                                className="mt-2 btn-sm btn btn-add" style={{ width: "36px", height: "36px"}}
-                                onClick={handleAddGenre}
-                            >
-                                <i className="bi bi-plus"></i>
-                            </button>
-                        </div>
-                        </div>
-                        
-
-                        <div className="row mb-3">
-                            {artist.map((artistItem, index) => (
-                            <div className="col-md-4" key={index}>
-                                <div className="mb-3">
-                                <label htmlFor={`artist${index + 1}`} className="form-label">
-                                    Artist {index + 1}
-                                </label>
-                                <select
-                                    className="form-control"
-                                    id={`artist${index + 1}`}
-                                    value={artistItem}
-                                    onChange={(e) => {
-                                    const newArtists = [...artist];
-                                    newArtists[index] = e.target.value;
-                                    setArtist(newArtists);
-                                    }}
                                 >
-                                    <option value="">Pilih Artis</option>
-                                    {artists.map((artist) => (
-                                    <option key={artist.id} value={artist.id}>
-                                        {artist.name}
-                                    </option>
-                                    ))}
-                                </select>
-                                {index > 0 && (
-                                    <button
-                                    type="button"
-                                    className="btn btn-danger btn-sm mt-2"
-                                    onClick={() => handleRemoveArtist(index)}
-                                    >
-                                    <i className="bi bi-trash"></i>
-                                    </button>
-                                )}
-                                </div>
-                            </div>
-                            ))}
-                            <div className="col-md-4">
-                            <button
-                                type="button"
-                                className="mt-2 btn-sm btn btn-add" style={{ width: "36px", height: "36px"}}
-                                onClick={handleAddArtist}
-                            >
-                                <i className="bi bi-plus"></i>
-                            </button>
-                            </div>
-                        </div>
-                        
-                        <div className="row mb-3">
-                        {album.map((albumItem, index) => (
-                            <div className="col-md-4" key={index}>
-                            <div className="mb-3">
-                                <label htmlFor={`album${index + 1}`} className="form-label">Album {index + 1}</label>
-                                <select className="form-control" id={`album${index + 1}`} value={albumItem} onChange={(e) => {
-                                const newAlbums = [...album];
-                                newAlbums[index] = e.target.value;
-                                setAlbum(newAlbums);
-                                }}>
-                                <option value="">Pilih Album</option>
-                                {albums.map((album) => (
-                                    <option key={album.id} value={album.id}>{album.title}</option>
-                                ))}
-                                </select>
-                                {index > 0 && (
-                                <button type="button" className="btn btn-danger btn-sm mt-2" onClick={() => handleRemoveAlbum(index)}>
                                     <i className="bi bi-trash"></i>
                                 </button>
                                 )}
                             </div>
                             </div>
                         ))}
-                        <div className="col-md-4">
+                        
+                        </div>
+                        
+
+                        <div className="row mb-3">
+                            <div className="col-md-12 d-flex justify-content-end align-items-center">
+                                <h6 className="me-2 mb-0 mt-2">Tambah Artist</h6>
+                                <button
+                                type="button"
+                                className="mt-2 btn-sm btn btn-add"
+                                style={{ width: "36px", height: "36px" }}
+                                onClick={handleAddArtist}
+                                >
+                                <i className="bi bi-plus"></i>
+                                </button>
+                            </div>
+                        {artist.map((artistItem, index) => (
+                            <div className="col-md-4" key={index}>
+                                <label htmlFor={`artist${index + 1}`} className="form-label">
+                                Artist {index + 1}
+                                </label>
+                            <div className="mb-3 d-flex flex-row ">
+                                <select
+                                className="form-control"
+                                id={`artist${index + 1}`}
+                                value={artistItem}
+                                onChange={(e) => {
+                                    const newArtists = [...artist];
+                                    newArtists[index] = e.target.value;
+                                    setArtist(newArtists);
+                                }}
+                                >
+                                <option value="">Pilih Artis</option>
+                                {artists.map((artist) => (
+                                    <option key={artist.id} value={artist.id}>
+                                    {artist.name}
+                                    </option>
+                                ))}
+                                </select>
+                                {index > 0 && (
+                                <button
+                                    type="button"
+                                    className="btn btn-danger btn-sm ms-2"
+                                    onClick={() => handleRemoveArtist(index)}
+                                >
+                                    <i className="bi bi-trash"></i>
+                                </button>
+                                )}
+                            </div>
+                            </div>
+                        ))}
+
+                        </div>
+                        
+                        <div className="row mb-3">
+                        <div className="col-md-12 d-flex justify-content-end align-items-center">
+                            <h6 className="me-2 mb-0 mt-2">Tambah Album</h6>
                             <button type="button" className="mt-2 btn-sm btn btn-add" style={{ width: "36px", height: "36px" }} onClick={handleAddAlbum}>
                             <i className="bi bi-plus"></i>
                             </button>
                         </div>
+                            {album.map((albumItem, index) => (
+                                <div className="col-md-4" key={index}>
+                                    <label htmlFor={`album${index + 1}`} className="form-label">Album {index + 1}</label>
+                                    <div className="mb-3 d-flex flex-row">
+                                        <select className="form-control" id={`album${index + 1}`} value={albumItem} onChange={(e) => {
+                                            const newAlbums = [...album];
+                                            newAlbums[index] = e.target.value;
+                                            setAlbum(newAlbums);
+                                            }}>
+                                            <option value="">Pilih Album</option>
+                                            {albums.map((album) => (
+                                                <option key={album.id} value={album.id}>{album.title}</option>
+                                            ))}
+                                        </select>
+                                        {index > 0 && (
+                                            <button type="button" className="btn btn-danger btn-sm ms-2" onClick={() => handleRemoveAlbum(index)}>
+                                                <i className="bi bi-trash"></i>
+                                            </button>
+                                        )}
+                                    </div>
+                                </div>
+                            ))}
+                            
                         </div>
 
                         <div className="mb-3">

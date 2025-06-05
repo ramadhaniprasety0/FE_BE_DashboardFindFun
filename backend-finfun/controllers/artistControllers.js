@@ -1,5 +1,7 @@
 const Artist = require('../models/artistModel');
 
+
+
 const artistControllers = {
   getAll: (req, res) => {
     Artist.getAll((err, results) => {
@@ -41,23 +43,28 @@ const artistControllers = {
 
   create: (req, res) => {
     const artist = req.body;
-    console.log('Creating artist:', artist);
-    
-    // Basic validation
+    console.log('Received music data:', req.body);
+    console.log('Received file:', req.file);
+  
     if (!artist.name) {
       return res.status(400).json({ 
         error: 'Missing required fields',
         required: ['name']
       });
     }
+  
 
-    // Validate birth_date format if provided
     if (artist.birth_date && !isValidDate(artist.birth_date)) {
       return res.status(400).json({ 
         error: 'Invalid birth_date format. Use YYYY-MM-DD'
       });
     }
-
+  
+  
+    if (req.file) {
+      artist.image = req.file ? `uploads/artists/${req.file.filename}` : null; 
+    }
+  
     Artist.create(artist, (err, result) => {
       if (err) {
         console.error('Error creating artist:', err);
@@ -75,31 +82,39 @@ const artistControllers = {
     const id = req.params.id;
     const artist = req.body;
 
+    console.log('Received music data:', req.body);
+    console.log('Received file:', req.file);
+
     if (!id || isNaN(id)) {
-      return res.status(400).json({ error: 'Invalid ID format' });
+        return res.status(400).json({ error: 'Invalid ID format' });
     }
 
     // Validate birth_date format if provided
     if (artist.birth_date && !isValidDate(artist.birth_date)) {
-      return res.status(400).json({ 
-        error: 'Invalid birth_date format. Use YYYY-MM-DD'
-      });
+        return res.status(400).json({ 
+            error: 'Invalid birth_date format. Use YYYY-MM-DD'
+        });
+    }
+
+    // Handle image
+    if (req.file) {
+        artist.image = req.file.path; // Save the image file path
     }
 
     Artist.update(id, artist, (err, result) => {
-      if (err) {
-        console.error('Error updating artist:', err);
-        return res.status(500).json({ error: 'Failed to update artist' });
-      }
-      
-      if (result.affectedRows === 0) {
-        return res.status(404).json({ error: 'Artist not found' });
-      }
-      
-      res.json({
-        success: true,
-        message: 'Artist updated successfully'
-      });
+        if (err) {
+            console.error('Error updating artist:', err);
+            return res.status(500).json({ error: 'Failed to update artist' });
+        }
+        
+        if (result.affectedRows === 0) {
+            return res.status(404).json({ error: 'Artist not found' });
+        }
+        
+        res.json({
+            success: true,
+            message: 'Artist updated successfully'
+        });
     });
   },
 
