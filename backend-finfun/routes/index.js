@@ -9,6 +9,7 @@ const musicControllers = require('../controllers/musicControllers');
 const artistControllers = require('../controllers/artistControllers');
 
 const caroselControllers = require('../controllers/caroselControllers');
+const popularMusicController = require('../controllers/popularMusicController');
 
 // Basic middleware for logging
 router.use((req, res, next) => {
@@ -83,6 +84,11 @@ router.get('/artists/search', artistControllers.search); // ?q=searchTerm
 router.get('/artists/genre/:genre', artistControllers.getByGenre);
 router.get('/artists/country/:country', artistControllers.getByCountry);
 router.get('/artists/:id/music', artistControllers.getArtistMusic);
+
+// ===== POPULAR_MUSIC ROUTES =====
+router.get('/popular', popularMusicController.getAllPopularMusic);
+router.get('/popular/:id', popularMusicController.getPopularMusicById);
+router.get('/popular-latest', popularMusicController.getLatestPopularMusic);
 
 // ===== MUSIC-ALBUMS RELATION ROUTES =====
 router.post('/music-albums', musicControllers.addMusicToAlbum);
