@@ -34,11 +34,11 @@ const caroselControllers = {
     
         // Menangani gambar jika ada (image dan titleImage)
         if (req.files?.image) {
-            carousel.image = req.files.image[0].path;  // Menyimpan path gambar carousel
+            carousel.image = req.files.image[0].path;  
         }
     
         if (req.files?.titleImage) {
-            carousel.titleImage = req.files.titleImage[0].path;  // Menyimpan path gambar title
+            carousel.titleImage = req.files.titleImage[0].path; 
         }
     
         // Validasi jika semua field yang dibutuhkan ada

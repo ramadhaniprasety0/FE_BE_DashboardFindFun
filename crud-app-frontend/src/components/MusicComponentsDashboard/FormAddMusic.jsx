@@ -27,7 +27,7 @@ const FormAddMusic = () => {
     const [albums, setAlbums] = useState([]);
 
     const handleAddGenre = () => {
-        setGenres([...genres, ""]); // Menambah input genre baru
+        setGenres([...genres, ""]); 
       };
       
       const handleRemoveGenre = (index) => {
@@ -115,8 +115,8 @@ const FormAddMusic = () => {
       
           const formData = new FormData();
           formData.append("title", title);
-          formData.append("artist", JSON.stringify(artist)); // Mengirim artist ID sebagai JSON string
-          formData.append("album", JSON.stringify(album)); // Mengirim album ID sebagai JSON string
+          formData.append("artist", JSON.stringify(artist)); 
+          formData.append("album", JSON.stringify(album)); 
           formData.append("rating", rating);
           formData.append("genre1", genres[0]);
           formData.append("genre2", genres[1] || "");

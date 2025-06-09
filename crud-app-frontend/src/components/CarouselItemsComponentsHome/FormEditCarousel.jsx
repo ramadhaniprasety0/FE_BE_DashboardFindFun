@@ -38,7 +38,7 @@ const FormUpdateCarousel = () => {
     };
 
     useEffect(() => {
-        getCarouselData(); // Fetch carousel data when component mounts
+        getCarouselData(); 
     }, [id]);
 
     const handleTitleImageChange = (e) => {
@@ -93,7 +93,7 @@ const FormUpdateCarousel = () => {
     
             if (response.data.success) {
                 Swal.fire('Berhasil!', 'Carousel berhasil diperbarui.', 'success');
-                navigate("/dashboard/carousel"); // Redirect setelah berhasil update
+                navigate("/dashboard/carousel"); 
             }
         } catch (error) {
             console.error(error);

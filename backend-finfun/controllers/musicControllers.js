@@ -55,6 +55,21 @@ const musicControllers = {
     }
   },
 
+  getAllTiket: (req, res) => {
+    const id = req.params.id;
+    Music.getAllTiket(id, (err, results) => {
+      if (err) {
+        console.error('Error fetching tiket:', err);
+        return res.status(500).json({ error: 'Failed to fetch tiket' });
+      }
+      res.json({
+        success: true,
+        data: results,
+        count: results.length
+      });
+    });
+  },
+
   getById: (req, res) => {
     const id = req.params.id;
     const includeRelations = req.query.include;
@@ -596,8 +611,6 @@ const musicControllers = {
       });
     });
   },
-
-  // ===== BATCH OPERATIONS =====
   
   setArtistsForMusic: (req, res) => {
     const musicId = req.params.musicId;

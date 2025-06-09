@@ -11,7 +11,10 @@ const FormAddFilm = () => {
   const [description, setDescription] = useState("");
   const [release_year, setReleaseYear] = useState("");
   const [rating, setRating] = useState("");
-  const [genre, setGenre] = useState("");
+  const [genres, setGenres] = useState([""]);
+  const [aktors, setAktors] = useState([]);
+  const [artists, setArtists] = useState([]);
+  const [artist, setArtist] = useState([""]);
   const [duration, setDuration] = useState("");
   const [status_film, setStatus] = useState("");
   const [netflix, setNetflix] = useState("");
@@ -19,16 +22,54 @@ const FormAddFilm = () => {
   const [hbogo, setHbogo] = useState("");
   const [bioskop, setBioskop] = useState("");
   const [imageFile, setImageFile] = useState(null);
-  const [existingImage, setExistingImage] = useState("");
-  const [actor, setActor] = useState("");
-  const [director, setDirector] = useState("");
   const [previewImage, setPreviewImage] = useState("");
+  const [posterImage, setPosterImage] = useState(null);
+  const [previewPosterImage, setPreviewPosterImage] = useState("");
+  const [director, setDirector] = useState("");
   const [loading, setLoading] = useState(true);
   const [submitting, setSubmitting] = useState(false);
 
   const [dataFilms, setDataFilms] = useState([]);
 
-  // Validasi film yang sudah ada
+  const handleAddGenre = () => {
+    setGenres([...genres, ""]); 
+  };
+
+  const handleRemoveGenre = (index) => {
+    const newGenres = genres.filter((_, i) => i !== index); // Menghapus genre yang dipilih
+    setGenres(newGenres);
+  };
+
+  const handleAddArtist = () => {
+    setArtist([...artist, ""]);
+    setAktors([...aktors, ""]);
+  };
+
+  const handleRemoveArtist = (index) => {
+    const newsAcktors = aktors.filter((_, i) => i !== index);
+    const newArtists = artist.filter((_, i) => i !== index);
+    setArtist(newArtists);
+    setAktors(newsAcktors);
+  };
+
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      setImageFile(file);
+      const filePreview = URL.createObjectURL(file);
+      setPreviewImage(filePreview);
+    }
+  };
+
+  const handlePosterImageChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      setPosterImage(file);
+      const filePreview = URL.createObjectURL(file);
+      setPreviewPosterImage(filePreview);
+    }
+  }
+
   const getData = async () => {
     try {
       const { data } = await axios.get("http://localhost:3000/api/films");
@@ -38,19 +79,20 @@ const FormAddFilm = () => {
     }
   };
 
-  useEffect(() => {
-    getData();
-  }, []);
-
-  // Handle image file change and preview
-  const handleImageChange = (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      setImageFile(file);
-      const filePreview = URL.createObjectURL(file);
-      setPreviewImage(filePreview);
+  const getArtists = async () => {
+    try {
+        const { data } = await axios.get("http://localhost:3000/api/artists");
+        setArtists(data.data);
+    } catch (error) {
+        console.error(error);
+        Swal.fire('Gagal!', 'Terjadi kesalahan saat mengambil data artist.', 'error');
     }
   };
+
+  useEffect(() => {
+    getData();
+    getArtists();
+  }, []);
 
   // Tambah Data Film with file upload
   const handleAddData = async (e) => {
@@ -62,34 +104,47 @@ const FormAddFilm = () => {
       return Swal.fire('Gagal!', 'Film dengan judul tersebut sudah ada.', 'error');
     }
 
-    if (!title || !description || !release_year || !rating || !genre || !duration || !actor || !director || !status_film) {
+    if (!title || !description || !release_year || !rating || !genres || !artist || !duration || !aktors || !director || !status_film) {
       return Swal.fire('Gagal!', 'Harap lengkapi semua bidang yang diperlukan.', 'error');
     }
 
     try {
       setSubmitting(true);
       
-      // Create FormData object for file upload
+      
       const formData = new FormData();
       formData.append("title", title);
       formData.append("description", description);
       formData.append("release_year", release_year);
       formData.append("rating", rating);
-      formData.append("genre", genre);
+      formData.append("genre1", genres[0]);
+      formData.append("genre2", genres[1] || "");
+      formData.append("genre3", genres[2] || "");
+      formData.append("artist", JSON.stringify(artist));
+      formData.append("aktors", JSON.stringify(aktors));
       formData.append("duration", duration);
-      formData.append("actor", actor);
       formData.append("director", director);
       formData.append("status_film", status_film);
       formData.append("netflix", netflix);
       formData.append("appletv", appletv);
       formData.append("hbogo", hbogo);
       formData.append("bioskop", bioskop);
+
+      if (aktors.length === 0 || aktors.some(role => role.trim() === '')) {
+        return Swal.fire('Gagal!', 'Harap masukkan peran artis.', 'error');
+      }
       
-      // Append image file if selected
       if (imageFile) {
         formData.append("image", imageFile);
       }
+
+      if (posterImage) {
+        formData.append("posterImage", posterImage);
+      }
       
+      for (let [key, value] of formData.entries()) {
+        console.log(`${key}:`, value);
+    }
       await axios.post("http://localhost:3000/api/films", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
@@ -173,22 +228,119 @@ const FormAddFilm = () => {
                 placeholder="Masukkan deskripsi atau sinopsis film"
               ></textarea>
             </div>
+            <div className="row mb-3 ">
+                <div className="col-md-12 d-flex justify-content-end align-items-center">
+                  <h6 className="me-2 mb-0 mt-2">Tambah Genre</h6>
+                    <button
+                    type="button"
+                    className="mt-2 btn-sm btn btn-add"
+                    style={{ width: "36px", height: "36px" }}
+                    onClick={handleAddGenre}
+                    >
+                    <i className="bi bi-plus"></i>
+                    </button>
+                </div>
+                        
+            {genres.map((genre, index) => (
+                <div className="col-md-4 mb-3" key={index}>
+                    <label htmlFor={`genre${index + 1}`} className="form-label">
+                    Genre {index + 1}
+                                </label>
+                <div className="mb-3 d-flex flex-row ">
+                    <input
+                    type="text"
+                    className="form-control"
+                    id={`genre${index + 1}`}
+                    value={genre}
+                    onChange={(e) => {
+                        const newGenres = [...genres];
+                        newGenres[index] = e.target.value;
+                        setGenres(newGenres);
+                    }}
+                    placeholder="Masukkan genre"
+                    />
+                    {index > 0 && (
+                    <button
+                        type="button"
+                        className="btn btn-danger btn-sm ms-2"
+                        onClick={() => handleRemoveGenre(index)}
+                    >
+                        <i className="bi bi-trash"></i>
+                    </button>
+                    )}
+                </div>
+              </div>
+            ))}       
+          </div>
 
-            <div className="row mb-3">
-              <div className="col-md-4">
+          <div className="row mb-3">
+              <div className="col-md-12 d-flex justify-content-end align-items-center">
+                  <h6 className="me-2 mb-0 mt-2">Tambah Artist</h6>
+                  <button
+                  type="button"
+                  className="mt-2 btn-sm btn btn-add"
+                  style={{ width: "36px", height: "36px" }}
+                  onClick={handleAddArtist}
+                  >
+                  <i className="bi bi-plus"></i>
+                  </button>
+              </div>
+              {artist.map((artistItem, index) => (
+              <div className="col-md-4" key={index}>
+                <label htmlFor={`artist${index + 1}`} className="form-label">
+                  Artist {index + 1}
+                </label>
+                <div className="mb-3 d-flex flex-row">
+                  <select
+                    className="form-control"
+                    id={`artist${index + 1}`}
+                    value={artistItem}
+                    onChange={(e) => {
+                      const newArtists = [...artist];
+                      newArtists[index] = e.target.value;
+                      setArtist(newArtists);
+                    }}
+                  >
+                    <option value="">Pilih Artis</option>
+                    {artists.map((artist) => (
+                      <option key={artist.id} value={artist.id}>
+                        {artist.name}
+                      </option>
+                    ))}
+                  </select>
+                  {index > 0 && (
+                    <button
+                      type="button"
+                      className="btn btn-danger btn-sm ms-2"
+                      onClick={() => handleRemoveArtist(index)}
+                    >
+                      <i className="bi bi-trash"></i>
+                    </button>
+                  )}
+                </div>
+
+                {/* Add a field for the actor's role */}
                 <div className="mb-3">
-                  <label htmlFor="genre" className="form-label">Genre <span className="text-danger">*</span></label>
                   <input
                     type="text"
                     className="form-control"
-                    id="genre"
-                    value={genre}
-                    onChange={(e) => setGenre(e.target.value)}
-                    required
-                    placeholder="Contoh: Action, Drama, Comedy"
+                    id={`aktorRole${index + 1}`}
+                    value={aktors[index]}
+                    onChange={(e) => {
+                      const newAktor = [...aktors];
+                      newAktor[index] = e.target.value;
+                      setAktors(newAktor);
+                    }}
+                    placeholder="Berperan Sebagai Apa?"
                   />
                 </div>
               </div>
+            ))}
+
+          </div>
+
+          
+            <div className="row mb-3">
               <div className="col-md-4">
                 <div className="mb-3">
                   <label htmlFor="rating" className="form-label">Rating <span className="text-danger">*</span></label>
@@ -223,46 +375,60 @@ const FormAddFilm = () => {
               </div>
             </div>
 
-            <div className="mb-3">
-              <label htmlFor="image" className="form-label">Poster Film</label>
-              <input
-                type="file"
-                className="form-control"
-                id="image"
-                accept="image/*"
-                onChange={handleImageChange}
-              />
-              <small className="text-muted">
-                Format yang didukung: JPG, JPEG, PNG, GIF (max: 5MB)
-              </small>
-              {previewImage && (
-                <div className="mt-2">
-                  <p className="text-muted">Preview:</p>
-                  <img 
-                    src={previewImage} 
-                    alt="Preview" 
-                    style={{ height: '150px', objectFit: 'cover' }}
-                    className="img-thumbnail"
-                  />
+            <div className="row mb-3">
+              <div className="col-md-6">
+                <label htmlFor="image" className="form-label">Poster Film</label>
+                <input
+                  type="file"
+                  className="form-control"
+                  id="image"
+                  accept="image/*"
+                  onChange={handleImageChange}
+                />
+                <small className="text-muted">
+                  Format yang didukung: JPG, JPEG, PNG, GIF (max: 5MB)
+                </small>
+                {previewImage && (
+                  <div className="mt-2">
+                      <p className="text-muted">Preview:</p>
+                      <img 
+                        src={previewImage} 
+                        alt="Preview" 
+                        style={{ height: '150px', objectFit: 'cover' }}
+                        className="img-thumbnail"
+                      />
+                    </div>
+                  )}
                 </div>
-              )}
+
+                <div className="col-md-6">
+                <label htmlFor="image" className="form-label">Benner Film</label>
+                <input
+                  type="file"
+                  className="form-control"
+                  id="image"
+                  accept="image/*"
+                  onChange={handlePosterImageChange}
+                />
+                <small className="text-muted">
+                  Format yang didukung: JPG, JPEG, PNG, GIF (max: 5MB)
+                </small>
+                {previewPosterImage && (
+                  <div className="mt-2">
+                      <p className="text-muted">Preview:</p>
+                      <img 
+                        src={previewPosterImage} 
+                        alt="previewPosterImage" 
+                        style={{ height: '150px', objectFit: 'cover' }}
+                        className="img-thumbnail"
+                      />
+                    </div>
+                  )}
+                </div>
             </div>
 
-            <div className="row mb-3">
-              <div className="col-md-4">
-                <div className="mb-3">
-                  <label htmlFor="actor" className="form-label">Aktor</label>
-                  <input
-                    type="text"
-                    className="form-control"
-                    id="actor"
-                    value={actor}
-                    onChange={(e) => setActor(e.target.value)}
-                    placeholder="Nama aktor (pisahkan dengan koma)"
-                  />
-                </div>
-              </div>
-              <div className="col-md-4">
+              <div className="row mb-3">
+              <div className="col-md-6">
                 <div className="mb-3">
                   <label htmlFor="director" className="form-label">Sutradara</label>
                   <input
@@ -275,7 +441,7 @@ const FormAddFilm = () => {
                   />
                 </div>
               </div>
-              <div className="col-md-4">
+              <div className="col-md-6">
                 <div className="mb-3">
                   <label htmlFor="status_film" className="form-label">Status <span className="text-danger">*</span></label>
                   <select

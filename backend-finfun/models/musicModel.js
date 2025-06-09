@@ -295,11 +295,6 @@ const Music = {
     db.query(query, [albumId], callback);
   },
 
-  // addMusicToAlbum: (musicId, albumId, callback) => {
-  //   const query = 'INSERT INTO music_albums (music_id, album_id) VALUES (?, ?)';
-  //   db.query(query, [musicId, albumId], callback);
-  // },
-
   addMusicToAlbum: (musicId, albumId, callback) => {
     // Check if the relation already exists
     const checkQuery = 'SELECT * FROM music_albums WHERE music_id = ? AND album_id = ?';
@@ -360,22 +355,16 @@ const Music = {
   // },
 
   addMusicToArtist: (musicId, artistId, callback) => {
-    // Check if the relation already exists
     const checkQuery = 'SELECT * FROM music_artists WHERE music_id = ? AND artist_id = ?';
     db.query(checkQuery, [musicId, artistId], (err, result) => {
       if (err) return callback(err);
       if (result.length > 0) {
-        // Skip inserting if the relation already exists
         return callback(null);
       }
-  
-      // Insert if no existing relation
       const query = 'INSERT INTO music_artists (music_id, artist_id) VALUES (?, ?)';
       db.query(query, [musicId, artistId], callback);
     });
   },
-
-  // Remove music from artist
   
   removeMusicFromArtist: (musicId, artistId, callback) => {
     const query = 'DELETE FROM music_artists WHERE music_id = ? AND artist_id = ?';

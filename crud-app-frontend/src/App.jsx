@@ -1,10 +1,19 @@
 import { Routes, Route, } from "react-router-dom";
+// Page Dashboard
 import Dashboard from "./components/Dashboard";
 import Login from "../src/page/LoginPage";
 import PrivateRoute from './components/PrivateRoute';
-import HomePage from "./page/HomePage";
+
+// Page User Umum
+import PrivateRouteUser from "./components/PrivateRouteUser";
 import MainLayout from "./MainLayout";
-import { ToastContainer } from 'react-toastify';
+import HomePage from "./page/HomePage";
+import FilmHomepage from "./page/Films/FilmsPage";
+import DetailFilmPage from "./page/Films/DetailFilmsPage";
+import FormTiketFilm from "./page/Films/FormTiketFilmPage";
+import PaymentFilmPage from "./page/Films/PaymentFilmPage";
+
+// import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 function App() {
   return (
@@ -13,14 +22,24 @@ function App() {
       <Routes>
         <Route element={<MainLayout />}>
           <Route path="/*" element={<HomePage />} />
+          <Route path="/films" element={<FilmHomepage />} />
+          {/* <Route path="/films/detail/:id" element={<DetailFilmPage />} /> */}
+          <Route path="/films/tiket/:id/bioskop" element={<FormTiketFilm />} />
+          <Route path="/payment-tiket/:id/schedule/:tiketId" element={<PaymentFilmPage />} />
         </Route>
+        <Route element={<MainLayout />}>
+          <Route element={<PrivateRouteUser />}>
+            <Route path="/films/detail/:id" element={<DetailFilmPage />} />
+          </Route>
+        </Route>
+
         <Route path="/login" element={<Login />} />
         <Route element={<PrivateRoute />}>
             <Route path="/dashboard/*" element={<Dashboard />} />
         </Route>
 
       </Routes>
-      <ToastContainer />
+      
     </div>
   )
 }

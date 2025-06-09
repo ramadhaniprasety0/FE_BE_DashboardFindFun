@@ -1,32 +1,8 @@
 import { Container, Row, Col } from "react-bootstrap";
 import CarouselComponent from "../components/CarouselItemsComponentsHome/CarouselHomePage";
-
-
-// const NewsComponent = ({ hotsNews }) => {
-//   return (
-//     <>
-//       {hotsNews.map((hots, index) => {
-//         return (
-//           <Col lg={12} key={index} className="mb-4">
-//             <div className="news-card d-flex">
-//               <img src={hots.image} alt="NewsBrand" className="img-brand" />
-//               <div className="news-caption d-flex flex-column justify-content-between">
-//                 <div>
-//                   <img src={hots.brandnews} alt="" srcset="" />
-//                   <h5>{hots.title}</h5>
-//                   <p>{hots.desc}</p>
-//                   <a href="#">Lihat Lebih Banyak</a>
-//                 </div>
-//                 <p className="text-white">{hots.time}</p>
-//               </div>
-//             </div>
-//           </Col>
-//         );
-//       })}
-//     </>
-//   );
-// };
-
+import MusicHitsComponents from "../components/MusicComponentsHome/MusicHitsComponents";
+import PopularComponentFilm from "../components/FilmsComponentsHome/PopularComponentFilm";
+import NewsTerbaruAllComponents from "../components/NewsComponentsHome/NewsTerbaruAllComponents";
 const HomePage = () => {
   return (
     <div>
@@ -57,25 +33,11 @@ const HomePage = () => {
             </Row>
             <Row className="box-hits">
               <Col lg={12}>
-                <h1 className="judul-hits">
+                <h1 className="judul-hits ms-4 mt-3 mb-3">
                   <b>Musik Hits hari ini</b>
                 </h1>
               </Col>
-
-              {/* {musickHits.map((hits) => {
-                return (
-                  <Col key={hits.id} className="card-hits-wrapper">
-                    <div className="card-hits p-3 rounded-4 position-relative">
-                      <img src={hits.image} alt="" className="img-fluid" />
-                      <a href={hits.path} className="link-icon">
-                        <i className={hits.icon}></i>
-                      </a>
-                      <h2>{hits.title}</h2>
-                      <p>{hits.desc}</p>
-                    </div>
-                  </Col>
-                );
-              })} */}
+              <MusicHitsComponents />
             </Row>
           </Container>
         </div>
@@ -83,11 +45,11 @@ const HomePage = () => {
           <Container>
             <Row className="p-3 box-hits">
               <Col lg={12}>
-                <h1 className="judul-hits">
+                <h1 className="judul-hits ms-1 mt-3 mb-3">
                   <b>Film Terkini</b>
                 </h1>
               </Col>
-              {/* <PopularComponentFilm /> */}
+              <PopularComponentFilm />
             </Row>
           </Container>
         </div>
@@ -99,7 +61,7 @@ const HomePage = () => {
                   <b>Berita hari ini</b>
                 </h1>
               </Col>
-              {/* <NewsComponent hotsNews={hotsNews} /> */}
+              <NewsTerbaruAllComponents />
             </Row>
           </Container>
         </div>

@@ -9,7 +9,6 @@ const musicControllers = require('../controllers/musicControllers');
 const artistControllers = require('../controllers/artistControllers');
 
 const caroselControllers = require('../controllers/caroselControllers');
-const popularMusicController = require('../controllers/popularMusicController');
 
 // Basic middleware for logging
 router.use((req, res, next) => {
@@ -22,6 +21,8 @@ const upload = multer({ dest: 'uploads/' });
 const uploadartist = multer({ dest: 'uploads/artists/' });
 const uploadalbum = multer({ dest: 'uploads/albums/' });
 const uploadcarousel = multer({ dest: 'uploads/carousel_image/' });
+const uploadFilm = multer({ dest: 'uploads/films/' });
+const uploadPayment = multer({ dest: 'uploads/payment/' });
 
 // ===== Dashboard ROUTES =====
 router.post('/login', authController.login);
@@ -59,8 +60,23 @@ router.delete('/albums/:id', albumControllers.delete);
 // ===== FILM ROUTES =====
 router.get('/films', filmControllers.getAll);
 router.get('/films/:id', filmControllers.getById);
-router.post('/films', upload.single('image'), filmControllers.create); 
-router.put('/films/:id', upload.single('image'), filmControllers.update);
+router.get('/films/bioskop/:id', filmControllers.getAllBioskop);
+router.get('/films/:id/tiket', filmControllers.getAllTiket);
+router.get('/films/seats/:id', filmControllers.getAllSeat);
+router.get('/films/:id/tiket/price', filmControllers.getHargaTicket);
+router.post('/films/beli/tiket', filmControllers.buyTicket);
+router.get('/film-payment/:id/schedule/:schedule_id', filmControllers.getTikets);
+router.put('/films/:id/tiket-payment', uploadPayment.single('image'), filmControllers.updatePayTiket);
+router.get('/films/:id/schedule/:locationId', filmControllers.getScheduleFilm);
+router.get('/films/:id/cinema', filmControllers.getCinemaLocation);
+router.post('/films', uploadFilm.fields([
+  { name: 'image', maxCount: 1 },
+  { name: 'posterImage', maxCount: 1 }
+  ]), filmControllers.create); 
+router.put('/films/:id', uploadFilm.fields([
+  { name: 'image', maxCount: 1 },
+  { name: 'posterImage', maxCount: 1 }
+  ]), filmControllers.update);
 router.delete('/films/:id', filmControllers.delete);
 router.get('/films/search', filmControllers.search); // ?q=searchTerm
 router.get('/films/genre/:genre', filmControllers.getByGenre);
@@ -85,10 +101,8 @@ router.get('/artists/genre/:genre', artistControllers.getByGenre);
 router.get('/artists/country/:country', artistControllers.getByCountry);
 router.get('/artists/:id/music', artistControllers.getArtistMusic);
 
-// ===== POPULAR_MUSIC ROUTES =====
-router.get('/popular', popularMusicController.getAllPopularMusic);
-router.get('/popular/:id', popularMusicController.getPopularMusicById);
-router.get('/popular-latest', popularMusicController.getLatestPopularMusic);
+// ===== FILM-ARTISTS RELATION ROUTES =====
+router.get('/films/:filmId/artists', filmControllers.getArtistsForFilm);
 
 // ===== MUSIC-ALBUMS RELATION ROUTES =====
 router.post('/music-albums', musicControllers.addMusicToAlbum);

@@ -17,7 +17,7 @@ const FilmsApp = () => {
     const getData = async () => {
         try {
             setLoading(true);
-            const { data } = await axios.get("http://localhost:3000/api/films");
+            const { data } = await axios.get("http://localhost:3000/api/films?include=all");
             setDataFilms(data.data);
             setLoading(false);
         } catch (error) {
@@ -44,7 +44,7 @@ const FilmsApp = () => {
             try {
               await axios.delete(`http://localhost:3000/api/films/${id}`);
               await Swal.fire('Terhapus!', 'Film berhasil dihapus.', 'success');
-              getData(); // refresh data
+              getData(); 
             } catch (error) {
               console.error(error);
               Swal.fire('Gagal!', 'Terjadi kesalahan saat menghapus film.', 'error');
@@ -126,9 +126,9 @@ const FilmsApp = () => {
                                         <td>{truncateText(data.title, 20)}</td>
                                         <td>{truncateText(data.deskripsi, 10)}</td>
                                         <td>{data.release_year}</td>
-                                        <td>{data.genre}</td>
+                                        <td>{truncateText(data.genre1 + ", " + data.genre2 + ", " + data.genre3, 10)}</td>
                                         <td>{data.duration} min</td>
-                                        <td>{truncateText(data.actor, 10)}</td>
+                                        <td>{truncateText(data.artists, 10)}</td>
                                         <td>{data.director}</td>
                                         <td className="text-center">
                                             <span className={`badge ${data.rating >= 8 ? 'bg-success' : data.rating >= 6 ? 'bg-warning' : 'bg-danger'}`}>

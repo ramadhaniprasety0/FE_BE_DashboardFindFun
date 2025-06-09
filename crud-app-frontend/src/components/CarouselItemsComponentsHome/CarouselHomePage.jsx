@@ -48,7 +48,7 @@ const CarouselComponent = () => {
                 className="img-fluid"
               />
               <p className="text-white">{item.deskripsi}</p>
-              <a href={item.path} className="btn-seemore">
+              <a href={item.path} className="btn-seemore text-center">
                 Lihat
               </a>
             </Carousel.Caption>
