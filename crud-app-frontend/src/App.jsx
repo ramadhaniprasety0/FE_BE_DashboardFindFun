@@ -2,6 +2,7 @@ import { Routes, Route, } from "react-router-dom";
 // Page Dashboard
 import Dashboard from "./components/Dashboard";
 import Login from "../src/page/LoginPage";
+import RegisterPage from "./page/RegisterPage";
 import PrivateRoute from './components/PrivateRoute';
 
 // Page User Umum
@@ -32,7 +33,7 @@ function App() {
             <Route path="/films/detail/:id" element={<DetailFilmPage />} />
           </Route>
         </Route>
-
+        <Route path="/register" element={<RegisterPage />} />
         <Route path="/login" element={<Login />} />
         <Route element={<PrivateRoute />}>
             <Route path="/dashboard/*" element={<Dashboard />} />
