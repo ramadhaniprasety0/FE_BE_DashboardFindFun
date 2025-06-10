@@ -145,7 +145,21 @@ const Film = {
   },
 
   getTikets: (id, schedule_id, callback) => {
-    const query = 'SELECT tickets.*, films.title AS film_title, films.image, schedules.show_time, JSON_LENGTH(tickets.seats) AS seat_count, GROUP_CONCAT(reserved_seats.seat_id ORDER BY reserved_seats.seat_id) AS seat_ids FROM tickets JOIN films ON tickets.film_id = films.id JOIN reserved_seats ON JSON_CONTAINS(tickets.seats, CAST(reserved_seats.id AS JSON)) JOIN schedules ON tickets.schedule_id = schedules.id WHERE tickets.id = ? AND tickets.schedule_id = ? GROUP BY tickets.id, films.title, films.image, schedules.show_time';
+    const query = `SELECT 
+    tickets.*, 
+    films.title AS film_title, 
+    films.image, 
+    schedules.show_time, 
+    cinema_locations.venue_name AS cinema,
+    JSON_LENGTH(tickets.seats) AS seat_count, 
+    GROUP_CONCAT(reserved_seats.seat_id ORDER BY reserved_seats.seat_id) AS seat_ids
+    FROM tickets 
+    JOIN films ON tickets.film_id = films.id 
+    JOIN reserved_seats ON JSON_CONTAINS(tickets.seats, CAST(reserved_seats.id AS JSON))
+    JOIN schedules ON tickets.schedule_id = schedules.id 
+    JOIN cinema_locations ON schedules.cinema_location_id = cinema_locations.id
+    WHERE tickets.id = ? AND tickets.schedule_id = ? 
+    GROUP BY tickets.id, films.title, films.image, schedules.show_time, cinema_locations.venue_name`;
     db.query(query, [id, schedule_id], callback);
   },
   

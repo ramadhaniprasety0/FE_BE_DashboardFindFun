@@ -139,12 +139,6 @@ const PaymentFilmComponent = () => {
                 <i className="bi bi-clipboard"></i>
               </Button>
             </div>
-            <p className="payment-va-name">
-              {/* Virtual Account a.n {data.virtualAccountName} */}
-            </p>
-
-            {/* <h4 className="upload-prompt-heading mt-5">{data.uploadPrompt}</h4> */}
-
             <input
               type="file"
               ref={fileInputRef}

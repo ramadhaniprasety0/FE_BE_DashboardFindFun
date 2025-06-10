@@ -102,10 +102,9 @@ const ReviewFilmsComponent = () => {
       pemeran_review: actorReview,
       review_lain: otherReview,
       kategori: spoiler ? 1 : 2,
-      // rating: ratinguser * 2, // 1 star = 2 points, so multiply by 2 for scale 10
-      rating: 2, // 1 star = 2 points, so multiply by 2 for scale 10
-      like_ulasan: 0, // You can adjust this based on the like count or actions
-      dislike_ulasan: 0, // Adjust similarly
+      rating: 2, 
+      like_ulasan: 0, 
+      dislike_ulasan: 0, 
     };
 
     console.log(ulasanData);
@@ -116,7 +115,7 @@ const ReviewFilmsComponent = () => {
         ulasanData
       );
       console.log('Ulasan berhasil ditambahkan:', response.data);
-      handleCloseModal(); // Close the modal after submission
+      handleCloseModal();
     } catch (error) {
       console.error('Gagal mengirim ulasan:', error);
     }

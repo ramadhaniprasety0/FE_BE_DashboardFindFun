@@ -142,27 +142,6 @@ const PaymentFilmPage = () => {
   // Handle confirmation button click
   const handleConfirmPayment = async (e) => {
     e.preventDefault();
-
-    // if (!selectedSeats.size) {
-    //   Swal.fire("Oppss!", "Harap pilih kursi terlebih dahulu.", "warning");
-    //   return;
-    // }
-
-    // if (!selectedFile) {
-    //   Swal.fire("Oppss!", "Harap unggah bukti pembayaran.", "warning");
-    //   return;
-    // }
-
-    // const paymentData = {
-    //   user_id: 1,
-    //   nama: nama,
-    //   email: email,
-    //   schedule_id: schedule_id,
-    //   seat_id: Array.from(seats),
-    //   film_id: film_id,
-    //   total_price: price,
-    //   proof_of_payment: selectedFile,
-    // };
     
     const user_id = 1;
 
@@ -248,7 +227,7 @@ const PaymentFilmPage = () => {
               <p className="payment-label mb-1">JUDUL FILM</p>
               <h1 className="payment-music-title">{data.film_title}</h1>
               <p className="payment-label mb-1">BIOSKOP</p>
-              <h1 className="payment-music-title">DPK MALL</h1>
+              <h1 className="payment-music-title">{data.cinema}</h1>
             </div>
           </div>
         </Row>
