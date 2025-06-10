@@ -9,7 +9,7 @@ import {
   Modal,
   Container,
 } from "react-bootstrap";
-import { Link, useParams, useNavigate } from "react-router-dom";
+import { Link, useParams, useNavigate, Navigate } from "react-router-dom";
 import axios from "axios";
 import Swal from 'sweetalert2';
 import 'sweetalert2/dist/sweetalert2.min.css';
@@ -83,14 +83,16 @@ const FormPembayaranFilmComponent = ({ film }) => {
 
   
   if (!film) {
+    
     return (
       <Container
-        className="d-flex justify-content-center align-items-center"
+        className="d-flex flex-column justify-content-center align-items-center"
         style={{ minHeight: "50vh" }}
       >
         <p className="text-center my-5 h5">
-          Informasi film tidak ditemukan atau sedang memuat...
+          Opps!, Film belum tersedia di FindFun Cinema !
         </p>
+        <Link to="/films" className="btn btn-sm btn-add">Kembali</Link>
       </Container>
     );
   }

@@ -10,6 +10,7 @@ import MainLayout from "./MainLayout";
 import HomePage from "./page/HomePage";
 import FilmHomepage from "./page/Films/FilmsPage";
 import DetailFilmPage from "./page/Films/DetailFilmsPage";
+import ReviewFilmsPage from "./page/Films/ReviewFilmsPage";
 import FormTiketFilm from "./page/Films/FormTiketFilmPage";
 import PaymentFilmPage from "./page/Films/PaymentFilmPage";
 
@@ -26,6 +27,7 @@ function App() {
           {/* <Route path="/films/detail/:id" element={<DetailFilmPage />} /> */}
           <Route path="/films/tiket/:id/bioskop" element={<FormTiketFilm />} />
           <Route path="/payment-tiket/:id/schedule/:tiketId" element={<PaymentFilmPage />} />
+          <Route path="/film/review/:id" element={<ReviewFilmsPage />} />
         </Route>
         <Route element={<MainLayout />}>
           <Route element={<PrivateRouteUser />}>

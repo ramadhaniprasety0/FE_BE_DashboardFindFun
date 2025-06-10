@@ -6,6 +6,7 @@ const router = express.Router();
 const albumControllers = require('../controllers/albumControllers');
 const filmControllers = require('../controllers/filmControllers');
 const musicControllers = require('../controllers/musicControllers');
+const ulasanControllers = require('../controllers/ulasanControllers');
 const artistControllers = require('../controllers/artistControllers');
 
 const caroselControllers = require('../controllers/caroselControllers');
@@ -89,6 +90,12 @@ router.put('/music/:id', upload.single('image'), musicControllers.update);
 router.delete('/music/:id', musicControllers.delete);
 router.get('/music/search', musicControllers.search); // ?q=searchTerm
 router.get('/music/genre/:genre', musicControllers.getByGenre);
+
+// ===== ULASAN ROUTES =====
+// router.get('/ulasan', ulasanControllers.getAll);
+router.get('/ulasan/film/:id', ulasanControllers.getById);
+router.post('/ulasan/film/:id', ulasanControllers.create);
+
 
 // ===== ARTIST ROUTES =====
 router.get('/artists', artistControllers.getAll);

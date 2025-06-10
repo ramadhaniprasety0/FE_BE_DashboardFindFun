@@ -243,7 +243,7 @@ CREATE TABLE IF NOT EXISTS `reserved_seats` (
   CONSTRAINT `reserved_seats_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=42 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Dumping data for table findfun_db.reserved_seats: ~39 rows (approximately)
+-- Dumping data for table findfun_db.reserved_seats: ~37 rows (approximately)
 INSERT INTO `reserved_seats` (`id`, `schedule_id`, `seat_id`, `user_id`, `status`, `reserved_at`) VALUES
 	(3, 1, 'A2', 1, 'reserved', '2025-06-08 08:49:00'),
 	(4, 1, 'A1', 1, 'reserved', '2025-06-08 08:49:00'),
@@ -371,6 +371,35 @@ CREATE TABLE IF NOT EXISTS `ticket_seats` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- Dumping data for table findfun_db.ticket_seats: ~0 rows (approximately)
+
+-- Dumping structure for table findfun_db.ulasan
+CREATE TABLE IF NOT EXISTS `ulasan` (
+  `id_ulasan` int NOT NULL AUTO_INCREMENT,
+  `user_id` int NOT NULL,
+  `film_id` int NOT NULL,
+  `title_review` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT '',
+  `alur_review` text,
+  `sinematografi_review` text,
+  `pemeran_review` text,
+  `review_lain` text,
+  `kategori` int DEFAULT NULL,
+  `rating` decimal(2,1) DEFAULT NULL,
+  `like_ulasan` int DEFAULT '0',
+  `dislike_ulasan` int DEFAULT '0',
+  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id_ulasan`),
+  KEY `ulasan_ibfk_1` (`user_id`),
+  KEY `ulasan_ibfk_2` (`film_id`),
+  CONSTRAINT `ulasan_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `ulasan_ibfk_2` FOREIGN KEY (`film_id`) REFERENCES `films` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+-- Dumping data for table findfun_db.ulasan: ~0 rows (approximately)
+INSERT INTO `ulasan` (`id_ulasan`, `user_id`, `film_id`, `title_review`, `alur_review`, `sinematografi_review`, `pemeran_review`, `review_lain`, `kategori`, `rating`, `like_ulasan`, `dislike_ulasan`, `created_at`, `updated_at`) VALUES
+	(2, 1, 20, '“Horror menurun, cerita masih cukup solid.”', 'Alur cerita sangat menarik dan tidak membosankan dari awal hingga akhir.', 'Sinematografi sangat memukau dengan pencahayaan yang dramatis dan framing yang estetik.', 'Para pemeran tampil sangat meyakinkan dan mendalami perannya masing-masing.', 'Soundtrack juga sangat mendukung emosi setiap adegan.', 2, 8.7, 12, 1, '2025-06-09 22:08:44', '2025-06-09 22:37:29'),
+	(3, 1, 20, '"Film seruuu sekali"', 'Alur cerita sangat menarik dan tidak membosankan dari awal hingga akhir.', 'Sinematografi sangat memukau dengan pencahayaan yang dramatis dan framing yang estetik.', 'Para pemeran tampil sangat meyakinkan dan mendalami perannya masing-masing.', 'Soundtrack juga sangat mendukung emosi setiap adegan.', 2, 3.7, 12, 1, '2025-06-09 23:06:38', '2025-06-10 05:36:39'),
+	(4, 1, 20, '', 'dawdw', 'dwdwqdqw', 'dawdawd', 'adwadw', 1, 2.0, 0, 0, '2025-06-10 11:53:39', '2025-06-10 11:53:39');
 
 -- Dumping structure for table findfun_db.users
 CREATE TABLE IF NOT EXISTS `users` (

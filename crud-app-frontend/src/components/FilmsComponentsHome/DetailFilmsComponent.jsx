@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import { Button, Dropdown   } from "react-bootstrap";
 
 const DetailFilmComponent = ({ film, actors }) => {
@@ -28,6 +29,7 @@ const DetailFilmComponent = ({ film, actors }) => {
                 <Dropdown.Item href={film.netflix_link} className="ps-5"><i className="bi bi-tv me-2"></i> Netflix</Dropdown.Item>
                 <Dropdown.Item href={film.appletv_link} className="ps-5"><i className="bi bi-play-btn me-2"></i>Apple TV</Dropdown.Item>
                 <Dropdown.Item href={film.hbogo_link} className="ps-5"> <i className="bi bi-film me-2"></i>HBO GO</Dropdown.Item>
+                <Dropdown.Item href={'/films/tiket/' + film.id + '/bioskop'} target={'_blank'} className="ps-5"><i className="bi bi-ticket-perforated me-2 me-2"></i>Beli Tiket</Dropdown.Item>
               </Dropdown.Menu>
               <a
                 href={film.hbogo_link}
@@ -86,7 +88,9 @@ const DetailFilmComponent = ({ film, actors }) => {
             <div>
               <div className="label mt-2">Lihat ulasan</div>
               <div className="interaction-icon">
-                <i className="bi bi-pencil-square"></i>
+                <Link to={`/film/review/${film.id}`} className="text-decoration-none text-dark">
+                  <i className="bi bi-pencil-square"></i>
+                </Link>
               </div>
             </div>
 
