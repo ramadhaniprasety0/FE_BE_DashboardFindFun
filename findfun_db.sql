@@ -241,7 +241,7 @@ CREATE TABLE IF NOT EXISTS `reserved_seats` (
   KEY `schedule_id` (`schedule_id`) USING BTREE,
   CONSTRAINT `FK_reserved_seats_schedules` FOREIGN KEY (`schedule_id`) REFERENCES `schedules` (`id`),
   CONSTRAINT `reserved_seats_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=42 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=61 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- Dumping data for table findfun_db.reserved_seats: ~37 rows (approximately)
 INSERT INTO `reserved_seats` (`id`, `schedule_id`, `seat_id`, `user_id`, `status`, `reserved_at`) VALUES
@@ -283,7 +283,26 @@ INSERT INTO `reserved_seats` (`id`, `schedule_id`, `seat_id`, `user_id`, `status
 	(38, 1, 'D7', 1, 'reserved', '2025-06-09 05:06:27'),
 	(39, 1, 'D8', 1, 'reserved', '2025-06-09 05:06:27'),
 	(40, 3, 'F6', 1, 'reserved', '2025-06-09 09:31:18'),
-	(41, 3, 'F7', 1, 'reserved', '2025-06-09 09:31:18');
+	(41, 3, 'F7', 1, 'reserved', '2025-06-09 09:31:18'),
+	(42, 3, 'E1', 1, 'reserved', '2025-06-10 12:21:49'),
+	(43, 3, 'E2', 1, 'reserved', '2025-06-10 12:21:49'),
+	(44, 3, 'E3', 1, 'reserved', '2025-06-10 12:21:49'),
+	(45, 3, 'E4', 1, 'reserved', '2025-06-10 12:21:49'),
+	(46, 3, 'E5', 1, 'reserved', '2025-06-10 12:21:49'),
+	(47, 3, 'E6', 1, 'reserved', '2025-06-10 12:21:49'),
+	(48, 3, 'E7', 1, 'reserved', '2025-06-10 12:21:49'),
+	(49, 3, 'E8', 1, 'reserved', '2025-06-10 12:21:49'),
+	(50, 3, 'E9', 1, 'reserved', '2025-06-10 12:21:49'),
+	(51, 3, 'E10', 1, 'reserved', '2025-06-10 12:21:49'),
+	(52, 2, 'C2', 1, 'reserved', '2025-06-10 12:53:18'),
+	(53, 2, 'C3', 1, 'reserved', '2025-06-10 12:53:18'),
+	(54, 2, 'D3', 1, 'reserved', '2025-06-10 12:53:18'),
+	(55, 2, 'E3', 1, 'reserved', '2025-06-10 12:53:18'),
+	(56, 2, 'E2', 1, 'reserved', '2025-06-10 12:53:18'),
+	(57, 2, 'E1', 1, 'reserved', '2025-06-10 12:53:18'),
+	(58, 2, 'D1', 1, 'reserved', '2025-06-10 12:53:18'),
+	(59, 2, 'C1', 1, 'reserved', '2025-06-10 12:53:18'),
+	(60, 2, 'D2', 1, 'reserved', '2025-06-10 13:03:11');
 
 -- Dumping structure for table findfun_db.schedules
 CREATE TABLE IF NOT EXISTS `schedules` (
@@ -330,7 +349,7 @@ CREATE TABLE IF NOT EXISTS `tickets` (
   CONSTRAINT `tickets_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`),
   CONSTRAINT `tickets_ibfk_2` FOREIGN KEY (`film_id`) REFERENCES `films` (`id`),
   CONSTRAINT `tickets_ibfk_3` FOREIGN KEY (`schedule_id`) REFERENCES `schedules` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- Dumping data for table findfun_db.tickets: ~5 rows (approximately)
 INSERT INTO `tickets` (`id`, `user_id`, `nama`, `email`, `film_id`, `schedule_id`, `seats`, `total_price`, `payment_id`, `image`, `created_at`, `updated_at`) VALUES
@@ -338,7 +357,10 @@ INSERT INTO `tickets` (`id`, `user_id`, `nama`, `email`, `film_id`, `schedule_id
 	(2, 1, '', '', 19, 2, '[20, 21]', 70000.00, NULL, NULL, '2025-06-08 10:19:24', '2025-06-09 09:37:50'),
 	(3, 1, 'testt', 'findfund@gmail.com', 19, 3, '[22, 23, 24, 25, 26]', 250000.00, NULL, NULL, '2025-06-08 10:26:05', '2025-06-09 09:37:50'),
 	(4, 1, 'Fajarsurya', 'fajar@gmail.com', 19, 1, '[27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39]', 455000.00, NULL, NULL, '2025-06-09 05:06:27', '2025-06-09 09:37:50'),
-	(5, 1, 'Nadia Ayu Rahmawati', 'Nadia@gmail.com', 19, 3, '"F6,F7"', 100000.00, 'VA-8542703408-32', NULL, '2025-06-09 09:31:18', '2025-06-09 11:37:12');
+	(5, 1, 'Nadia Ayu Rahmawati', 'Nadia@gmail.com', 19, 3, '"F6,F7"', 100000.00, 'VA-8542703408-32', 'upload/wdwd', '2025-06-09 09:31:18', '2025-06-09 11:37:12'),
+	(6, 1, 'Ramadhani Prasetyo', 'ramadhani@gmail.com', 19, 3, '"E1,E10,E2,E3,E4,E5,E6,E7,E8,E9"', 500000.00, 'VA-1245102833-38', 'upload/wdwd', '2025-06-10 12:21:49', '2025-06-10 12:42:16'),
+	(7, 1, 'Ramadhani Prasetyo22', 'ramadhani22@gmail.com', 19, 2, '"C1,C2,C3,D1,D3,E1,E2,E3"', 280000.00, 'VA-8656994171-65', NULL, '2025-06-10 12:53:18', '2025-06-10 12:53:25'),
+	(8, 1, 'Nadia Ayu Rahmawati', 'Nadia@gmail.com', 19, 2, '"D2"', 35000.00, 'VA-4136994792-36', NULL, '2025-06-10 13:03:11', '2025-06-10 13:05:49');
 
 -- Dumping structure for table findfun_db.ticket_prices
 CREATE TABLE IF NOT EXISTS `ticket_prices` (
