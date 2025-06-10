@@ -10,6 +10,8 @@ import PrivateRouteUser from "./components/PrivateRouteUser";
 import MainLayout from "./MainLayout";
 import HomePage from "./page/HomePage";
 import FilmHomepage from "./page/Films/FilmsPage";
+import MusicsPage from "./page/Musics/MusicsPage";
+import DetailMusicsPage from "./page/Musics/DetailMusicsPage";
 import DetailFilmPage from "./page/Films/DetailFilmsPage";
 import FormTiketFilm from "./page/Films/FormTiketFilmPage";
 import PaymentFilmPage from "./page/Films/PaymentFilmPage";
@@ -24,6 +26,8 @@ function App() {
         <Route element={<MainLayout />}>
           <Route path="/*" element={<HomePage />} />
           <Route path="/films" element={<FilmHomepage />} />
+          <Route path="/music" element={<MusicsPage />} />
+          <Route path="/music/:id" element={<DetailMusicsPage />} />
           {/* <Route path="/films/detail/:id" element={<DetailFilmPage />} /> */}
           <Route path="/films/tiket/:id/bioskop" element={<FormTiketFilm />} />
           <Route path="/payment-tiket/:id/schedule/:tiketId" element={<PaymentFilmPage />} />

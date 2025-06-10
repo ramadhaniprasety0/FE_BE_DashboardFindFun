@@ -7,7 +7,7 @@ const albumControllers = require('../controllers/albumControllers');
 const filmControllers = require('../controllers/filmControllers');
 const musicControllers = require('../controllers/musicControllers');
 const artistControllers = require('../controllers/artistControllers');
-
+const popularMusicControllers = require('../controllers/popularMusicController');
 const caroselControllers = require('../controllers/caroselControllers');
 
 // Basic middleware for logging
@@ -89,6 +89,8 @@ router.put('/music/:id', upload.single('image'), musicControllers.update);
 router.delete('/music/:id', musicControllers.delete);
 router.get('/music/search', musicControllers.search); // ?q=searchTerm
 router.get('/music/genre/:genre', musicControllers.getByGenre);
+router.get('/popular-latest', popularMusicControllers.getLatestPopularMusic);
+router.get('/popular/:id', popularMusicControllers.getPopularMusicById);
 
 // ===== ARTIST ROUTES =====
 router.get('/artists', artistControllers.getAll);
