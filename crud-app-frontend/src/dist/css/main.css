@@ -4193,3 +4193,153 @@ text-transform: uppercase;
     margin-left: 70px;
   }
 }
+
+
+/* Untuk scroll horizontal */
+.horizontal-scroll-wrapper {
+  overflow-x: auto;
+  white-space: nowrap;
+  padding-bottom: 15px; /* Ruang untuk scrollbar */
+  /* Pastikan tidak ada width 100% yang memaksa item wrap */
+}
+
+.horizontal-scroll-content {
+  display: inline-flex; /* Item berjajar */
+  gap: 16px; /* Jarak antar kartu, sesuaikan dengan p-2 di JSX atau hapus p-2 */
+}
+
+.music-popular-item-scroll {
+  display: inline-block;
+  width: 280px; 
+  height: auto; /* Biarkan tinggi menyesuaikan konten */
+  vertical-align: top;
+  white-space: normal; /* Normal white-space untuk konten di dalam kartu */
+}
+
+/* Gaya untuk kartu musik populer */
+.music-popular-card {
+  background-color: #4b3f6b;
+  border-radius: 16px;
+  overflow: hidden;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  height: 100%; /* Membuat kartu mengisi tinggi .music-popular-item-scroll jika item-scroll punya height */
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.25);
+  transition: transform 0.3s ease;
+}
+
+.music-popular-card:hover {
+  transform: scale(1.03);
+}
+
+.music-popular-image {
+  width: 281px;
+  height: 266px; 
+  border-top-left-radius: 16px;
+  border-top-right-radius: 16px;
+  object-fit: cover;
+}
+
+.music-popular-info {
+  background-color: #2e388a;
+  padding: 12px 15px; /* Padding yang konsisten */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  flex-grow: 1; /* Agar info mengisi sisa ruang kartu */
+  min-height: 120px; /* Tinggi minimum untuk blok info, sesuaikan */
+}
+
+.music-popular-title {
+  font-size: 1rem; /* 16px */
+  font-weight: bold;
+  margin: 0 0 4px 0; /* Margin bawah */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis; /* Jika judul terlalu panjang */
+}
+
+.music-popular-artist {
+  font-size: 0.875rem; /* 14px */
+  color: #d1cfe3;
+  /* font-weight: bold; Dihilangkan agar tidak terlalu dominan */
+  font-style: italic;
+  margin: 0 0 10px 0; /* Margin bawah */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.music-popular-controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 10px;
+  border-top: 1px solid #1c1a28;
+}
+
+.music-popular-controls .icon-group-left {
+  display: flex;
+  gap: 15px;
+  font-size: 1rem; /* 16px */
+  color: white;
+}
+
+.music-popular-controls .icon-group-left i {
+  cursor: pointer;
+  transition: color 0.3s;
+}
+
+.music-popular-controls .icon-group-left i:hover {
+  color: #ff5b5b;
+}
+
+.music-popular-controls .play-button {
+  width: 28px; /* Sedikit lebih besar */
+  height: 28px;
+  border: 2px solid white;
+  border-radius: 50%;
+  background-color: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.music-popular-controls .play-button i {
+  color: white;
+  font-size: 0.875rem; /* 14px */
+  margin-left: 2px; /* Untuk centering play icon */
+  transition: color 0.3s ease;
+}
+
+.music-popular-controls .play-button:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  border-color: #ff5b5b;
+}
+
+.music-popular-controls .play-button:hover i {
+  color: #ff5b5b;
+}
+
+/* Scrollbar styling (opsional) */
+.horizontal-scroll-wrapper::-webkit-scrollbar {
+  height: 8px;
+}
+.horizontal-scroll-wrapper::-webkit-scrollbar-track {
+  background: rgba(0,0,0,0.05);
+  border-radius: 10px;
+}
+.horizontal-scroll-wrapper::-webkit-scrollbar-thumb {
+  background: #6b7280; /* Warna thumb scrollbar */
+  border-radius: 10px;
+}
+.horizontal-scroll-wrapper::-webkit-scrollbar-thumb:hover {
+  background: #4b5563;
+}
+.horizontal-scroll-wrapper {
+  scrollbar-width: thin;
+  scrollbar-color: #6b7280 rgba(0,0,0,0.05);
+}
