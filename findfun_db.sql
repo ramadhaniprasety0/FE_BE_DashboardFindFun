@@ -33,7 +33,7 @@ CREATE TABLE IF NOT EXISTS `albums` (
   PRIMARY KEY (`id`),
   KEY `FK_albums_artists` (`artist_id`),
   CONSTRAINT `FK_albums_artists` FOREIGN KEY (`artist_id`) REFERENCES `artists` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- Dumping data for table findfun_db.albums: ~4 rows (approximately)
 INSERT INTO `albums` (`id`, `title`, `release_year`, `artist_id`, `deskripsi`, `genre`, `image`, `created_at`, `updated_at`) VALUES
@@ -42,7 +42,8 @@ INSERT INTO `albums` (`id`, `title`, `release_year`, `artist_id`, `deskripsi`, `
 	(4, 'Thriller', 1982, 5, 'Michael Jackson\'s best-selling album', 'Pop', 'uploads/albums/0a1b5f2c22e224d792ff13a7f1140d87', '2025-05-24 17:35:09', '2025-06-03 18:52:04'),
 	(5, 'Abbey Road', 1969, 7, 'The Beatles\' penultimate studio album', 'Rock', 'uploads/albums/0a1b5f2c22e224d792ff13a7f1140d87', '2025-05-24 17:35:09', '2025-06-03 18:54:32'),
 	(21, 'Tulus22', 2015, 5, 'Tulus adalah album studio perdana oleh penyanyi-penulis lagu Indonesia, Tulus. Diproduseri oleh Ari Renaldi, album ini dirilis secara resmi pada 28 September 2011 melalui perusahaan rekaman independen, TulusCompany. Album ini merupakan album perkenalan Tulus serta sebagai penanda debutnya di industri musik Indonesia.', 'Pop ', 'uploads\\albums\\b63252b189beb9f53ef680eff388459b', '2025-06-04 03:05:29', '2025-06-04 13:22:12'),
-	(22, 'Hot Jakarta Hari Ini', 2025, 7, 'ajdhaklwhdkhw', 'Pop Jazz', 'uploads\\albums\\97a1446656d26c1160a7ca78d09d43b7', '2025-06-05 08:46:21', '2025-06-05 08:46:21');
+	(22, 'Hot Jakarta Hari Ini', 2025, 7, 'ajdhaklwhdkhw', 'Pop Jazz', 'uploads\\albums\\97a1446656d26c1160a7ca78d09d43b7', '2025-06-05 08:46:21', '2025-06-05 08:46:21'),
+	(23, 'Ngawi', 2025, 5, 'adada', 'Koplo', 'uploads\\albums\\9e4f88efbba1527a05c847d81d22b899', '2025-06-12 16:17:05', '2025-06-12 16:17:19');
 
 -- Dumping structure for table findfun_db.artists
 CREATE TABLE IF NOT EXISTS `artists` (
@@ -63,12 +64,13 @@ CREATE TABLE IF NOT EXISTS `artists` (
   `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- Dumping data for table findfun_db.artists: ~2 rows (approximately)
 INSERT INTO `artists` (`id`, `name`, `bio`, `birth_date`, `country`, `genre`, `image`, `active_year_start`, `active_year_end`, `instagram`, `twitter`, `youtube`, `website`, `popularity`, `created_at`, `updated_at`) VALUES
 	(5, 'RAMADHANI PRASETYO22', 'ajhdahkdw', '2000-11-20', 'Indonesia', 'Dj', 'uploads/1ac2daf80dd0ef06478af19235a7937b', 2025, NULL, '@ramadhani.prsty_', '@ramadhani.prsty_', '', '', 50, '2025-06-03 16:10:56', '2025-06-03 16:10:56'),
-	(7, 'RAMADHANI PRASETYO22333', 'adwdwadshkdhkad', '2000-11-19', 'Indonesia', 'Dj', 'uploads/artists/0783f4d21cedd9075cff9b5499dae463', 2025, NULL, '@ramadhani.prsty_', '@ramadhani.prsty_', 'adasadw23454', 'adad344', 50, '2025-06-03 16:16:38', '2025-06-03 16:35:34');
+	(7, 'RAMADHANI PRASETYO22333', 'adwdwadshkdhkad', '2000-11-19', 'Indonesia', 'Dj', 'uploads/artists/0783f4d21cedd9075cff9b5499dae463', 2025, NULL, '@ramadhani.prsty_', '@ramadhani.prsty_', 'adasadw23454', 'adad344', 50, '2025-06-03 16:16:38', '2025-06-03 16:35:34'),
+	(8, 'Denny Caknan', 'Sebelum ia terkenal, Denny merupakan seorang pegawai harian lepas di Dinas Lingkungan Hidup (DLH) Pemkab Ngawi. Kemudian ia mengawali kariernya sebagai penyanyi solo dengan membawakan genre musik pop. Sayangnya, beberapa lagu pop miliknya tidak laku, hingga akhirnya ia memutuskan untuk berubah haluan menjadi penyanyi Pop Jawa Sejumlah lagu yang dibawakan oleh Denny Caknan mendapatkan sambutan hangat dari para penggemar musik. Dan terbukti, lagu-lagunya sering menduduki trending di platform video YouTube. Tahun 2023, Denny Caknan sukses membawakan lagu yang bertajuk Kalih Welasku, dan trending di berbagai platform musik seperti YouTube dan TikTok.', '1993-12-09', 'Solo Jogja', 'Pop Jawa', 'uploads/artists/ec03307a0d605b959c5697455d7b9242', 2017, NULL, 'https://instagram.com/dennycaknan', 'https://twitter.com/dennycaknan', '-', '-', 98, '2025-06-12 16:24:24', '2025-06-12 16:26:03');
 
 -- Dumping structure for table findfun_db.carousel_items
 CREATE TABLE IF NOT EXISTS `carousel_items` (
@@ -130,13 +132,14 @@ CREATE TABLE IF NOT EXISTS `films` (
   `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- Dumping data for table findfun_db.films: ~3 rows (approximately)
 INSERT INTO `films` (`id`, `title`, `deskripsi`, `release_year`, `rating`, `genre1`, `genre2`, `genre3`, `duration`, `image`, `image_poster`, `director`, `status_film`, `netflix_link`, `appletv_link`, `hbogo_link`, `bioskop_link`, `like_user`, `dislike`, `created_at`, `updated_at`) VALUES
 	(19, 'Jumbo', 'dadadawdawdaw', 2025, 10, 'Drama', 'Happy', 'adada', 102, 'uploads\\films\\9e38b9206116b2ccfd6ee772e5b3dd92', 'uploads\\films\\abd4740faa6903cf512f17666b17e34c', 'Ryan Adriandhy', 2, '-', '-', '-', '-', 0, 0, '2025-06-06 18:37:14', '2025-06-07 04:32:08'),
 	(20, 'Jumbo22', 'Jumbo adalah film petualangan dengan genre fantasi animasi Indonesia tahun 2025 yang disutradarai oleh Ryan Adriandhy dalam debut penyutradaraannya. Film produksi Visinema Studios bersama Springboard dan Anami Films ini dibintangi oleh Prince Poetiray, Quinn Salman; Bunga Citra Lestari, dan Ariel', 2025, 10, 'Drama', 'Happy', 'adada', 102, 'uploads\\films\\d2c88e8eb868dd190b994c9883862400', 'uploads\\films\\ba6f53cc39f6de256fc9b36d855177c3', 'Ryan Adriandhy', 2, '-', '-', '-', '-', 0, 0, '2025-06-07 03:38:21', '2025-06-07 04:41:31'),
-	(21, 'Jakarta Hot ', 'adadadwww', 2025, 10, 'Drama', '', '', 102, 'uploads\\films\\a953bab0ed5a97b8727051ce1bc4fe95', 'uploads\\films\\c08e42808282f7d68da746bf4ea2b6bc', 'Ryan Adriandhy', 1, '-', '-', '-', '-', 0, 0, '2025-06-07 05:13:43', '2025-06-07 05:13:43');
+	(21, 'Jakarta Hot ', 'adadadwww', 2025, 10, 'Drama', '', '', 102, 'uploads\\films\\a953bab0ed5a97b8727051ce1bc4fe95', 'uploads\\films\\c08e42808282f7d68da746bf4ea2b6bc', 'Ryan Adriandhy', 1, '-', '-', '-', '-', 0, 0, '2025-06-07 05:13:43', '2025-06-07 05:13:43'),
+	(22, 'Agak Laen', 'adada', 2012, 1, 'adada', '', '', 133, 'uploads\\films\\0ec5993fa05b3e007138439f6a425c5d', 'uploads\\films\\5c0d6c034a5ac2fb78d05d9df7041271', 'niko', 1, '', '', '', '', 0, 0, '2025-06-12 16:03:33', '2025-06-12 16:04:33');
 
 -- Dumping structure for table findfun_db.film_artists
 CREATE TABLE IF NOT EXISTS `film_artists` (
@@ -155,7 +158,8 @@ INSERT INTO `film_artists` (`film_id`, `artist_id`, `pemeran`) VALUES
 	(19, 7, 'Naruto'),
 	(20, 5, 'Madara'),
 	(20, 7, 'Naruto'),
-	(21, 5, 'Naruto');
+	(21, 5, 'Naruto'),
+	(22, 5, 'adada');
 
 -- Dumping structure for table findfun_db.music
 CREATE TABLE IF NOT EXISTS `music` (
@@ -177,7 +181,7 @@ CREATE TABLE IF NOT EXISTS `music` (
   `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- Dumping data for table findfun_db.music: ~6 rows (approximately)
 INSERT INTO `music` (`id`, `title`, `lirik`, `release_year`, `rating`, `genre1`, `genre2`, `genre3`, `image`, `like_user`, `dislike`, `spotify_link`, `apple_link`, `youtube_link`, `deezer_link`, `created_at`, `updated_at`) VALUES
@@ -185,7 +189,8 @@ INSERT INTO `music` (`id`, `title`, `lirik`, `release_year`, `rating`, `genre1`,
 	(5, 'Super Shy', 'asdw', 2021, 1, 'POP', '', '', 'uploads/9ae57b6eefa8d71595517cab83e249de', 0, 0, 'http://localhost:5173/dashboard/addmusic', 'http://localhost:5173/dashboard/addmusic', 'http://localhost:3000/api/music/', 'http://localhost:5173/dashboard/addmusic', '2025-06-01 07:58:01', '2025-06-06 14:01:49'),
 	(6, 'Dandelions', 'gfdhghgfh', 2020, 1, 'POP', 'Happy', '', 'uploads/fd2e814980474ca3d118cd91974acf90', 0, 0, 'http://localhost:5173/dashboard/addmusic', 'http://localhost:5173/dashboard/addmusic', 'http://localhost:3000/api/music/', 'http://localhost:5173/dashboard/addmusic', '2025-06-01 08:15:07', '2025-06-06 14:02:33'),
 	(7, 'Dive Into You', 'awad', 2012, 1, 'POP', '', '', 'uploads/c974003d9cb2f01f4cf4aaa3a210bb27', 0, 0, 'http://localhost:5173/dashboard/addmusic', 'http://localhost:5173/dashboard/addmusic', 'http://localhost:3000/api/music/', 'http://localhost:5173/dashboard/addmusic', '2025-06-01 08:28:41', '2025-06-04 11:13:27'),
-	(8, 'TULUS - Tujuh Belas', '(Muda jiwa, selamanya muda)\r\n(Kisah kita abadi selamanya)\r\n(Muda jiwa, selamanya muda)\r\n(Kisah kita abadi selamanya)\r\nMasihkah kau mengingat di saat kita masih 17?\r\nWaktu di mana tanggal-tanggal merah terasa sungguh meriah\r\nMasihkah kauingat cobaan terberat kita, Matematika?\r\nMasihkah engkau ingat lagu di radio yang merdu mengudara?\r\nKita masih sebebas itu\r\nRasa takut yang tak pernah mengganggu\r\nBatas naluri bahaya\r\nDulu tingginya lebihi logika\r\nPutaran Bumi dan waktu yang terus berjalan menempa kita\r\nWalau kini kita terpisah, namun, jiwaku tetap di sana (hey)\r\n(Di masa masih sebebas itu) oh, di masa\r\nRasa takut yang tak pernah mengganggu\r\nDi masa naluri bahaya\r\nDulu tingginya lebihi logika\r\nMuda jiwa, selamanya muda\r\nKisah kita abadi selamanya\r\n(Kita masih sebebas itu) kita masih sebebas itu\r\n(Rasa takut yang tak pernah mengganggu)\r\nRasa takut yang tak pernah mengganggu\r\n(Batas naluri bahaya, oh-oh)\r\n(Dulu tingginya lebihi logika)\r\nSederas apa pun arus di hidupmu\r\nGenggam terus kenangan tentang kita\r\nSeberapa pun dewasa mengujimu\r\nTakkan lebih dari yang engkau bisa\r\nDan kisah kita abadi untuk s\'lama-lamanya', 2022, 1, 'POP', 'Jazz', '', 'uploads/2165bef95407b5614bb922d2c6b7f9bf', 0, 0, 'http://localhost:5173/dashboard/addmusic', 'http://localhost:5173/dashboard/addmusic', 'http://localhost:3000/api/music/', 'http://localhost:5173/dashboard/addmusic', '2025-06-04 02:34:56', '2025-06-04 02:34:56');
+	(8, 'TULUS - Tujuh Belas', '(Muda jiwa, selamanya muda)\r\n(Kisah kita abadi selamanya)\r\n(Muda jiwa, selamanya muda)\r\n(Kisah kita abadi selamanya)\r\nMasihkah kau mengingat di saat kita masih 17?\r\nWaktu di mana tanggal-tanggal merah terasa sungguh meriah\r\nMasihkah kauingat cobaan terberat kita, Matematika?\r\nMasihkah engkau ingat lagu di radio yang merdu mengudara?\r\nKita masih sebebas itu\r\nRasa takut yang tak pernah mengganggu\r\nBatas naluri bahaya\r\nDulu tingginya lebihi logika\r\nPutaran Bumi dan waktu yang terus berjalan menempa kita\r\nWalau kini kita terpisah, namun, jiwaku tetap di sana (hey)\r\n(Di masa masih sebebas itu) oh, di masa\r\nRasa takut yang tak pernah mengganggu\r\nDi masa naluri bahaya\r\nDulu tingginya lebihi logika\r\nMuda jiwa, selamanya muda\r\nKisah kita abadi selamanya\r\n(Kita masih sebebas itu) kita masih sebebas itu\r\n(Rasa takut yang tak pernah mengganggu)\r\nRasa takut yang tak pernah mengganggu\r\n(Batas naluri bahaya, oh-oh)\r\n(Dulu tingginya lebihi logika)\r\nSederas apa pun arus di hidupmu\r\nGenggam terus kenangan tentang kita\r\nSeberapa pun dewasa mengujimu\r\nTakkan lebih dari yang engkau bisa\r\nDan kisah kita abadi untuk s\'lama-lamanya', 2022, 1, 'POP', 'Jazz', '', 'uploads/2165bef95407b5614bb922d2c6b7f9bf', 0, 0, 'http://localhost:5173/dashboard/addmusic', 'http://localhost:5173/dashboard/addmusic', 'http://localhost:3000/api/music/', 'http://localhost:5173/dashboard/addmusic', '2025-06-04 02:34:56', '2025-06-04 02:34:56'),
+	(9, 'Cupid', 'adawd', 2022, 1, 'adada', '', '', 'uploads/96974b6b2d7676459f15772e7a2ae6db', 0, 0, '-', '-', '-', '-', '2025-06-12 16:06:24', '2025-06-12 16:07:33');
 
 -- Dumping structure for table findfun_db.music_albums
 CREATE TABLE IF NOT EXISTS `music_albums` (
@@ -206,6 +211,7 @@ INSERT INTO `music_albums` (`music_id`, `album_id`) VALUES
 	(5, 3),
 	(7, 3),
 	(8, 3),
+	(9, 3),
 	(6, 5);
 
 -- Dumping structure for table findfun_db.music_artists
@@ -223,6 +229,7 @@ INSERT INTO `music_artists` (`music_id`, `artist_id`) VALUES
 	(5, 5),
 	(6, 5),
 	(7, 5),
+	(9, 5),
 	(3, 7),
 	(5, 7),
 	(6, 7),
@@ -241,7 +248,7 @@ CREATE TABLE IF NOT EXISTS `reserved_seats` (
   KEY `schedule_id` (`schedule_id`) USING BTREE,
   CONSTRAINT `FK_reserved_seats_schedules` FOREIGN KEY (`schedule_id`) REFERENCES `schedules` (`id`),
   CONSTRAINT `reserved_seats_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=64 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=69 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- Dumping data for table findfun_db.reserved_seats: ~52 rows (approximately)
 INSERT INTO `reserved_seats` (`id`, `schedule_id`, `seat_id`, `user_id`, `status`, `reserved_at`) VALUES
@@ -305,7 +312,12 @@ INSERT INTO `reserved_seats` (`id`, `schedule_id`, `seat_id`, `user_id`, `status
 	(60, 2, 'D2', 1, 'reserved', '2025-06-10 13:03:11'),
 	(61, 3, 'H7', 1, 'reserved', '2025-06-10 17:19:45'),
 	(62, 3, 'H8', 1, 'reserved', '2025-06-10 17:19:45'),
-	(63, 3, 'H9', 1, 'reserved', '2025-06-10 17:19:45');
+	(63, 3, 'H9', 1, 'reserved', '2025-06-10 17:19:45'),
+	(64, 2, 'F7', 1, 'reserved', '2025-06-12 12:44:51'),
+	(65, 2, 'G7', 1, 'reserved', '2025-06-12 12:44:51'),
+	(66, 2, 'G8', 1, 'reserved', '2025-06-12 12:44:51'),
+	(67, 2, 'E11', 3, 'reserved', '2025-06-12 13:35:40'),
+	(68, 2, 'E12', 3, 'reserved', '2025-06-12 13:35:40');
 
 -- Dumping structure for table findfun_db.schedules
 CREATE TABLE IF NOT EXISTS `schedules` (
@@ -352,7 +364,7 @@ CREATE TABLE IF NOT EXISTS `tickets` (
   CONSTRAINT `tickets_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`),
   CONSTRAINT `tickets_ibfk_2` FOREIGN KEY (`film_id`) REFERENCES `films` (`id`),
   CONSTRAINT `tickets_ibfk_3` FOREIGN KEY (`schedule_id`) REFERENCES `schedules` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- Dumping data for table findfun_db.tickets: ~7 rows (approximately)
 INSERT INTO `tickets` (`id`, `user_id`, `nama`, `email`, `film_id`, `schedule_id`, `seats`, `total_price`, `payment_id`, `image`, `created_at`, `updated_at`) VALUES
@@ -364,7 +376,9 @@ INSERT INTO `tickets` (`id`, `user_id`, `nama`, `email`, `film_id`, `schedule_id
 	(6, 1, 'Ramadhani Prasetyo', 'ramadhani@gmail.com', 19, 3, '"E1,E10,E2,E3,E4,E5,E6,E7,E8,E9"', 500000.00, 'VA-1245102833-38', 'upload/wdwd', '2025-06-10 12:21:49', '2025-06-10 12:42:16'),
 	(7, 1, 'Ramadhani Prasetyo22', 'ramadhani22@gmail.com', 19, 2, '"C1,C2,C3,D1,D3,E1,E2,E3"', 280000.00, 'VA-8656994171-65', NULL, '2025-06-10 12:53:18', '2025-06-10 12:53:25'),
 	(8, 1, 'Nadia Ayu Rahmawati', 'Nadia@gmail.com', 19, 2, '"D2"', 35000.00, 'VA-4136994792-36', NULL, '2025-06-10 13:03:11', '2025-06-10 13:05:49'),
-	(9, 1, 'Nadia Ayu Rahmawati', 'Nadia@gmail.com', 19, 3, '[61, 62, 63]', 150000.00, NULL, NULL, '2025-06-10 17:19:45', '2025-06-10 17:19:45');
+	(9, 1, 'Nadia Ayu Rahmawati', 'Nadia@gmail.com', 19, 3, '[61, 62, 63]', 150000.00, NULL, NULL, '2025-06-10 17:19:45', '2025-06-10 17:19:45'),
+	(10, 1, 'Nadia Ayu Rahmawati22', 'Nadia@gmail.com', 19, 2, '[64, 65, 66]', 105000.00, NULL, NULL, '2025-06-12 12:44:51', '2025-06-12 12:44:51'),
+	(11, 1, 'Ramadhani Prasetyo22', 'ramadhani22@gmail.com', 19, 2, '"E11,E12"', 70000.00, 'VA-4130124688-55', NULL, '2025-06-12 13:35:40', '2025-06-12 13:45:43');
 
 -- Dumping structure for table findfun_db.ticket_prices
 CREATE TABLE IF NOT EXISTS `ticket_prices` (
@@ -421,7 +435,7 @@ CREATE TABLE IF NOT EXISTS `ulasan` (
   CONSTRAINT `ulasan_ibfk_2` FOREIGN KEY (`film_id`) REFERENCES `films` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Dumping data for table findfun_db.ulasan: ~4 rows (approximately)
+-- Dumping data for table findfun_db.ulasan: ~3 rows (approximately)
 INSERT INTO `ulasan` (`id_ulasan`, `user_id`, `film_id`, `title_review`, `alur_review`, `sinematografi_review`, `pemeran_review`, `review_lain`, `kategori`, `rating`, `like_ulasan`, `dislike_ulasan`, `created_at`, `updated_at`) VALUES
 	(2, 1, 20, '“Horror menurun, cerita masih cukup solid.”', 'Alur cerita sangat menarik dan tidak membosankan dari awal hingga akhir.', 'Sinematografi sangat memukau dengan pencahayaan yang dramatis dan framing yang estetik.', 'Para pemeran tampil sangat meyakinkan dan mendalami perannya masing-masing.', 'Soundtrack juga sangat mendukung emosi setiap adegan.', 2, 8.7, 12, 1, '2025-06-09 22:08:44', '2025-06-09 22:37:29'),
 	(3, 1, 20, '"Film seruuu sekali"', 'Alur cerita sangat menarik dan tidak membosankan dari awal hingga akhir.', 'Sinematografi sangat memukau dengan pencahayaan yang dramatis dan framing yang estetik.', 'Para pemeran tampil sangat meyakinkan dan mendalami perannya masing-masing.', 'Soundtrack juga sangat mendukung emosi setiap adegan.', 2, 3.7, 12, 1, '2025-06-09 23:06:38', '2025-06-10 05:36:39'),
@@ -434,20 +448,21 @@ CREATE TABLE IF NOT EXISTS `users` (
   `email` varchar(255) NOT NULL,
   `username` varchar(100) NOT NULL,
   `password` varchar(255) DEFAULT NULL,
-  `google_id` varchar(255) DEFAULT NULL,
   `role` enum('user','admin') DEFAULT 'user',
+  `image` varchar(255) DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   UNIQUE KEY `email` (`email`),
   KEY `idx_email` (`email`),
-  KEY `idx_google_id` (`google_id`),
   KEY `idx_role` (`role`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Dumping data for table findfun_db.users: ~1 rows (approximately)
-INSERT INTO `users` (`id`, `email`, `username`, `password`, `google_id`, `role`, `created_at`, `updated_at`) VALUES
-	(1, 'admin@finfun.com', 'Admin', '$2b$10$ceMfg9NFDbtb1JBkQDJwh.tU2mSwMV9eHEp48ZDTgKLNXrBI95SMm', NULL, 'admin', '2025-06-12 06:01:35', '2025-06-12 06:01:35');
+-- Dumping data for table findfun_db.users: ~0 rows (approximately)
+INSERT INTO `users` (`id`, `email`, `username`, `password`, `role`, `image`, `created_at`, `updated_at`) VALUES
+	(1, 'admin@finfun.com', 'Admin', '$2b$10$VG7JvZZ8orYsRBLHhqY0YOaT.4wxK07Sq3kNXKJWHtqJ9.t8psOMK', 'user', NULL, '2025-06-12 06:01:35', '2025-06-12 07:01:49'),
+	(2, 'userAdmin@admin.com', 'AdminDhani', '$2b$10$K2Sex44Flk7FL2oeeFW.HueGO/sFAhUX1nLBHl8hgCkwYGI43qpiG', 'admin', 'uploads/artists/0783f4d21cedd9075cff9b5499dae463', '2025-06-12 06:55:28', '2025-06-12 11:00:24'),
+	(3, 'dhani@admin.com', 'dhani', '$2b$10$cch3.x/AC3iV4g5bkrSRzOZjYvMEPUcEPUplQvHhSG5eYffgUpMOG', 'user', NULL, '2025-06-12 10:00:15', '2025-06-12 10:00:15');
 
 /*!40103 SET TIME_ZONE=IFNULL(@OLD_TIME_ZONE, 'system') */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;

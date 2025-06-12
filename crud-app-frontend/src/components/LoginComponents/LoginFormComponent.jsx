@@ -30,6 +30,7 @@ const LoginForm = () => {
         localStorage.setItem("userRole", response.data.user.role);
         localStorage.setItem("username", response.data.user.username);
         localStorage.setItem("image", response.data.user.image);
+        localStorage.setItem("userId", response.data.user.id);
       }
 
       Swal.fire({

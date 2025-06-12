@@ -1,6 +1,7 @@
-const express = require('express');
-const bodyParser = require('body-parser');
-const routes = require('./routes/index');
+const express = require("express");
+const bodyParser = require("body-parser");
+const routes = require("./routes/index");
+const cors = require("cors");
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -10,12 +11,11 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 // Simple CORS middleware
-app.use((req, res, next) => {
-  res.header('Access-Control-Allow-Origin', '*');
-  res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
-  res.header('Access-Control-Allow-Headers', 'Content-Type');
-  next();
-});
+app.use(cors({
+  origin: "*", // Ganti dengan domain frontend Anda jika perlu
+  methods: "GET, POST, PUT, DELETE, OPTIONS", // Methods yang diizinkan
+  allowedHeaders: "Content-Type, Authorization" // Header yang diizinkan
+}));
 
 // Request logging
 app.use((req, res, next) => {
@@ -23,35 +23,35 @@ app.use((req, res, next) => {
   next();
 });
 
-const path = require('path');
-app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+const path = require("path");
+app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
 // Routes
-app.use('/api', routes);
+app.use("/api", routes);
 
 // Root endpoint
-app.get('/', (req, res) => {
+app.get("/", (req, res) => {
   res.json({
-    message: 'Welcome to FindFun API',
-    version: '1.0.0',
-    api_base: '/api'
+    message: "Welcome to FindFun API",
+    version: "1.0.0",
+    api_base: "/api",
   });
 });
 
 // 404 handler
 app.use((req, res) => {
   res.status(404).json({
-    error: 'Not Found',
-    message: 'Endpoint not found'
+    error: "Not Found",
+    message: "Endpoint not found",
   });
 });
 
 // Error handler
 app.use((err, req, res, next) => {
-  console.error('Error:', err);
+  console.error("Error:", err);
   res.status(500).json({
-    error: 'Internal Server Error',
-    message: 'Something went wrong'
+    error: "Internal Server Error",
+    message: "Something went wrong",
   });
 });
 
