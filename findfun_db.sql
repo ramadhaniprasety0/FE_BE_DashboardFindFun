@@ -241,9 +241,9 @@ CREATE TABLE IF NOT EXISTS `reserved_seats` (
   KEY `schedule_id` (`schedule_id`) USING BTREE,
   CONSTRAINT `FK_reserved_seats_schedules` FOREIGN KEY (`schedule_id`) REFERENCES `schedules` (`id`),
   CONSTRAINT `reserved_seats_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=61 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=64 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Dumping data for table findfun_db.reserved_seats: ~37 rows (approximately)
+-- Dumping data for table findfun_db.reserved_seats: ~52 rows (approximately)
 INSERT INTO `reserved_seats` (`id`, `schedule_id`, `seat_id`, `user_id`, `status`, `reserved_at`) VALUES
 	(3, 1, 'A2', 1, 'reserved', '2025-06-08 08:49:00'),
 	(4, 1, 'A1', 1, 'reserved', '2025-06-08 08:49:00'),
@@ -302,7 +302,10 @@ INSERT INTO `reserved_seats` (`id`, `schedule_id`, `seat_id`, `user_id`, `status
 	(57, 2, 'E1', 1, 'reserved', '2025-06-10 12:53:18'),
 	(58, 2, 'D1', 1, 'reserved', '2025-06-10 12:53:18'),
 	(59, 2, 'C1', 1, 'reserved', '2025-06-10 12:53:18'),
-	(60, 2, 'D2', 1, 'reserved', '2025-06-10 13:03:11');
+	(60, 2, 'D2', 1, 'reserved', '2025-06-10 13:03:11'),
+	(61, 3, 'H7', 1, 'reserved', '2025-06-10 17:19:45'),
+	(62, 3, 'H8', 1, 'reserved', '2025-06-10 17:19:45'),
+	(63, 3, 'H9', 1, 'reserved', '2025-06-10 17:19:45');
 
 -- Dumping structure for table findfun_db.schedules
 CREATE TABLE IF NOT EXISTS `schedules` (
@@ -349,9 +352,9 @@ CREATE TABLE IF NOT EXISTS `tickets` (
   CONSTRAINT `tickets_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`),
   CONSTRAINT `tickets_ibfk_2` FOREIGN KEY (`film_id`) REFERENCES `films` (`id`),
   CONSTRAINT `tickets_ibfk_3` FOREIGN KEY (`schedule_id`) REFERENCES `schedules` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Dumping data for table findfun_db.tickets: ~5 rows (approximately)
+-- Dumping data for table findfun_db.tickets: ~7 rows (approximately)
 INSERT INTO `tickets` (`id`, `user_id`, `nama`, `email`, `film_id`, `schedule_id`, `seats`, `total_price`, `payment_id`, `image`, `created_at`, `updated_at`) VALUES
 	(1, 1, 'Dhani', 'dhani@gmail.com', 19, 3, '[18, 19]', 120000.00, NULL, NULL, '2025-06-08 09:01:45', '2025-06-09 09:37:50'),
 	(2, 1, '', '', 19, 2, '[20, 21]', 70000.00, NULL, NULL, '2025-06-08 10:19:24', '2025-06-09 09:37:50'),
@@ -360,7 +363,8 @@ INSERT INTO `tickets` (`id`, `user_id`, `nama`, `email`, `film_id`, `schedule_id
 	(5, 1, 'Nadia Ayu Rahmawati', 'Nadia@gmail.com', 19, 3, '"F6,F7"', 100000.00, 'VA-8542703408-32', 'upload/wdwd', '2025-06-09 09:31:18', '2025-06-09 11:37:12'),
 	(6, 1, 'Ramadhani Prasetyo', 'ramadhani@gmail.com', 19, 3, '"E1,E10,E2,E3,E4,E5,E6,E7,E8,E9"', 500000.00, 'VA-1245102833-38', 'upload/wdwd', '2025-06-10 12:21:49', '2025-06-10 12:42:16'),
 	(7, 1, 'Ramadhani Prasetyo22', 'ramadhani22@gmail.com', 19, 2, '"C1,C2,C3,D1,D3,E1,E2,E3"', 280000.00, 'VA-8656994171-65', NULL, '2025-06-10 12:53:18', '2025-06-10 12:53:25'),
-	(8, 1, 'Nadia Ayu Rahmawati', 'Nadia@gmail.com', 19, 2, '"D2"', 35000.00, 'VA-4136994792-36', NULL, '2025-06-10 13:03:11', '2025-06-10 13:05:49');
+	(8, 1, 'Nadia Ayu Rahmawati', 'Nadia@gmail.com', 19, 2, '"D2"', 35000.00, 'VA-4136994792-36', NULL, '2025-06-10 13:03:11', '2025-06-10 13:05:49'),
+	(9, 1, 'Nadia Ayu Rahmawati', 'Nadia@gmail.com', 19, 3, '[61, 62, 63]', 150000.00, NULL, NULL, '2025-06-10 17:19:45', '2025-06-10 17:19:45');
 
 -- Dumping structure for table findfun_db.ticket_prices
 CREATE TABLE IF NOT EXISTS `ticket_prices` (
@@ -415,29 +419,35 @@ CREATE TABLE IF NOT EXISTS `ulasan` (
   KEY `ulasan_ibfk_2` (`film_id`),
   CONSTRAINT `ulasan_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE,
   CONSTRAINT `ulasan_ibfk_2` FOREIGN KEY (`film_id`) REFERENCES `films` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Dumping data for table findfun_db.ulasan: ~0 rows (approximately)
+-- Dumping data for table findfun_db.ulasan: ~4 rows (approximately)
 INSERT INTO `ulasan` (`id_ulasan`, `user_id`, `film_id`, `title_review`, `alur_review`, `sinematografi_review`, `pemeran_review`, `review_lain`, `kategori`, `rating`, `like_ulasan`, `dislike_ulasan`, `created_at`, `updated_at`) VALUES
 	(2, 1, 20, '“Horror menurun, cerita masih cukup solid.”', 'Alur cerita sangat menarik dan tidak membosankan dari awal hingga akhir.', 'Sinematografi sangat memukau dengan pencahayaan yang dramatis dan framing yang estetik.', 'Para pemeran tampil sangat meyakinkan dan mendalami perannya masing-masing.', 'Soundtrack juga sangat mendukung emosi setiap adegan.', 2, 8.7, 12, 1, '2025-06-09 22:08:44', '2025-06-09 22:37:29'),
 	(3, 1, 20, '"Film seruuu sekali"', 'Alur cerita sangat menarik dan tidak membosankan dari awal hingga akhir.', 'Sinematografi sangat memukau dengan pencahayaan yang dramatis dan framing yang estetik.', 'Para pemeran tampil sangat meyakinkan dan mendalami perannya masing-masing.', 'Soundtrack juga sangat mendukung emosi setiap adegan.', 2, 3.7, 12, 1, '2025-06-09 23:06:38', '2025-06-10 05:36:39'),
-	(4, 1, 20, '', 'dawdw', 'dwdwqdqw', 'dawdawd', 'adwadw', 1, 2.0, 0, 0, '2025-06-10 11:53:39', '2025-06-10 11:53:39');
+	(4, 1, 20, '', 'dawdw', 'dwdwqdqw', 'dawdawd', 'adwadw', 1, 2.0, 0, 0, '2025-06-10 11:53:39', '2025-06-10 11:53:39'),
+	(5, 1, 19, '', 'ajdkjjahjwkdhk', 'adkdhakwhdk', 'ahkjdhakdhk', 'ajgdjagdajgdjw', 2, 2.0, 0, 0, '2025-06-11 09:49:11', '2025-06-11 09:49:11');
 
 -- Dumping structure for table findfun_db.users
 CREATE TABLE IF NOT EXISTS `users` (
   `id` int NOT NULL AUTO_INCREMENT,
   `email` varchar(255) NOT NULL,
-  `username` varchar(255) DEFAULT NULL,
-  `password` varchar(255) NOT NULL,
+  `username` varchar(100) NOT NULL,
+  `password` varchar(255) DEFAULT NULL,
+  `google_id` varchar(255) DEFAULT NULL,
+  `role` enum('user','admin') DEFAULT 'user',
   `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `email` (`email`)
+  UNIQUE KEY `email` (`email`),
+  KEY `idx_email` (`email`),
+  KEY `idx_google_id` (`google_id`),
+  KEY `idx_role` (`role`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Dumping data for table findfun_db.users: ~0 rows (approximately)
-INSERT INTO `users` (`id`, `email`, `username`, `password`, `created_at`, `updated_at`) VALUES
-	(1, 'userAdmin@admin.com', 'Admin', '$2b$10$VG7JvZZ8orYsRBLHhqY0YOaT.4wxK07Sq3kNXKJWHtqJ9.t8psOMK', '2025-06-02 04:51:32', '2025-06-02 04:51:32');
+-- Dumping data for table findfun_db.users: ~1 rows (approximately)
+INSERT INTO `users` (`id`, `email`, `username`, `password`, `google_id`, `role`, `created_at`, `updated_at`) VALUES
+	(1, 'admin@finfun.com', 'Admin', '$2b$10$ceMfg9NFDbtb1JBkQDJwh.tU2mSwMV9eHEp48ZDTgKLNXrBI95SMm', NULL, 'admin', '2025-06-12 06:01:35', '2025-06-12 06:01:35');
 
 /*!40103 SET TIME_ZONE=IFNULL(@OLD_TIME_ZONE, 'system') */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;

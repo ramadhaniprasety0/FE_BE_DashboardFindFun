@@ -68,7 +68,7 @@ const AlbumApp = () => {
                 </div>
             ) : (
                 <div className="table-responsive">
-                    <table className="table table-hover album-table">
+                    <table className="table table-hover table-bordered album-table">
                         <thead className="table-light">
                             <tr>
                                 <th>No</th>
@@ -112,7 +112,7 @@ const AlbumApp = () => {
                                         <td>{album.genre}</td>
                                         <td>{album.release_year}</td>
                                         <td>
-                                            <div className="d-flex gap-2 align-items-center">
+                                            <div className="d-flex flex-wrap gap-2 align-items-center">
                                                 <Link to={`/dashboard/editalbums/${album.id}`} title="Edit Album"><i className="bi bi-pencil text-primary"></i></Link>
                                                 <Link onClick={() => handleDelete(album.id, album.title)} title="Hapus Album"><i className="bi bi-trash text-danger"></i></Link>
                                             </div>

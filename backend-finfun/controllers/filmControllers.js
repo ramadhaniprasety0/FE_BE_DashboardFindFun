@@ -58,8 +58,23 @@ const filmControllers = {
       res.json({
         success: true,
         data: results[0]
+        
       });
     });
+  },
+
+  getAllTikets:(req, res) => {
+    Film.getAllTikets((err, results) => {
+      if (err) {
+        console.error('Error fetching tiket:', err);
+        return res.status(500).json({ error: 'Failed to fetch tiket' });
+      }
+      res.json({
+        success: true,
+        data: results,
+        count: results.length
+      });
+    })
   },
 
   getAllSeat: (req, res) => {
