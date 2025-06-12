@@ -6,6 +6,7 @@ import 'sweetalert2/dist/sweetalert2.min.css';
 
 const FormAddCarousel = () => {
     const navigate = useNavigate();
+    const token = localStorage.getItem("token");
 
     const [carausel_name, setCarauselName] = useState("");  // Nama Carousel
     const [titleImage, setTitleImage] = useState(null);     // Gambar Title Carousel
@@ -89,7 +90,8 @@ const FormAddCarousel = () => {
 
             const response = await axios.post("http://localhost:3000/api/carousel", formData, {
                 headers: {
-                    "Content-Type": "multipart/form-data"
+                    "Content-Type": "multipart/form-data",
+                    Authorization: `Bearer ${token}`
                 }
             });
 

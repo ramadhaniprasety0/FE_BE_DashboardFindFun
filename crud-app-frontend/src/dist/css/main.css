@@ -4288,31 +4288,47 @@ text-transform: uppercase;
 }
 
 
+/* REVIEWER */
 
-
-
-
-
-/* Responsive adjustments */
-@media (max-width: 992px) {
-  .sidebar {
-    width: 70px !important;
-  }
-  
-  .sidebar .sidebar-title,
-  .sidebar .nav-text {
-    display: none;
-  }
-  
-  .main-content {
-    margin-left: 70px;
-  }
+.reviewfilms {
+  width: 100%; 
+  display: flex;
+  justify-content: center;
+  flex-direction: column; 
+  align-items: center; 
 }
 
+.poster-section-review {
+  position: relative;
+  display: inline-block;
+  margin-bottom: 20px;
+  margin-top: 20px;
+}
 
-/* Popular Music */
+.film-poster {
+  width: 100%;
+  height: auto;
+  max-height: 400px;
+  object-fit: cover; 
+  border-radius: 10px; 
+}
 
-
+.title-review {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100%; 
+  color: white; 
+  background: linear-gradient(
+    to right,
+    rgba(0, 0, 0, 1) 10%,
+    rgba(0, 0, 0, 0) 47%
+  );
+  padding: 10px;
+  border-radius: 10px;
+  box-sizing: border-box; 
+}
 
 /* reviewfilms  */
 .reviewfilms {
@@ -4360,6 +4376,21 @@ text-transform: uppercase;
   margin-top: -15px;
 }
 
+.title-review p {
+  font-size: 1.5rem; /* Ukuran font untuk judul */
+  font-weight: bold;
+  color: #9176b7;
+  font-style: italic;
+}
+
+.title-review h2 {
+  font-size: 2rem; /* Ukuran font untuk teks */
+  font-weight: normal;
+  margin: 0; /* Menghapus margin default h2 */
+  color: #fff;
+  margin-top: -15px;
+}
+
 /* Tombol dropdown */
 .btn-review {
   background-color: #5562fc; /* Warna latar belakang tombol */
@@ -4380,6 +4411,10 @@ text-transform: uppercase;
   background-color: rgb(66, 77, 199); /* Warna latar belakang saat hover */
 }
 
+.dropdown-menu-review-film {
+  display: none; 
+
+/* Menu dropdown */
 .dropdown-menu-review-film {
   display: none; 
   position: absolute;
@@ -4499,12 +4534,46 @@ text-transform: uppercase;
   margin-top: -40px;
   margin-left: 10px;
 }
+
+/* Menghapus garis bawah pada item terakhir */
+.dropdown-menu-review-film li:last-child {
+  border-bottom: none;
+}
+
+/* Styling untuk Icon Bocoran */
+.icon-bocoran {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 5px;
+  border-radius: 20px; /* Sudut membulat */
+  background-color: #a9b0fe; /* Warna latar belakang saat belum dipilih */
+  cursor: pointer;
+  transition: background-color 0.3s ease; /* Animasi untuk perubahan latar belakang */
+  width: 150px;
+  height: 35px;
+}
+
+.icon-bocoran:hover {
+  background-color: #d8d6fc; /* Warna latar belakang saat di-hover */
+}
+
+.icon-bocoran i {
+  transition: color 0.3s ease; /* Animasi perubahan warna icon */
+}
+
+/* Styling teks */
+.icon-bocoran span {
+  font-size: 16px;
+  font-weight: bold;
+  margin-left: 8px;
+  transition: color 0.3s ease;
+}
 .like-dislike p {
   margin-top: 15px;
   margin-left: 10px;
   font-size: 13px;
   color: #332a2a;
-
 }
 
 /* === CSS BARU UNTUK SEKSI MUSIK HITS === */
@@ -4673,5 +4742,83 @@ text-transform: uppercase;
 }
 .stars-interactive span:hover,
 .stars-interactive span.star-filled {
-    color: #ffc107; /* Warna kuning saat terisi atau di-hover */
+    color: #ffc107; 
+.h3-review-film {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+.btn-plus-ulasan {
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  font-size: 1.9rem;
+  font-weight: bold;
+  color: black;
+  margin-top: -7px;
+}
+.buttons {
+  gap: 10px;
+  margin-left: 465px;
+}
+
+.reviewer-film {
+  background-color: #8e97fd;
+  width: 100%;
+  border-radius: 15px;
+}
+
+.stars {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  margin-top: 10px;
+  font-size: 18px;
+}
+
+.reviewer-film h1 {
+  font-size: 35px;
+  font-weight: bold;
+}
+.reviewer-film h5 {
+  font-size: 20px;
+  font-weight: bold;
+}
+.reviewer-film-isi {
+  margin-top: -20px;
+}
+
+.reviewer-film-users {
+  font-size: 15px;
+  gap: 30px;
+  color: #3d3956;
+  margin-top: -30px;
+}
+
+.like-dislike {
+  margin-top: -40px;
+  margin-left: 10px;
+}
+.like-dislike p {
+  margin-top: 15px;
+  margin-left: 10px;
+  font-size: 13px;
+  color: #332a2a;
+
+}
+
+
+/* Responsive adjustments */
+@media (max-width: 992px) {
+  .sidebar {
+    width: 70px !important;
+  }
+  
+  .sidebar .sidebar-title,
+  .sidebar .nav-text {
+    display: none;
+  }
+  
+  .main-content {
+    margin-left: 70px;
+  }
 }

@@ -6,6 +6,7 @@ import 'sweetalert2/dist/sweetalert2.min.css';
 
 const FormAddMusic = () => {
     const navigate = useNavigate();
+    const token = localStorage.getItem("token");
 
     // Menangkap data dari Form
     const [title, setTitle] = useState("");
@@ -139,6 +140,7 @@ const FormAddMusic = () => {
           await axios.post("http://localhost:3000/api/music", formData, {
             headers: {
               "Content-Type": "multipart/form-data",
+              Authorization: `Bearer ${token}`,
             },
           });
       

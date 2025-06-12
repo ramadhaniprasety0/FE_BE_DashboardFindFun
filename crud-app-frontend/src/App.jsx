@@ -25,24 +25,32 @@ function App() {
     <div>
      
       <Routes>
+        {/* Rute publik yang dapat diakses oleh semua pengguna */}
         <Route element={<MainLayout />}>
           <Route path="/*" element={<HomePage />} />
           <Route path="/films" element={<FilmHomepage />} />
           <Route path="/music" element={<MusicsPage />} />
           <Route path="/music/popular" element={<PopulerMusicsPage />} />
           <Route path="/music/:id" element={<DetailMusicsPage />} />
-          {/* <Route path="/films/detail/:id" element={<DetailFilmPage />} /> */}
-          <Route path="/films/tiket/:id/bioskop" element={<FormTiketFilm />} />
-          <Route path="/payment-tiket/:id/schedule/:tiketId" element={<PaymentFilmPage />} />
-          <Route path="/film/review/:id" element={<ReviewFilmsPage />} />
+          <Route path="/films/detail/:id" element={<DetailFilmPage />} />
         </Route>
+
+        {/* Rute yang dilindungi untuk pengguna yang sudah login (admin atau user) */}
         <Route element={<MainLayout />}>
           <Route element={<PrivateRouteUser />}>
-            <Route path="/films/detail/:id" element={<DetailFilmPage />} />
+            {/* Rute untuk pembelian tiket */}
+            <Route path="/films/tiket/:id/bioskop" element={<FormTiketFilm />} />
+            <Route path="/payment-tiket/:id/schedule/:tiketId" element={<PaymentFilmPage />} />
+            {/* Rute untuk review film */}
+            <Route path="/film/review/:id" element={<ReviewFilmsPage />} />
           </Route>
         </Route>
+
+        {/* Rute autentikasi */}
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/login" element={<Login />} />
+        
+        {/* Rute admin yang dilindungi */}
         <Route element={<PrivateRoute />}>
             <Route path="/dashboard/*" element={<Dashboard />} />
         </Route>

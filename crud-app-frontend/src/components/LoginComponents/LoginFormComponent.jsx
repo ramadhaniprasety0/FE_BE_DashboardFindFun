@@ -1,40 +1,63 @@
-import { Button, Form } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
-import Swal from 'sweetalert2';
-import 'sweetalert2/dist/sweetalert2.min.css';
-
+import { Button, Form } from "react-bootstrap";
+import { Link } from "react-router-dom";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import Swal from "sweetalert2";
+import "sweetalert2/dist/sweetalert2.min.css";
 
 const LoginForm = () => {
-  const [email, setEmail] = useState('');
-const [password, setPassword] = useState('');
-const [error, setError] = useState(null);
-const navigate = useNavigate();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState(null);
+  const navigate = useNavigate();
 
-const handleSubmit = async (e) => {
-  e.preventDefault();
+  const handleSubmit = async (e) => {
+    e.preventDefault();
 
-  try {
-    const response = await axios.post('http://localhost:3000/api/login', { email, password });
-    setError(null);
-    //Save JWT token
-    localStorage.setItem('token', response.data.token);
-    Swal.fire({
-      title: 'Selamat datang!',
-      text: 'Anda telah berhasil login.',
-      icon: 'success',
-      confirmButtonText: 'OK',
-    }).then(() => {
-      navigate('/dashboard');
-    });
-  } catch (err) {
-    setError(err.response?.data?.message || 'Username atau password salah');
-  }
-};
+    try {
+      const response = await axios.post("http://localhost:3000/api/login", {
+        email,
+        password,
+      });
+      setError(null);
+
+      // Save JWT token
+      localStorage.setItem("token", response.data.token);
+
+      // Save user role
+      if (response.data.user && response.data.user.role) {
+        localStorage.setItem("userRole", response.data.user.role);
+        localStorage.setItem("username", response.data.user.username);
+        localStorage.setItem("image", response.data.user.image);
+        localStorage.setItem("userId", response.data.user.id);
+      }
+
+      Swal.fire({
+        title: "Selamat datang!",
+        text: "Anda telah berhasil login.",
+        icon: "success",
+        confirmButtonText: "OK",
+      }).then(() => {
+        // Redirect based on user role
+        const userRole = response.data.user?.role || "user";
+
+        if (userRole === "admin") {
+          navigate("/dashboard");
+        } else {
+          navigate("/");
+        }
+      });
+    } catch (err) {
+      setError(err.response?.data?.message || "Username atau password salah");
+    }
+  };
+
   return (
-    <div className="login-form text-center px-4 w-100" style={{ maxWidth: '400px' }}>
+    <div
+      className="login-form text-center px-4 w-100"
+      style={{ maxWidth: "400px" }}
+    >
       <Form onSubmit={handleSubmit}>
         <h2 className="text-primary fw-bold mb-4">Masuk</h2>
         {error && <div className="alert alert-danger">{error}</div>}
@@ -60,14 +83,19 @@ const handleSubmit = async (e) => {
           />
         </div>
 
-        <Button type='submit' className="btn btn-primary rounded-pill px-4 py-2 mb-3 d-block mx-auto" >
+        <Button
+          type="submit"
+          className="btn btn-primary rounded-pill px-4 py-2 mb-3 d-block mx-auto"
+        >
           Masuk
         </Button>
       </Form>
       <hr />
       <p className="small">
         Tidak punya akun?{" "}
-        <Link to="/Register" className="text-decoration-none">Daftar disini</Link>
+        <Link to="/Register" className="text-decoration-none">
+          Daftar disini
+        </Link>
       </p>
       <p className="text-muted small fst-italic">Lupa kata sandi Anda?</p>
 
