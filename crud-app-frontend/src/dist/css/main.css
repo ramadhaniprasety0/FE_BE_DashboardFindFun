@@ -1282,6 +1282,12 @@ header .container .btn-explore:hover {
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
+.homepage-films .box-bioskop-terbaru h1 {
+  font-size: 40px;
+  color: #251551;
+  font-weight: bold;
+}
+
 .homepage-films .bioskop-film-row {
   border-radius: 16px;
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
@@ -1519,7 +1525,8 @@ header .container .btn-explore:hover {
 
 .homepage-musics .box-carousel-musics h1 {
   font-size: 40px;
-  color: #ffffff;
+  color: #251551;
+  font-weight: bold;
 }
 
 .homepage-musics .box-carousel-musics img {
@@ -1721,8 +1728,34 @@ header .container .btn-explore:hover {
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
+.homepage-musics .box-populer-musics h1 {
+  font-size: 40px;
+  color: #251551;
+  font-weight: bold;
+}
+
 .music-popular-wrapper {
-  border-radius: 16px;
+  border-top-left-radius: 16px;
+  border-top-right-radius: 16px;
+}
+
+.horizontal-scroll-wrapper {
+  overflow-x: auto;
+  white-space: nowrap;
+  padding-bottom: 15px;
+}
+
+.horizontal-scroll-content {
+  display: inline-flex;
+  gap: 16px; 
+}
+
+.music-popular-item-scroll {
+  display: inline-block;
+  width: 280px; 
+  height: auto; 
+  vertical-align: top;
+  white-space: normal; 
 }
 
 .music-popular-card {
@@ -1732,6 +1765,7 @@ header .container .btn-explore:hover {
   color: white;
   display: flex;
   flex-direction: column;
+  height: 100%;
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.25);
   transition: transform 0.3s ease;
 }
@@ -1741,33 +1775,40 @@ header .container .btn-explore:hover {
 }
 
 .music-popular-image {
-  width: 100%;
-  height: 266px;
-  border-radius: 10px;
+  width: 281px;
+  height: 266px; 
+  border-top-left-radius: 16px;
+  border-top-right-radius: 16px;
   object-fit: cover;
 }
 
 .music-popular-info {
   background-color: #2e388a;
-  padding: 12px;
+  padding: 12px 15px; 
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  min-height: 130px;
+  flex-grow: 1; 
+  min-height: 120px;
 }
 
 .music-popular-title {
-  font-size: 16px;
+  font-size: 1rem;
   font-weight: bold;
-  margin: 0;
+  margin: 0 0 4px 0; 
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis; 
 }
 
 .music-popular-artist {
-  font-size: 16px;
+  font-size: 0.875rem;
   color: #d1cfe3;
-  font-weight: bold;
   font-style: italic;
-  margin: 4px 0 12px;
+  margin: 0 0 10px 0; 
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .music-popular-controls {
@@ -1781,7 +1822,7 @@ header .container .btn-explore:hover {
 .music-popular-controls .icon-group-left {
   display: flex;
   gap: 15px;
-  font-size: 16px;
+  font-size: 27px; 
   color: white;
 }
 
@@ -1791,12 +1832,12 @@ header .container .btn-explore:hover {
 }
 
 .music-popular-controls .icon-group-left i:hover {
-  color: #ff5b5b;
+  color: #251551;
 }
 
 .music-popular-controls .play-button {
-  width: 24px;
-  height: 24px;
+  width: 28px; 
+  height: 28px;
   border: 2px solid white;
   border-radius: 50%;
   background-color: transparent;
@@ -1804,24 +1845,56 @@ header .container .btn-explore:hover {
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  transition: background 0.3s ease;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
 }
 
 .music-popular-controls .play-button i {
   color: white;
-  font-size: 14px;
-  margin-left: 2px;
+  font-size: 16px;
+  margin-left: 2px; 
+  transition: color 0.3s ease;
 }
 
 .music-popular-controls .play-button:hover {
-  border-color: #ff5b5b;
+  background-color: rgba(255, 255, 255, 0.1);
+  border-color: #251551;
 }
 
 .music-popular-controls .play-button:hover i {
-  color: #ff5b5b;
+  color: #251551;
+}
+
+.horizontal-scroll-wrapper::-webkit-scrollbar {
+  height: 8px;
+}
+
+.horizontal-scroll-wrapper::-webkit-scrollbar-track {
+  background: rgba(0,0,0,0.05);
+  border-radius: 10px;
+}
+
+.horizontal-scroll-wrapper::-webkit-scrollbar-thumb {
+  background: #6b7280;
+  border-radius: 10px;
+}
+
+.horizontal-scroll-wrapper::-webkit-scrollbar-thumb:hover {
+  background: #4b5563;
+}
+
+.horizontal-scroll-wrapper {
+  scrollbar-width: thin;
+  scrollbar-color: #6b7280 rgba(0,0,0,0.05);
 }
 
 /* Section: Berita */
+.homepage-musics .news-card{
+  display: flex;
+  flex-direction: row;
+  height: 100%;
+  
+}
+
 .homepage-musics .news-card .img-brand {
   width: 372px;
   height: 287px;
@@ -1830,8 +1903,9 @@ header .container .btn-explore:hover {
 }
 
 .homepage-musics .news-card .news-caption {
+  width: 100%;
   padding: 16px;
- background-color: #9599f6;
+  background-color: #9599f6;
   border-top-right-radius: 17px;
   border-bottom-right-radius: 17px;
 }
@@ -2777,6 +2851,47 @@ header .container .btn-explore:hover {
   min-height: 130px;
 }
 
+.popular-musics-page .box-populer-musics .horizontal-scroll-wrapper {
+  overflow-x: visible; 
+  white-space: normal;  
+  padding-bottom: 0;   
+}
+
+.popular-musics-page .box-populer-musics .horizontal-scroll-content {
+  display: flex;    
+  flex-wrap: wrap;  
+  gap: 16px;        
+  justify-content: flex-start; 
+}
+
+.popular-musics-page .box-populer-musics .music-popular-item-scroll {
+  flex-grow: 0;
+  flex-shrink: 0; 
+  flex-basis: calc(25% - 12px); 
+  width: calc(25% - 12px); 
+  height: auto;
+  margin-right: 0; 
+  margin-bottom: 16px; 
+}
+
+.popular-musics-page .box-populer-musics .music-popular-card {
+  height: 100%;
+}
+
+@media (max-width: 992px) { 
+  .popular-musics-page .box-populer-musics .music-popular-item-scroll {
+    flex-basis: calc(50% - 8px);
+    width: calc(50% - 8px);
+  }
+}
+
+@media (max-width: 576px) {
+  .popular-musics-page .box-populer-musics .music-popular-item-scroll {
+    flex-basis: 100%;
+    width: 100%;
+  }
+}
+
 .popular-musics-page .music-popular-title {
   font-size: 16px;
   font-weight: bold;
@@ -2802,7 +2917,7 @@ header .container .btn-explore:hover {
 .popular-musics-page .music-popular-controls .icon-group-left {
   display: flex;
   gap: 15px;
-  font-size: 16px;
+  font-size: 27px;
   color: white;
 }
 
@@ -2812,12 +2927,12 @@ header .container .btn-explore:hover {
 }
 
 .popular-musics-page .music-popular-controls .icon-group-left i:hover {
-  color: #ff5b5b;
+  color: #251551;
 }
 
 .popular-musics-page .music-popular-controls .play-button {
-  width: 24px;
-  height: 24px;
+  width: 28px;
+  height: 28px;
   border: 2px solid white;
   border-radius: 50%;
   background-color: transparent;
@@ -2830,16 +2945,16 @@ header .container .btn-explore:hover {
 
 .popular-musics-page .music-popular-controls .play-button i {
   color: white;
-  font-size: 14px;
+  font-size: 16px;
   margin-left: 2px;
 }
 
 .popular-musics-page .music-popular-controls .play-button:hover {
-  border-color: #ff5b5b;
+  border-color: #251551;
 }
 
 .popular-musics-page .music-popular-controls .play-button:hover i {
-  color: #ff5b5b;
+  color: #251551;
 }
 
 .konser-musics-page {
@@ -4195,151 +4310,368 @@ text-transform: uppercase;
 }
 
 
-/* Untuk scroll horizontal */
-.horizontal-scroll-wrapper {
-  overflow-x: auto;
-  white-space: nowrap;
-  padding-bottom: 15px; /* Ruang untuk scrollbar */
-  /* Pastikan tidak ada width 100% yang memaksa item wrap */
-}
+/* Popular Music */
 
-.horizontal-scroll-content {
-  display: inline-flex; /* Item berjajar */
-  gap: 16px; /* Jarak antar kartu, sesuaikan dengan p-2 di JSX atau hapus p-2 */
-}
 
-.music-popular-item-scroll {
-  display: inline-block;
-  width: 280px; 
-  height: auto; /* Biarkan tinggi menyesuaikan konten */
-  vertical-align: top;
-  white-space: normal; /* Normal white-space untuk konten di dalam kartu */
-}
 
-/* Gaya untuk kartu musik populer */
-.music-popular-card {
-  background-color: #4b3f6b;
-  border-radius: 16px;
-  overflow: hidden;
-  color: white;
+/* reviewfilms  */
+.reviewfilms {
+  width: 100%; /* Pastikan kontainer mengambil lebar penuh */
   display: flex;
-  flex-direction: column;
-  height: 100%; /* Membuat kartu mengisi tinggi .music-popular-item-scroll jika item-scroll punya height */
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.25);
-  transition: transform 0.3s ease;
+  justify-content: center; /* Posisikan konten di tengah secara horizontal */
+  flex-direction: column; /* Konten diatur vertikal */
+  align-items: center; /* Pastikan konten di tengah */
 }
 
-.music-popular-card:hover {
-  transform: scale(1.03);
+.poster-section-review {
+  position: relative; /* Menyiapkan kontainer gambar untuk overlay */
+  width: 100%;
+  max-width: 1300px; /* Batas lebar maksimal */
+  margin-bottom: 50px; /* Jarak bawah dari gambar */
+  margin-top: 30px;
 }
 
-.music-popular-image {
-  width: 281px;
-  height: 266px; 
-  border-top-left-radius: 16px;
-  border-top-right-radius: 16px;
-  object-fit: cover;
+.film-poster {
+  width: 100%; /* Gambar mengisi 100% lebar kontainer */
+  height: auto;
+  max-height: 400px; /* Menjaga gambar tidak melebihi batas tinggi */
+  object-fit: cover; /* Menutupi seluruh area gambar tanpa merusak rasio */
+  border-radius: 10px; /* Sudut membulat pada gambar */
 }
 
-.music-popular-info {
-  background-color: #2e388a;
-  padding: 12px 15px; /* Padding yang konsisten */
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  flex-grow: 1; /* Agar info mengisi sisa ruang kartu */
-  min-height: 120px; /* Tinggi minimum untuk blok info, sesuaikan */
+.title-review {
+  position: absolute;
+  margin-left: -900px;
+  margin-top: -700px;
 }
 
-.music-popular-title {
-  font-size: 1rem; /* 16px */
+.title-review p {
+  font-size: 1.5rem; /* Ukuran font untuk judul */
   font-weight: bold;
-  margin: 0 0 4px 0; /* Margin bawah */
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis; /* Jika judul terlalu panjang */
-}
-
-.music-popular-artist {
-  font-size: 0.875rem; /* 14px */
-  color: #d1cfe3;
-  /* font-weight: bold; Dihilangkan agar tidak terlalu dominan */
+  color: #9176b7;
   font-style: italic;
-  margin: 0 0 10px 0; /* Margin bawah */
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
 }
 
-.music-popular-controls {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding-top: 10px;
-  border-top: 1px solid #1c1a28;
+.title-review h2 {
+  font-size: 2rem; /* Ukuran font untuk teks */
+  font-weight: normal;
+  margin: 0; /* Menghapus margin default h2 */
+  color: #fff;
+  margin-top: -15px;
 }
 
-.music-popular-controls .icon-group-left {
-  display: flex;
-  gap: 15px;
-  font-size: 1rem; /* 16px */
-  color: white;
-}
-
-.music-popular-controls .icon-group-left i {
+/* Tombol dropdown */
+.btn-review {
+  background-color: #5562fc; /* Warna latar belakang tombol */
+  color: white; /* Teks tombol berwarna putih */
+  border: 1px solid #444994;
+  padding: 5px;
+  font-size: 1rem;
+  font-weight: bold;
   cursor: pointer;
-  transition: color 0.3s;
+  border-radius: 20px; /* Sudut membulat pada tombol */
+  text-align: center;
+  display: inline-block;
+  width: 150px; /* Lebar tombol */
 }
 
-.music-popular-controls .icon-group-left i:hover {
-  color: #ff5b5b;
+/* Efek hover pada tombol */
+.btn-review:hover {
+  background-color: rgb(66, 77, 199); /* Warna latar belakang saat hover */
 }
 
-.music-popular-controls .play-button {
-  width: 28px; /* Sedikit lebih besar */
-  height: 28px;
-  border: 2px solid white;
-  border-radius: 50%;
-  background-color: transparent;
+.dropdown-menu-review-film {
+  display: none; 
+  position: absolute;
+  top: 100%; /* Menempatkan dropdown tepat di bawah tombol */
+  left: 0;
+  right: 0;
+  background-color: #efebfc; /* Latar belakang menu dropdown */
+  border-radius: 15px; /* Sudut membulat pada dropdown */
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); /* Bayangan di bawah dropdown */
+  margin-top: 5px; /* Memberikan sedikit jarak antara tombol dan dropdown */
+  z-index: 1000; /* Pastikan dropdown berada di atas konten lainnya */
+  width: 100%;
+  list-style-type: none;
+  padding-left: 0;
+}
+
+/* Menampilkan dropdown saat dropdownOpen true */
+.dropdown-menu-review-film {
+  display: block; /* Menampilkan dropdown saat tombol diklik */
+}
+
+/* Style untuk item dalam dropdown */
+.dropdown-menu-review-film li {
+  padding: 7px;
+  color: black; /* Warna teks item */
+  cursor: pointer;
+  border-bottom: 2px solid black; /* Garis pemisah antar item */
+  text-decoration: none;
+}
+
+/* Menghapus garis bawah pada item terakhir */
+.dropdown-menu-review-film li:last-child {
+  border-bottom: none;
+}
+
+.icon-bocoran {
   display: flex;
   align-items: center;
   justify-content: center;
+  padding: 5px;
+  border-radius: 20px; /* Sudut membulat */
+  background-color: #a9b0fe; /* Warna latar belakang saat belum dipilih */
   cursor: pointer;
-  transition: background-color 0.3s ease, border-color 0.3s ease;
+  transition: background-color 0.3s ease; /* Animasi untuk perubahan latar belakang */
+  width: 150px;
+  height: 35px;
 }
 
-.music-popular-controls .play-button i {
+.icon-bocoran:hover {
+  background-color: #d8d6fc; /* Warna latar belakang saat di-hover */
+}
+
+.icon-bocoran i {
+  transition: color 0.3s ease; /* Animasi perubahan warna icon */
+}
+
+.icon-bocoran span {
+  font-size: 16px;
+  font-weight: bold;
+  margin-left: 8px;
+  transition: color 0.3s ease; 
+}
+
+.h3-review-film {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.btn-plus-ulasan {
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  font-size: 1.9rem;
+  font-weight: bold;
+  color: black;
+  margin-top: -7px;
+}
+.buttons {
+  gap: 10px;
+  margin-left: 465px;
+}
+
+.reviewer-film {
+  background-color: #8e97fd;
+  width: 1300px;
+  border-radius: 15px;
+}
+
+.stars {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  margin-top: 10px;
+  font-size: 18px;
+}
+
+.reviewer-film h1 {
+  font-size: 35px;
+  font-weight: bold;
+}
+.reviewer-film h5 {
+  font-size: 20px;
+  font-weight: bold;
+}
+.reviewer-film-isi {
+  margin-top: -20px;
+}
+
+.reviewer-film-users {
+  font-size: 15px;
+  gap: 30px;
+  color: #3d3956;
+  margin-top: -30px;
+}
+
+.like-dislike {
+  margin-top: -40px;
+  margin-left: 10px;
+}
+.like-dislike p {
+  margin-top: 15px;
+  margin-left: 10px;
+  font-size: 13px;
+  color: #332a2a;
+
+}
+
+/* === CSS BARU UNTUK SEKSI MUSIK HITS === */
+.homepage .music-grid-container {
+  display: flex;
+  flex-wrap: wrap; 
+  gap: 20px; 
+  padding-bottom: 20px;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+.homepage .music-card-wrapper {
+  flex-grow: 1; 
+  flex-basis: calc(20% - 20px); /* Kalkulasi: 100% / 5 = 20%. Kurangi dengan gap */
+  
+  /* Ukuran minimal agar tidak terlalu kecil */
+  min-width: 160px;
+}
+
+.homepage .music-card {
+  background-color: #4A4E9B; /* Warna kartu ungu tua */
+  border-radius: 12px;
+  padding: 12px;
   color: white;
-  font-size: 0.875rem; /* 14px */
-  margin-left: 2px; /* Untuk centering play icon */
-  transition: color 0.3s ease;
+  height: 100%; /* Memastikan semua kartu dalam satu baris punya tinggi yang sama */
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-.music-popular-controls .play-button:hover {
-  background-color: rgba(255, 255, 255, 0.1);
-  border-color: #ff5b5b;
+.homepage .music-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0,0,0,0.2);
 }
 
-.music-popular-controls .play-button:hover i {
-  color: #ff5b5b;
+.homepage .music-card-image {
+  width: 100%;
+  aspect-ratio: 1 / 1; /* Membuat gambar selalu persegi */
+  object-fit: cover;
+  border-radius: 8px; /* Sudut membulat untuk gambar di dalam kartu */
+  margin-bottom: 12px;
 }
 
-/* Scrollbar styling (opsional) */
-.horizontal-scroll-wrapper::-webkit-scrollbar {
-  height: 8px;
+.homepage .music-card-info p {
+  margin: 0;
+  padding: 0;
+  white-space: nowrap; /* Mencegah teks turun baris */
+  overflow: hidden; /* Sembunyikan teks yang meluber */
+  text-overflow: ellipsis; /* Tampilkan "..." jika teks terlalu panjang */
 }
-.horizontal-scroll-wrapper::-webkit-scrollbar-track {
-  background: rgba(0,0,0,0.05);
-  border-radius: 10px;
+
+.homepage .music-card-title {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #FFFFFF;
 }
-.horizontal-scroll-wrapper::-webkit-scrollbar-thumb {
-  background: #6b7280; /* Warna thumb scrollbar */
-  border-radius: 10px;
+
+.homepage .music-card-artist {
+  font-size: 0.8rem;
+  color: #D0C9F0; /* Warna lebih redup untuk artis */
+  margin-top: 3px;
 }
-.horizontal-scroll-wrapper::-webkit-scrollbar-thumb:hover {
-  background: #4b5563;
+
+.homepage .music-card-uploader {
+  font-size: 0.7rem;
+  color: #A0A2C0; /* Warna paling redup untuk info tambahan */
+  margin-top: 2px;
 }
-.horizontal-scroll-wrapper {
-  scrollbar-width: thin;
-  scrollbar-color: #6b7280 rgba(0,0,0,0.05);
+
+
+/* Penyesuaian Responsif */
+@media (max-width: 1200px) {
+  .homepage .music-card-wrapper {
+    /* 4 kartu per baris */
+    flex-basis: calc(25% - 20px);
+  }
+}
+
+@media (max-width: 992px) {
+  .homepage .music-card-wrapper {
+    /* 3 kartu per baris */
+    flex-basis: calc(33.33% - 20px);
+  }
+}
+
+@media (max-width: 768px) {
+  .homepage .music-grid-container {
+    gap: 15px; /* Kurangi jarak di layar lebih kecil */
+  }
+  .homepage .music-card-wrapper {
+    /* 2 kartu per baris */
+    flex-basis: calc(50% - 15px);
+  }
+}
+
+@media (max-width: 480px) {
+    .homepage .music-card-title {
+        font-size: 0.85rem;
+    }
+    .homepage .music-card-artist {
+        font-size: 0.75rem;
+    }
+}
+
+/* Wadah utama untuk header modal */
+.modal-film-header {
+    display: flex;
+    align-items: flex-start; /* Rata atas */
+    gap: 20px; 
+    padding: 20px;
+}
+
+/* Kolom 1: Poster */
+.film-poster-modal {
+    width: 100px;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 10px;
+    flex-shrink: 0; /* Agar poster tidak mengecil */
+}
+
+/* Kolom 2: Detail film */
+.film-details-col {
+    flex-grow: 1; /* Agar kolom ini mengisi ruang yang tersedia */
+}
+.film-details-col h4 {
+    font-size: 28px;
+    font-weight: bold;
+    margin: 0;
+}
+.film-details-col .film-metadata {
+    font-size: 14px;
+    color: #555;
+    margin: 5px 0 15px 0;
+}
+.genre-container .genre-tag {
+    background-color: #6366f1;
+    color: white;
+    border-radius: 15px;
+    padding: 5px 15px;
+    font-size: 13px;
+    margin-right: 8px;
+    display: inline-block;
+}
+
+/* Kolom 3: Rating */
+.rating-col {
+    text-align: right;
+    flex-shrink: 0;
+}
+.rating-col p {
+    margin: 0;
+    font-size: 16px;
+    font-weight: 500;
+}
+.rating-col .rating-score {
+    font-size: 24px;
+    font-weight: bold;
+    margin: 5px 0;
+}
+.stars-interactive span {
+    font-size: 28px;
+    cursor: pointer;
+    color: #fff; /* Warna outline bintang */
+    text-shadow: 0 0 2px rgba(0,0,0,0.4);
+    transition: color 0.2s;
+}
+.stars-interactive span:hover,
+.stars-interactive span.star-filled {
+    color: #ffc107; /* Warna kuning saat terisi atau di-hover */
 }

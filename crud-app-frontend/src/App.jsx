@@ -16,6 +16,7 @@ import DetailFilmPage from "./page/Films/DetailFilmsPage";
 import ReviewFilmsPage from "./page/Films/ReviewFilmsPage";
 import FormTiketFilm from "./page/Films/FormTiketFilmPage";
 import PaymentFilmPage from "./page/Films/PaymentFilmPage";
+import PopulerMusicsPage from "./page/Musics/PopulerMusicsPage";
 
 // import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -28,6 +29,7 @@ function App() {
           <Route path="/*" element={<HomePage />} />
           <Route path="/films" element={<FilmHomepage />} />
           <Route path="/music" element={<MusicsPage />} />
+          <Route path="/music/popular" element={<PopulerMusicsPage />} />
           <Route path="/music/:id" element={<DetailMusicsPage />} />
           {/* <Route path="/films/detail/:id" element={<DetailFilmPage />} /> */}
           <Route path="/films/tiket/:id/bioskop" element={<FormTiketFilm />} />
