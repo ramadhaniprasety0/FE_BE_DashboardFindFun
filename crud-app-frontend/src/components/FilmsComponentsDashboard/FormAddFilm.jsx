@@ -6,6 +6,7 @@ import 'sweetalert2/dist/sweetalert2.min.css';
 
 const FormAddFilm = () => {
   const navigate = useNavigate();
+  const token = localStorage.getItem("token");
 
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
@@ -148,6 +149,7 @@ const FormAddFilm = () => {
       await axios.post("http://localhost:3000/api/films", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
+          Authorization: `Bearer ${token}`,
         },
       });
       

@@ -23,8 +23,8 @@ const ReviewFilmsComponent = () => {
   const [bintangDropdownOpen, setBintangDropdownOpen] = useState(false);
   const [urutkanDropdownOpen, setUrutkanDropdownOpen] = useState(false);
   const [isChecked, setIsChecked] = useState(false); // Untuk menangani status icon Bocoran
-  const [rating, setRating] = useState(review.rating); // Rating state initialized with default value
-  const totalStars = 5;
+  // const [rating, setRating] = useState(review.rating); // Rating state initialized with default value
+  // const totalStars = 5;
 
   // New state for like and dislike count and color change
   const [likeCount, setLikeCount] = useState(100);
@@ -50,9 +50,9 @@ const ReviewFilmsComponent = () => {
       setLoading(true);
       const { data: film } = await axios.get(`http://localhost:3000/api/films/${id}`);
       const { data } = await axios.get(`http://localhost:3000/api/ulasan/film/${id}`);
-      setReview(data.data);
-      setFilm(film.data);
-      if (data.data.length === 0) {
+      setReview(data.data || []); // Pastikan review selalu array, bahkan jika data.data undefined
+      setFilm(film.data || {}); // Pastikan film selalu objek, bahkan jika film.data undefined
+      if (!data.data || data.data.length === 0) {
         setNoReview(true);
       }
       console.log(film.data);
@@ -64,7 +64,8 @@ const ReviewFilmsComponent = () => {
     }
   };
 
-  const totalReview = (review.length);
+  // Pastikan review terdefinisi sebelum mengakses length
+  const totalReview = review ? review.length : 0;
   console.log(totalReview);
 
   useEffect(() => {
@@ -196,16 +197,16 @@ const ReviewFilmsComponent = () => {
         <div className="poster-section-review">
           <img
             className="rounded-5 film-poster"
-            src={`http://localhost:3000/${film.image_poster}`}
-            alt={film.title}
+            src={film && film.image_poster ? `http://localhost:3000/${film.image_poster}` : ''}
+            alt={film && film.title ? film.title : 'Film Poster'}
           />
           <div className="title-review">
-            <p>{film.title}</p>
+            <p>{film && film.title ? film.title : ''}</p>
             <h2>Ulasan Penonton</h2>
           </div>
         </div>
         <div className="d-flex mb-4">
-          <h3 className="h3-review-film text-start">{review.length || 0} Ulasan</h3>
+          <h3 className="h3-review-film text-start">{review ? review.length : 0} Ulasan</h3>
 
           <div className="buttons d-flex">
             <div className="dropdown btn-review-film" ref={bintangDropdownRef}>
@@ -277,11 +278,11 @@ const ReviewFilmsComponent = () => {
           </div>
           {noReview ? (
         <div className="w-100 min-vh-100 d-flex justify-content-center align-items-start homepage-films">
-          <h3>Belum ada Review nih.. Jadi reviewer pertama di film {film.title}</h3>
+          <h3>Belum ada Review nih.. Jadi reviewer pertama di film {film && film.title ? film.title : ''}</h3>
         </div>
       ) : (
         <div>
-          {review.map((item, i) => (
+          {review && review.map((item, i) => (
             <div key={i} className="reviewer-film mb-5 border p-3 rounded-4">
               {/* Rating bintang */}
               <div className="stars mb-3">

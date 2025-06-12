@@ -4173,9 +4173,211 @@ text-transform: uppercase;
 }
 
 
+/* REVIEWER */
 
+.reviewfilms {
+  width: 100%; 
+  display: flex;
+  justify-content: center;
+  flex-direction: column; 
+  align-items: center; 
+}
 
+.poster-section-review {
+  position: relative;
+  display: inline-block;
+  margin-bottom: 20px;
+  margin-top: 20px;
+}
 
+.film-poster {
+  width: 100%;
+  height: auto;
+  max-height: 400px;
+  object-fit: cover; 
+  border-radius: 10px; 
+}
+
+.title-review {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100%; 
+  color: white; 
+  background: linear-gradient(
+    to right,
+    rgba(0, 0, 0, 1) 10%,
+    rgba(0, 0, 0, 0) 47%
+  );
+  padding: 10px;
+  border-radius: 10px;
+  box-sizing: border-box; 
+}
+
+.title-review p {
+  font-size: 1.5rem; /* Ukuran font untuk judul */
+  font-weight: bold;
+  color: #9176b7;
+  font-style: italic;
+}
+
+.title-review h2 {
+  font-size: 2rem; /* Ukuran font untuk teks */
+  font-weight: normal;
+  margin: 0; /* Menghapus margin default h2 */
+  color: #fff;
+  margin-top: -15px;
+}
+
+/* Tombol dropdown */
+.btn-review {
+  background-color: #5562fc; /* Warna latar belakang tombol */
+  color: white; /* Teks tombol berwarna putih */
+  border: 1px solid #444994;
+  padding: 5px;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  border-radius: 20px; /* Sudut membulat pada tombol */
+  text-align: center;
+  display: inline-block;
+  width: 150px; /* Lebar tombol */
+}
+
+/* Efek hover pada tombol */
+.btn-review:hover {
+  background-color: rgb(66, 77, 199); /* Warna latar belakang saat hover */
+}
+
+/* Menu dropdown */
+.dropdown-menu-review-film {
+  display: none; /* Menyembunyikan dropdown secara default */
+  position: absolute;
+  top: 100%; /* Menempatkan dropdown tepat di bawah tombol */
+  left: 0;
+  right: 0;
+  background-color: #efebfc; /* Latar belakang menu dropdown */
+  border-radius: 15px; /* Sudut membulat pada dropdown */
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); /* Bayangan di bawah dropdown */
+  margin-top: 5px; /* Memberikan sedikit jarak antara tombol dan dropdown */
+  z-index: 1000; /* Pastikan dropdown berada di atas konten lainnya */
+  width: 100%;
+  list-style-type: none;
+  padding-left: 0;
+}
+
+/* Menampilkan dropdown saat dropdownOpen true */
+.dropdown-menu-review-film {
+  display: block; /* Menampilkan dropdown saat tombol diklik */
+}
+
+/* Style untuk item dalam dropdown */
+.dropdown-menu-review-film li {
+  padding: 7px;
+  color: black; /* Warna teks item */
+  cursor: pointer;
+  border-bottom: 2px solid black; /* Garis pemisah antar item */
+  text-decoration: none;
+}
+
+/* Menghapus garis bawah pada item terakhir */
+.dropdown-menu-review-film li:last-child {
+  border-bottom: none;
+}
+
+/* Styling untuk Icon Bocoran */
+.icon-bocoran {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 5px;
+  border-radius: 20px; /* Sudut membulat */
+  background-color: #a9b0fe; /* Warna latar belakang saat belum dipilih */
+  cursor: pointer;
+  transition: background-color 0.3s ease; /* Animasi untuk perubahan latar belakang */
+  width: 150px;
+  height: 35px;
+}
+
+.icon-bocoran:hover {
+  background-color: #d8d6fc; /* Warna latar belakang saat di-hover */
+}
+
+.icon-bocoran i {
+  transition: color 0.3s ease; /* Animasi perubahan warna icon */
+}
+
+/* Styling teks */
+.icon-bocoran span {
+  font-size: 16px;
+  font-weight: bold;
+  margin-left: 8px;
+  transition: color 0.3s ease; /* Animasi perubahan warna teks */
+}
+
+.h3-review-film {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+.btn-plus-ulasan {
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  font-size: 1.9rem;
+  font-weight: bold;
+  color: black;
+  margin-top: -7px;
+}
+.buttons {
+  gap: 10px;
+  margin-left: 465px;
+}
+
+.reviewer-film {
+  background-color: #8e97fd;
+  width: 100%;
+  border-radius: 15px;
+}
+
+.stars {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  margin-top: 10px;
+  font-size: 18px;
+}
+
+.reviewer-film h1 {
+  font-size: 35px;
+  font-weight: bold;
+}
+.reviewer-film h5 {
+  font-size: 20px;
+  font-weight: bold;
+}
+.reviewer-film-isi {
+  margin-top: -20px;
+}
+
+.reviewer-film-users {
+  font-size: 15px;
+  gap: 30px;
+  color: #3d3956;
+  margin-top: -30px;
+}
+
+.like-dislike {
+  margin-top: -40px;
+  margin-left: 10px;
+}
+.like-dislike p {
+  margin-top: 15px;
+  margin-left: 10px;
+  font-size: 13px;
+  color: #332a2a;
+
+}
 
 
 /* Responsive adjustments */
@@ -4192,154 +4394,4 @@ text-transform: uppercase;
   .main-content {
     margin-left: 70px;
   }
-}
-
-
-/* Untuk scroll horizontal */
-.horizontal-scroll-wrapper {
-  overflow-x: auto;
-  white-space: nowrap;
-  padding-bottom: 15px; /* Ruang untuk scrollbar */
-  /* Pastikan tidak ada width 100% yang memaksa item wrap */
-}
-
-.horizontal-scroll-content {
-  display: inline-flex; /* Item berjajar */
-  gap: 16px; /* Jarak antar kartu, sesuaikan dengan p-2 di JSX atau hapus p-2 */
-}
-
-.music-popular-item-scroll {
-  display: inline-block;
-  width: 280px; 
-  height: auto; /* Biarkan tinggi menyesuaikan konten */
-  vertical-align: top;
-  white-space: normal; /* Normal white-space untuk konten di dalam kartu */
-}
-
-/* Gaya untuk kartu musik populer */
-.music-popular-card {
-  background-color: #4b3f6b;
-  border-radius: 16px;
-  overflow: hidden;
-  color: white;
-  display: flex;
-  flex-direction: column;
-  height: 100%; /* Membuat kartu mengisi tinggi .music-popular-item-scroll jika item-scroll punya height */
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.25);
-  transition: transform 0.3s ease;
-}
-
-.music-popular-card:hover {
-  transform: scale(1.03);
-}
-
-.music-popular-image {
-  width: 281px;
-  height: 266px; 
-  border-top-left-radius: 16px;
-  border-top-right-radius: 16px;
-  object-fit: cover;
-}
-
-.music-popular-info {
-  background-color: #2e388a;
-  padding: 12px 15px; /* Padding yang konsisten */
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  flex-grow: 1; /* Agar info mengisi sisa ruang kartu */
-  min-height: 120px; /* Tinggi minimum untuk blok info, sesuaikan */
-}
-
-.music-popular-title {
-  font-size: 1rem; /* 16px */
-  font-weight: bold;
-  margin: 0 0 4px 0; /* Margin bawah */
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis; /* Jika judul terlalu panjang */
-}
-
-.music-popular-artist {
-  font-size: 0.875rem; /* 14px */
-  color: #d1cfe3;
-  /* font-weight: bold; Dihilangkan agar tidak terlalu dominan */
-  font-style: italic;
-  margin: 0 0 10px 0; /* Margin bawah */
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.music-popular-controls {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding-top: 10px;
-  border-top: 1px solid #1c1a28;
-}
-
-.music-popular-controls .icon-group-left {
-  display: flex;
-  gap: 15px;
-  font-size: 1rem; /* 16px */
-  color: white;
-}
-
-.music-popular-controls .icon-group-left i {
-  cursor: pointer;
-  transition: color 0.3s;
-}
-
-.music-popular-controls .icon-group-left i:hover {
-  color: #ff5b5b;
-}
-
-.music-popular-controls .play-button {
-  width: 28px; /* Sedikit lebih besar */
-  height: 28px;
-  border: 2px solid white;
-  border-radius: 50%;
-  background-color: transparent;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  transition: background-color 0.3s ease, border-color 0.3s ease;
-}
-
-.music-popular-controls .play-button i {
-  color: white;
-  font-size: 0.875rem; /* 14px */
-  margin-left: 2px; /* Untuk centering play icon */
-  transition: color 0.3s ease;
-}
-
-.music-popular-controls .play-button:hover {
-  background-color: rgba(255, 255, 255, 0.1);
-  border-color: #ff5b5b;
-}
-
-.music-popular-controls .play-button:hover i {
-  color: #ff5b5b;
-}
-
-/* Scrollbar styling (opsional) */
-.horizontal-scroll-wrapper::-webkit-scrollbar {
-  height: 8px;
-}
-.horizontal-scroll-wrapper::-webkit-scrollbar-track {
-  background: rgba(0,0,0,0.05);
-  border-radius: 10px;
-}
-.horizontal-scroll-wrapper::-webkit-scrollbar-thumb {
-  background: #6b7280; /* Warna thumb scrollbar */
-  border-radius: 10px;
-}
-.horizontal-scroll-wrapper::-webkit-scrollbar-thumb:hover {
-  background: #4b5563;
-}
-.horizontal-scroll-wrapper {
-  scrollbar-width: thin;
-  scrollbar-color: #6b7280 rgba(0,0,0,0.05);
 }

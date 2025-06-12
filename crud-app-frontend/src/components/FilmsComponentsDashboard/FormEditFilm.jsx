@@ -7,6 +7,7 @@ import 'sweetalert2/dist/sweetalert2.min.css';
 const FormEditData = () => {
   const navigate = useNavigate();
   const { id } = useParams();
+  const token = localStorage.getItem("token");
 
   const [title, setTitle] = useState("");
   const [deskripsi, setDeskripsi] = useState("");
@@ -171,6 +172,7 @@ const FormEditData = () => {
       const response = await axios.put(`http://localhost:3000/api/films/${id}`, formData, {
         headers: {
           "Content-Type": "multipart/form-data",
+          Authorization: `Bearer ${token}`,
         },
       });
       

@@ -7,6 +7,7 @@ import 'sweetalert2/dist/sweetalert2.min.css';
 const FormEditAlbum = () => {
     const { id } = useParams();
     const navigate = useNavigate();
+    const token = localStorage.getItem("token");
 
     const [title, setTitle] = useState("");
     const [releaseYear, setReleaseYear] = useState("");
@@ -70,6 +71,7 @@ const FormEditAlbum = () => {
             await axios.put(`http://localhost:3000/api/albums/${id}`, formData, {
                 headers: {
                     "Content-Type": "multipart/form-data",
+                    Authorization: `Bearer ${token}`,
                 },
             });
 
