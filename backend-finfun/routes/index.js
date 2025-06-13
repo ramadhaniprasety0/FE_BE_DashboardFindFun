@@ -7,6 +7,13 @@ const {
 } = require("../middleware/authMiddleware");
 const router = express.Router();
 
+
+const albumControllers = require('../controllers/albumControllers');
+const filmControllers = require('../controllers/filmControllers');
+const musicControllers = require('../controllers/musicControllers');
+const ulasanControllers = require('../controllers/ulasanControllers');
+const artistControllers = require('../controllers/artistControllers');
+const caroselControllers = require('../controllers/caroselControllers');
 const albumControllers = require("../controllers/albumControllers");
 const filmControllers = require("../controllers/filmControllers");
 const musicControllers = require("../controllers/musicControllers");
@@ -184,6 +191,13 @@ router.put(
 router.delete("/films/:id", authenticateToken, isAdmin, filmControllers.delete);
 
 // ===== MUSIC ROUTES =====
+router.get('/music', musicControllers.getAll); // ?include=all|artists|albums
+router.get('/music/:id', musicControllers.getById); // ?include=all
+router.post('/music', upload.single('image'), musicControllers.create);
+router.put('/music/:id', upload.single('image'), musicControllers.update);
+router.delete('/music/:id', musicControllers.delete);
+router.get('/music/search', musicControllers.search); // ?q=searchTerm
+router.get('/music/genre/:genre', musicControllers.getByGenre);
 // Public endpoints
 router.get("/music", musicControllers.getAll); // ?include=all|artists|albums
 router.get("/music/:id", musicControllers.getById); // ?include=all
