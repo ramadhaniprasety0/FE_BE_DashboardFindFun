@@ -195,10 +195,10 @@ const ReviewFilmsComponent = () => {
   };
 
   return (
-    <div className="reviewfilms">
-      <div className="poster-section-review">
+    <div className="w-100 min-vh-100 reviewfilms">
+      <div className="poster-section-review d-flex justify-content-center">
         <img
-          className="rounded-5 film-poster"
+          className="rounded-4 film-poster"
           src={`http://localhost:3000/${film.image_poster}`}
           alt={film.title}
         />
@@ -391,21 +391,20 @@ const ReviewFilmsComponent = () => {
         </div>
       )}
 
-      <Modal show={showModal} onHide={handleCloseModal} centered size="lg">
-        <Modal.Header closeButton>
-          <Modal.Title>Tambah Ulasan</Modal.Title>
-        </Modal.Header>
+      <Modal
+        show={showModal}
+        onHide={handleCloseModal}
+        centered
+        size="lg"
+        className="review-modal"
+      >
         <Modal.Body>
-          {/* Wadah utama dengan class baru untuk styling 3 kolom */}
           <div className="modal-film-header">
-            {/* KOLOM 1: Poster Film */}
             <img
               src={`http://localhost:3000/${film.image}`}
               alt={film.title}
               className="film-poster-modal"
             />
-
-            {/* KOLOM 2: Detail Teks Film */}
             <div className="film-details-col">
               <h4>{film.title}</h4>
               <p className="film-metadata">
@@ -413,27 +412,19 @@ const ReviewFilmsComponent = () => {
                 {Math.floor(film.duration / 60)}j {film.duration % 60}m
               </p>
               <div className="genre-container">
-                {/* Cek jika film.genre1 ada, lalu tampilkan */}
                 {film.genre1 && (
                   <span className="genre-tag">{film.genre1}</span>
                 )}
-
-                {/* Cek jika film.genre2 ada, lalu tampilkan */}
                 {film.genre2 && (
                   <span className="genre-tag">{film.genre2}</span>
                 )}
-
-                {/* Cek jika film.genre3 ada, lalu tampilkan */}
                 {film.genre3 && (
                   <span className="genre-tag">{film.genre3}</span>
                 )}
               </div>
             </div>
-
-            {/* KOLOM 3: Rating Bintang Interaktif */}
             <div className="rating-col">
               <p>Bintang</p>
-              {/* Teks rating akan berubah saat bintang diklik */}
               <p className="rating-score">
                 {ratinguser > 0 ? ratinguser * 2 : "?"} / 10
               </p>
@@ -443,9 +434,7 @@ const ReviewFilmsComponent = () => {
                   return (
                     <span
                       key={index}
-                      // Logika untuk mengisi bintang berdasarkan state 'ratinguser'
                       className={starValue <= ratinguser ? "star-filled" : ""}
-                      // OnClick sekarang langsung mengubah 'ratinguser'
                       onClick={() => setRatinguser(starValue)}
                     >
                       ☆
@@ -457,70 +446,89 @@ const ReviewFilmsComponent = () => {
           </div>
 
           <Form className="mt-4">
-            <Form.Group controlId="titleReview">
-              <Form.Label>Title Review</Form.Label>
-              <Form.Control
-                as="textarea"
-                rows={3}
-                value={titleReview}
-                onChange={(e) => setTitleReview(e.target.value)}
-              />
-            </Form.Group>
-            <Form.Group controlId="plotReview">
-              <Form.Label>Plot</Form.Label>
-              <Form.Control
-                as="textarea"
-                rows={3}
+            <Form.Control
+              type="text"
+              placeholder="Masukkan Judul Ulasan Anda"
+              value={titleReview}
+              onChange={(e) => setTitleReview(e.target.value)}
+              className="title-input"
+            />
+
+            <div className="custom-form-group">
+              <label htmlFor="plotReview">Plot</label>
+              <textarea
+                id="plotReview"
+                rows="3"
+                placeholder="Ulasan"
                 value={plotReview}
                 onChange={(e) => setPlotReview(e.target.value)}
-              />
-            </Form.Group>
+              ></textarea>
+            </div>
 
-            <Form.Group controlId="actorReview">
-              <Form.Label>Pemeran</Form.Label>
-              <Form.Control
-                as="textarea"
-                rows={3}
+            <div className="custom-form-group">
+              <label htmlFor="actorReview">Pemeran</label>
+              <textarea
+                id="actorReview"
+                rows="3"
+                placeholder="Ulasan"
                 value={actorReview}
                 onChange={(e) => setActorReview(e.target.value)}
-              />
-            </Form.Group>
+              ></textarea>
+            </div>
 
-            <Form.Group controlId="cinematographyReview">
-              <Form.Label>Sinematografi</Form.Label>
-              <Form.Control
-                as="textarea"
-                rows={3}
+            <div className="custom-form-group">
+              <label htmlFor="cinematographyReview">Sinematografi</label>
+              <textarea
+                id="cinematographyReview"
+                rows="3"
+                placeholder="Ulasan"
                 value={cinematographyReview}
                 onChange={(e) => setCinematographyReview(e.target.value)}
-              />
-            </Form.Group>
+              ></textarea>
+            </div>
 
-            <Form.Group controlId="otherReview">
-              <Form.Label>Lainnya</Form.Label>
-              <Form.Control
-                as="textarea"
-                rows={3}
+            <div className="custom-form-group">
+              <label htmlFor="otherReview">Lainnya</label>
+              <textarea
+                id="otherReview"
+                rows="3"
+                placeholder="Ulasan"
                 value={otherReview}
                 onChange={(e) => setOtherReview(e.target.value)}
-              />
-            </Form.Group>
+              ></textarea>
+            </div>
 
-            <Form.Group controlId="spoiler">
-              <Form.Check
-                type="checkbox"
-                label="Apakah Ulasan Pengguna ini mengandung spoiler?"
-                checked={spoiler}
-                onChange={(e) => setSpoiler(e.target.checked)}
-              />
-            </Form.Group>
+            <div className="spoiler-section">
+              <p>Apakah Ulasan Pengguna ini mengandung spoiler?</p>
+
+              <div className="radio-options-container">
+                <Form.Check
+                  // prop "inline" DIHAPUS dari sini
+                  label="Ya"
+                  name="spoiler-group"
+                  type="radio"
+                  id="spoiler-yes"
+                  onChange={() => setSpoiler(true)}
+                />
+                <Form.Check
+                  // prop "inline" DIHAPUS dari sini juga
+                  label="Tidak"
+                  name="spoiler-group"
+                  type="radio"
+                  id="spoiler-no"
+                  defaultChecked
+                  onChange={() => setSpoiler(false)}
+                />
+              </div>
+            </div>
           </Form>
         </Modal.Body>
+
         <Modal.Footer>
-          <Button variant="secondary" onClick={handleCloseModal}>
+          <Button className="btn-custom btn-cancel" onClick={handleCloseModal}>
             Batal
           </Button>
-          <Button variant="primary" onClick={handleSubmit}>
+          <Button className="btn-custom btn-submit" onClick={handleSubmit}>
             Kirim
           </Button>
         </Modal.Footer>

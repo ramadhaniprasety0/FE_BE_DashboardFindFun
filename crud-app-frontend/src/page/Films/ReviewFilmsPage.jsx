@@ -9,7 +9,7 @@ import ReviewFilmsComponent from "../../components/FilmsComponentsHome/ReviewFil
 const ReviewFilmsPage = () => {
   
   return (
-    <div className="homepage-films">
+    <div className="w-100 min-vh-100 homepage-films">
       <ReviewFilmsComponent />
     </div>
   );

@@ -4309,14 +4309,10 @@ text-transform: uppercase;
   }
 }
 
-
-/* Popular Music */
-
-
-
 /* reviewfilms  */
 .reviewfilms {
-  width: 100%; /* Pastikan kontainer mengambil lebar penuh */
+  padding-top: 30px;
+  background-color: #dcddff;
   display: flex;
   justify-content: center; /* Posisikan konten di tengah secara horizontal */
   flex-direction: column; /* Konten diatur vertikal */
@@ -4410,7 +4406,6 @@ text-transform: uppercase;
   text-decoration: none;
 }
 
-/* Menghapus garis bawah pada item terakhir */
 .dropdown-menu-review-film li:last-child {
   border-bottom: none;
 }
@@ -4609,25 +4604,34 @@ text-transform: uppercase;
 }
 
 /* Wadah utama untuk header modal */
-.modal-film-header {
-    display: flex;
-    align-items: flex-start; /* Rata atas */
-    gap: 20px; 
-    padding: 20px;
+.review-modal .modal-content {
+    background-color: #8E97FD;
+    border-radius: 20px;
+    border: none;
+    padding: 10px 20px 20px 20px;
+    color: #333;
 }
 
-/* Kolom 1: Poster */
+.review-modal .modal-body {
+    padding: 0;
+}
+
+.modal-film-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 20px;
+    padding: 20px;
+    margin-bottom: 25px;
+}
 .film-poster-modal {
     width: 100px;
     height: 150px;
     object-fit: cover;
     border-radius: 10px;
-    flex-shrink: 0; /* Agar poster tidak mengecil */
+    flex-shrink: 0;
 }
-
-/* Kolom 2: Detail film */
 .film-details-col {
-    flex-grow: 1; /* Agar kolom ini mengisi ruang yang tersedia */
+    flex-grow: 1;
 }
 .film-details-col h4 {
     font-size: 28px;
@@ -4648,8 +4652,6 @@ text-transform: uppercase;
     margin-right: 8px;
     display: inline-block;
 }
-
-/* Kolom 3: Rating */
 .rating-col {
     text-align: right;
     flex-shrink: 0;
@@ -4667,11 +4669,98 @@ text-transform: uppercase;
 .stars-interactive span {
     font-size: 28px;
     cursor: pointer;
-    color: #fff; /* Warna outline bintang */
+    color: #fff;
     text-shadow: 0 0 2px rgba(0,0,0,0.4);
     transition: color 0.2s;
 }
 .stars-interactive span:hover,
 .stars-interactive span.star-filled {
-    color: #ffc107; /* Warna kuning saat terisi atau di-hover */
+    color: #ffc107;
+}
+
+.title-input,
+.title-input:focus {
+    font-size: 30px;
+    font-weight: bold;
+    color: #000;
+    border: none;
+    border-radius: 0;
+    background-color: transparent;
+    padding: 10px 5px;
+    box-shadow: none;
+    width: 100%;
+}
+.title-input::placeholder {
+    color: #000;
+    font-weight: bold;
+}
+
+.custom-form-group {
+    background-color: #DCDDFF;
+    border-radius: 15px;
+    padding: 12px 20px;
+    margin-bottom: 20px;
+    position: relative;
+}
+.custom-form-group label {
+    font-weight: bold;
+    font-size: 25px;
+    margin-bottom: 8px;
+    display: block;
+}
+.custom-form-group textarea, 
+.custom-form-group input {
+    width: 100%;
+    border: none;
+    background: transparent;
+    resize: none;
+    outline: none;
+    font-size: 20px;
+    padding: 0;
+}
+.custom-form-group input::placeholder,
+.custom-form-group textarea::placeholder {
+    color: #aaa;
+}
+
+.spoiler-section {
+    background-color: #f7f7ff;
+    border-radius: 15px;
+    padding: 20px;
+}
+.spoiler-section p {
+    font-weight: bold;
+    font-size: 25px;
+    margin-top: 0;
+    margin-bottom: 15px;
+}
+.spoiler-section .form-check {
+    margin-right: 20px;
+    font-size: 20px;
+}
+.spoiler-section .form-check-input:checked {
+    background-color: #4f46e5;
+    border-color: #4f46e5;
+}
+
+.review-modal .modal-footer {
+    border-top: none;
+    justify-content: flex-end;
+    padding: 1rem 0 0 0;
+}
+.btn-custom {
+    border-radius: 20px;
+    padding: 10px 25px;
+    font-weight: bold;
+    border: none;
+    width: 140px;
+    height: 40px;
+}
+.btn-cancel {
+    background-color: #e0e0e0;
+    color: #333;
+}
+.btn-submit {
+    background-color: #6366f1;
+    color: white;
 }
