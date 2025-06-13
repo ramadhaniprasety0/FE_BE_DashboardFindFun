@@ -1,5 +1,6 @@
 const Film = require('../models/filmModel');
 const Users = require('../models/userModel');
+const fs = require("fs");
 
 const filmControllers = {
   getAll: (req, res) => {
@@ -68,6 +69,20 @@ const filmControllers = {
       if (err) {
         console.error('Error fetching tiket:', err);
         return res.status(500).json({ error: 'Failed to fetch tiket' });
+      }
+      res.json({
+        success: true,
+        data: results,
+        count: results.length
+      });
+    })
+  },
+
+  getPaymentUser : (req, res) =>{
+    Film.getPaymentUser((err, results) => {
+      if (err) {
+        console.error('Error fetching payment:', err);
+        return res.status(500).json({ error: 'Failed to fetch payment' });
       }
       res.json({
         success: true,
@@ -179,45 +194,6 @@ const filmControllers = {
       });
     });
   },
-
-
-  // buyTicket: (req, res) => {
-  //   const { user_id, nama, email, schedule_id, seat_id, film_id, total_price } = req.body;
-  
-  //   // Validasi data
-  //   if (!user_id || isNaN(user_id) || !film_id || isNaN(film_id) || !seat_id || !Array.isArray(seat_id) || seat_id.length === 0 || !schedule_id || isNaN(schedule_id) || !total_price || isNaN(total_price)) {
-  //     return res.status(400).json({ error: 'Invalid ticket data format' });
-  //   }
-  
-  //   // Proses reservasi kursi satu per satu
-  //   let reservedSeats = [];
-  
-  //   seat_id.forEach((id) => {
-  //     Film.reserveSeat(user_id, id, schedule_id, (err, result) => {
-  //       if (err) {
-  //         console.error('Error reserving seat:', err);
-  //         return res.status(500).json({ error: 'Failed to reserve seat' });
-  //       }
-  
-  //       reservedSeats.push(result.insertId);
-  
-  //       // Jika semua kursi berhasil dipesan, simpan transaksi tiket
-  //       if (reservedSeats.length === seat_id.length) {
-  //         Film.buyTicket(user_id, nama, email, schedule_id, reservedSeats, film_id, total_price, (err, result) => {
-  //           if (err) {
-  //             console.error('Error buying ticket:', err);
-  //             return res.status(500).json({ error: 'Failed to buy ticket' });
-  //           }
-  
-  //           res.json({
-  //             success: true,
-  //             data: result
-  //           });
-  //         });
-  //       }
-  //     });
-  //   });
-  // },
   
   buyTicket: (req, res) => {
   const { user_id, nama, email, schedule_id, seat_id, film_id, total_price } = req.body;
@@ -303,8 +279,6 @@ updatePayTiket: (req, res) => {
     })
   })
 },
-  
-  
 
   create: (req, res) => {
     let artist = req.body.artist;  
@@ -601,15 +575,39 @@ updatePayTiket: (req, res) => {
 
     Film.getByGenre(genre, (err, results) => {
       if (err) {
-        console.error('Error fetching films by genre:', err);
-        return res.status(500).json({ error: 'Failed to fetch films by genre' });
+        console.error("Error getting films by genre:", err);
+        return res.status(500).json({ error: "Failed to get films by genre" });
+      }
+
+      res.json({
+        success: true,
+        data: results,
+      });
+    });
+  },
+
+  updatePaymentStatus: (req, res) => {
+    const { id } = req.params;
+    const { status } = req.body;
+    
+    if (!id || isNaN(id)) {
+      return res.status(400).json({ error: 'ID tiket tidak valid' });
+    }
+    
+    if (!status || (status !== 'ACCEPT' && status !== 'REJECT')) {
+      return res.status(400).json({ error: 'Status tidak valid. Gunakan ACCEPT atau REJECT' });
+    }
+    
+    Film.updatePaymentStatus(id, status, (err, result) => {
+      if (err) {
+        console.error('Error updating payment status:', err);
+        return res.status(500).json({ error: 'Gagal mengubah status pembayaran' });
       }
       
       res.json({
         success: true,
-        data: results,
-        count: results.length,
-        genre: genre
+        message: `Status pembayaran berhasil diubah menjadi ${status}`,
+        data: result
       });
     });
   }
