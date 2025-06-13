@@ -14,13 +14,6 @@ const musicControllers = require('../controllers/musicControllers');
 const ulasanControllers = require('../controllers/ulasanControllers');
 const artistControllers = require('../controllers/artistControllers');
 const caroselControllers = require('../controllers/caroselControllers');
-const albumControllers = require("../controllers/albumControllers");
-const filmControllers = require("../controllers/filmControllers");
-const musicControllers = require("../controllers/musicControllers");
-const ulasanControllers = require("../controllers/ulasanControllers");
-const artistControllers = require("../controllers/artistControllers");
-const popularMusicControllers = require("../controllers/popularMusicController");
-const caroselControllers = require("../controllers/caroselControllers");
 
 // Basic middleware for logging
 router.use((req, res, next) => {
@@ -194,8 +187,6 @@ router.get("/music", musicControllers.getAll); // ?include=all|artists|albums
 router.get("/music/:id", musicControllers.getById); // ?include=all
 router.get("/music/search", musicControllers.search); // ?q=searchTerm
 router.get("/music/genre/:genre", musicControllers.getByGenre);
-router.get("/popular-latest", popularMusicControllers.getLatestPopularMusic);
-router.get("/popular/:id", popularMusicControllers.getPopularMusicById);
 
 // Admin only operations
 router.post(
