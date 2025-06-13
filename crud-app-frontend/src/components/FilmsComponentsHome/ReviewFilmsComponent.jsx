@@ -195,6 +195,7 @@ const ReviewFilmsComponent = () => {
   };
 
   return (
+<<<<<<< main
     <div className="w-100 min-vh-100 reviewfilms">
       <div className="poster-section-review d-flex justify-content-center">
         <img
@@ -205,6 +206,19 @@ const ReviewFilmsComponent = () => {
         <div className="title-review">
           <p>{film.title}</p>
           <h2>Ulasan Penonton</h2>
+=======
+    <div className="reviewfilms">
+        <div className="poster-section-review">
+          <img
+            className="rounded-5 film-poster"
+            src={`http://localhost:3000/${film.image_poster}`}
+            alt={film.title}
+          />
+          <div className="title-review">
+            <p>{film.title}</p>
+            <h2>Ulasan Penonton</h2>
+          </div>
+>>>>>>> main
         </div>
       </div>
       <div className="d-flex mb-4">
@@ -286,9 +300,13 @@ const ReviewFilmsComponent = () => {
       </div>
       {noReview ? (
         <div className="w-100 min-vh-100 d-flex justify-content-center align-items-start homepage-films">
+<<<<<<< main
           <h3>
             Belum ada Review nih.. Jadi reviewer pertama di film {film.title}
           </h3>
+=======
+          <h3>Belum ada Review nih.. Jadi reviewer pertama di film {film.title}</h3>
+>>>>>>> main
         </div>
       ) : (
         <div>
@@ -425,11 +443,16 @@ const ReviewFilmsComponent = () => {
             </div>
             <div className="rating-col">
               <p>Bintang</p>
+<<<<<<< main
               <p className="rating-score">
                 {ratinguser > 0 ? ratinguser * 2 : "?"} / 10
               </p>
               <div className="stars-interactive">
                 {[...Array(5)].map((_, index) => {
+=======
+              <div className="stars">
+                {/* {[...Array(5)].map((_, index) => {
+>>>>>>> main
                   const starValue = index + 1;
                   return (
                     <span
@@ -440,7 +463,7 @@ const ReviewFilmsComponent = () => {
                       ☆
                     </span>
                   );
-                })}
+                })} */}
               </div>
             </div>
           </div>

@@ -720,7 +720,7 @@ const UsersManagement = () => {
   return (
     <div>
       <div className="d-flex justify-content-between align-items-center mb-4">
-        <h4>Daftar Pengguna</h4>
+        <h4>Daftar Pengguna FindFun</h4>
         <button className="btn btn-primary">
           <i className="bi bi-plus-circle me-2"></i>
           Tambah Pengguna

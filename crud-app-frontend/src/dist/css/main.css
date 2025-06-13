@@ -3972,6 +3972,10 @@ header .container .btn-explore:hover {
   background-color: #4527A0;
 }
 
+.accordion-body {
+  padding: 10px 0px 10px 0px;
+}
+
 
 @media (max-width: 767.98px) {
   .form-pembayaran-card {
