@@ -16,7 +16,7 @@ const DetailMusicsPage = () => {
       setError(null);
       try {
         // Mengubah port dari 3001 ke 3000
-        const response = await fetch(`http://localhost:3000/api/popular/${id}`);
+        const response = await fetch(`http://localhost:3000/api/music/${id}`);
 
         if (!response.ok) {
           if (response.status === 404) {
@@ -90,7 +90,7 @@ const DetailMusicsPage = () => {
                 className="d-block w-100 rounded-4"
                 src={
                   music.carouselImage ||
-                  music.image ||
+                  `http://localhost:3000/${music.image}` ||
                   "https://placehold.co/1200x400/EBF4FA/1F2937?text=No+Image"
                 }
                 alt={music.title || "Gambar musik"}
@@ -111,7 +111,7 @@ const DetailMusicsPage = () => {
             <div className="col-md-3 mb-4 mb-md-0">
               <img
                 src={
-                  music.image ||
+                  `http://localhost:3000/${music.image}` ||
                   "https://placehold.co/300x300/EBF4FA/1F2937?text=No+Cover"
                 }
                 alt={music.title || "Cover Lagu"}
