@@ -129,6 +129,7 @@ router.get("/films/:id/schedule/:locationId", filmControllers.getScheduleFilm);
 router.get("/films/:id/cinema", filmControllers.getCinemaLocation);
 router.get("/films/search", filmControllers.search); // ?q=searchTerm
 router.get("/films/genre/:genre", filmControllers.getByGenre);
+router.get("/payment-user", filmControllers.getPaymentUser);
 
 // Endpoint pembelian tiket hanya bisa diakses oleh user yang sudah login
 router.post(
@@ -149,6 +150,14 @@ router.put(
   isUser,
   uploadPayment.single("image"),
   filmControllers.updatePayTiket
+);
+
+// Endpoint untuk mengubah status pembayaran (Admin only)
+router.put(
+  "/films/payment/:id/status",
+  authenticateToken,
+  isAdmin,
+  filmControllers.updatePaymentStatus
 );
 
 // Admin only operations

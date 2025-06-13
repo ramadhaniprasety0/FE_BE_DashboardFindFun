@@ -197,11 +197,11 @@ const ReviewFilmsComponent = () => {
         <div className="poster-section-review">
           <img
             className="rounded-5 film-poster"
-            src={film && film.image_poster ? `http://localhost:3000/${film.image_poster}` : ''}
-            alt={film && film.title ? film.title : 'Film Poster'}
+            src={`http://localhost:3000/${film.image_poster}`}
+            alt={film.title}
           />
           <div className="title-review">
-            <p>{film && film.title ? film.title : ''}</p>
+            <p>{film.title}</p>
             <h2>Ulasan Penonton</h2>
           </div>
         </div>
@@ -278,11 +278,11 @@ const ReviewFilmsComponent = () => {
           </div>
           {noReview ? (
         <div className="w-100 min-vh-100 d-flex justify-content-center align-items-start homepage-films">
-          <h3>Belum ada Review nih.. Jadi reviewer pertama di film {film && film.title ? film.title : ''}</h3>
+          <h3>Belum ada Review nih.. Jadi reviewer pertama di film {film.title}</h3>
         </div>
       ) : (
         <div>
-          {review && review.map((item, i) => (
+          {review.map((item, i) => (
             <div key={i} className="reviewer-film mb-5 border p-3 rounded-4">
               {/* Rating bintang */}
               <div className="stars mb-3">
@@ -394,7 +394,7 @@ const ReviewFilmsComponent = () => {
             <div>
               <p>Bintang</p>
               <div className="stars">
-                {[...Array(5)].map((_, index) => {
+                {/* {[...Array(5)].map((_, index) => {
                   const starValue = index + 1;
                   return (
                     <span
@@ -405,7 +405,7 @@ const ReviewFilmsComponent = () => {
                       {starValue <= rating ? '★' : '☆'}
                     </span>
                   );
-                })}
+                })} */}
               </div>
             </div>
           </div>
