@@ -4291,12 +4291,6 @@ line-height: 1.1;
 text-transform: uppercase; 
 }
 
-
-
-
-
-
-
 /* Responsive adjustments */
 @media (max-width: 992px) {
   .sidebar {
@@ -4563,6 +4557,23 @@ text-transform: uppercase;
   font-size: 13px;
   color: #332a2a;
 }
+/* === CSS BARU UNTUK SEKSI MUSIK HITS === */
+.homepage .music-grid-container {
+  display: flex;
+  flex-wrap: wrap; 
+  gap: 20px; 
+  padding-bottom: 20px;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+.homepage .music-card-wrapper {
+  flex-grow: 1; 
+  flex-basis: calc(20% - 20px); /* Kalkulasi: 100% / 5 = 20%. Kurangi dengan gap */
+  
+  /* Ukuran minimal agar tidak terlalu kecil */
+  min-width: 160px;
+}
 
 /* === CSS BARU UNTUK SEKSI MUSIK HITS === */
 .homepage .music-grid-container {
@@ -4683,6 +4694,7 @@ text-transform: uppercase;
     align-items: flex-start;
     gap: 20px;
     padding: 20px;
+    margin-bottom: 25px;
 }
 .film-poster-modal {
     width: 100px;
@@ -4736,6 +4748,7 @@ text-transform: uppercase;
 }
 .stars-interactive span:hover,
 .stars-interactive span.star-filled {
+    color: #ffc107; /* Warna kuning saat terisi atau di-hover */
     color: #ffc107;
 }
 

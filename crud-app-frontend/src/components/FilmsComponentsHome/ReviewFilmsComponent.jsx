@@ -8,6 +8,8 @@ import "sweetalert2/dist/sweetalert2.min.css";
 
 const ReviewFilmsComponent = () => {
   const { id } = useParams();
+  const userId = localStorage.getItem("userId");
+  const token = localStorage.getItem("token");
   const [review, setReview] = useState([]);
   const [film, setFilm] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -97,9 +99,10 @@ const ReviewFilmsComponent = () => {
     setRatinguser(starValue);
   };
 
-  const handleSubmit = async () => {
+  const handleSubmit = async (e) => {
+    e.preventDefault();
     const ulasanData = {
-      user_id: 1, // Assuming the user ID is 1 for now. This should be dynamically fetched
+      user_id: userId, // Assuming the user ID is 1 for now. This should be dynamically fetched
       film_id: id,
       title_review: titleReview,
       alur_review: plotReview,
@@ -116,9 +119,11 @@ const ReviewFilmsComponent = () => {
 
     try {
       const response = await axios.post(
-        `http://localhost:3000/api/ulasan/film/${id}`,
-        ulasanData
-      );
+        `http://localhost:3000/api/ulasan`, ulasanData, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
       console.log("Ulasan berhasil ditambahkan:", response.data);
       handleCloseModal();
     } catch (error) {
@@ -440,7 +445,7 @@ const ReviewFilmsComponent = () => {
                       ☆
                     </span>
                   );
-                })}
+                })} 
               </div>
             </div>
           </div>

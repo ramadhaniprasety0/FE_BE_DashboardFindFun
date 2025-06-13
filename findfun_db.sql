@@ -81,7 +81,7 @@ CREATE TABLE IF NOT EXISTS `carousel_items` (
   `deskripsi` varchar(255) DEFAULT NULL,
   `status` int DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- Dumping data for table findfun_db.carousel_items: ~5 rows (approximately)
 INSERT INTO `carousel_items` (`id`, `carausel_name`, `titleImage`, `image`, `deskripsi`, `status`) VALUES
@@ -90,7 +90,8 @@ INSERT INTO `carousel_items` (`id`, `carausel_name`, `titleImage`, `image`, `des
 	(3, 'Drive', 'uploads/carousel_image/drivetitle.png', 'uploads/carousel_image/drive.jpg', 'Action & Adventure | 2024', 1),
 	(4, 'Theboys', 'uploads/carousel_image/theboystitle.png', 'uploads/carousel_image/theboys.jpg', 'Action & Adventure | 2025', 1),
 	(5, 'test Wkanda', 'uploads\\carousel_image\\7ba5ce9569e2f74e1274a1a4909041c4', 'uploads\\carousel_image\\c7d6057b45dc4dfd11ef1523ece6a325', 'Univ Pancasila Teknik Informatika', 1),
-	(9, 'test22sdw2222222', 'uploads\\carousel_image\\d3952d36969d0aefd56633fb5566fce5', 'uploads\\carousel_image\\49548d2615ff9ed463349485908aa480', 'seorang dj panjul gokil', 0);
+	(9, 'test22sdw2222222', 'uploads\\carousel_image\\d3952d36969d0aefd56633fb5566fce5', 'uploads\\carousel_image\\49548d2615ff9ed463349485908aa480', 'seorang dj panjul gokil', 0),
+	(10, 'Pupuler lagu', 'uploads\\carousel_image\\a29caa1e20b842bd1d0f783157023b52', 'uploads\\carousel_image\\730c508d34c25d870f0740678ccaee75', 'adadwdw2312', 1);
 
 -- Dumping structure for table findfun_db.cinema_locations
 CREATE TABLE IF NOT EXISTS `cinema_locations` (
@@ -152,7 +153,7 @@ CREATE TABLE IF NOT EXISTS `film_artists` (
   CONSTRAINT `FK2_artist` FOREIGN KEY (`artist_id`) REFERENCES `artists` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Dumping data for table findfun_db.film_artists: ~4 rows (approximately)
+-- Dumping data for table findfun_db.film_artists: ~5 rows (approximately)
 INSERT INTO `film_artists` (`film_id`, `artist_id`, `pemeran`) VALUES
 	(19, 5, 'Madara'),
 	(19, 7, 'Naruto'),
@@ -202,7 +203,7 @@ CREATE TABLE IF NOT EXISTS `music_albums` (
   CONSTRAINT `music_albums_ibfk_2` FOREIGN KEY (`album_id`) REFERENCES `albums` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Dumping data for table findfun_db.music_albums: ~8 rows (approximately)
+-- Dumping data for table findfun_db.music_albums: ~9 rows (approximately)
 INSERT INTO `music_albums` (`music_id`, `album_id`) VALUES
 	(5, 2),
 	(6, 2),
@@ -248,7 +249,7 @@ CREATE TABLE IF NOT EXISTS `reserved_seats` (
   KEY `schedule_id` (`schedule_id`) USING BTREE,
   CONSTRAINT `FK_reserved_seats_schedules` FOREIGN KEY (`schedule_id`) REFERENCES `schedules` (`id`),
   CONSTRAINT `reserved_seats_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=69 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=73 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- Dumping data for table findfun_db.reserved_seats: ~52 rows (approximately)
 INSERT INTO `reserved_seats` (`id`, `schedule_id`, `seat_id`, `user_id`, `status`, `reserved_at`) VALUES
@@ -317,7 +318,11 @@ INSERT INTO `reserved_seats` (`id`, `schedule_id`, `seat_id`, `user_id`, `status
 	(65, 2, 'G7', 1, 'reserved', '2025-06-12 12:44:51'),
 	(66, 2, 'G8', 1, 'reserved', '2025-06-12 12:44:51'),
 	(67, 2, 'E11', 3, 'reserved', '2025-06-12 13:35:40'),
-	(68, 2, 'E12', 3, 'reserved', '2025-06-12 13:35:40');
+	(68, 2, 'E12', 3, 'reserved', '2025-06-12 13:35:40'),
+	(69, 3, 'E12', 3, 'reserved', '2025-06-13 09:27:36'),
+	(70, 3, 'E13', 3, 'reserved', '2025-06-13 09:27:36'),
+	(71, 3, 'F13', 3, 'reserved', '2025-06-13 09:27:36'),
+	(72, 3, 'F12', 3, 'reserved', '2025-06-13 09:27:36');
 
 -- Dumping structure for table findfun_db.schedules
 CREATE TABLE IF NOT EXISTS `schedules` (
@@ -355,6 +360,7 @@ CREATE TABLE IF NOT EXISTS `tickets` (
   `total_price` decimal(10,2) DEFAULT NULL,
   `payment_id` varchar(255) DEFAULT NULL,
   `image` varchar(255) DEFAULT NULL,
+  `status` enum('ACCEPT','REJECT','WAITING') CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT 'WAITING',
   `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
@@ -364,21 +370,22 @@ CREATE TABLE IF NOT EXISTS `tickets` (
   CONSTRAINT `tickets_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`),
   CONSTRAINT `tickets_ibfk_2` FOREIGN KEY (`film_id`) REFERENCES `films` (`id`),
   CONSTRAINT `tickets_ibfk_3` FOREIGN KEY (`schedule_id`) REFERENCES `schedules` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Dumping data for table findfun_db.tickets: ~7 rows (approximately)
-INSERT INTO `tickets` (`id`, `user_id`, `nama`, `email`, `film_id`, `schedule_id`, `seats`, `total_price`, `payment_id`, `image`, `created_at`, `updated_at`) VALUES
-	(1, 1, 'Dhani', 'dhani@gmail.com', 19, 3, '[18, 19]', 120000.00, NULL, NULL, '2025-06-08 09:01:45', '2025-06-09 09:37:50'),
-	(2, 1, '', '', 19, 2, '[20, 21]', 70000.00, NULL, NULL, '2025-06-08 10:19:24', '2025-06-09 09:37:50'),
-	(3, 1, 'testt', 'findfund@gmail.com', 19, 3, '[22, 23, 24, 25, 26]', 250000.00, NULL, NULL, '2025-06-08 10:26:05', '2025-06-09 09:37:50'),
-	(4, 1, 'Fajarsurya', 'fajar@gmail.com', 19, 1, '[27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39]', 455000.00, NULL, NULL, '2025-06-09 05:06:27', '2025-06-09 09:37:50'),
-	(5, 1, 'Nadia Ayu Rahmawati', 'Nadia@gmail.com', 19, 3, '"F6,F7"', 100000.00, 'VA-8542703408-32', 'upload/wdwd', '2025-06-09 09:31:18', '2025-06-09 11:37:12'),
-	(6, 1, 'Ramadhani Prasetyo', 'ramadhani@gmail.com', 19, 3, '"E1,E10,E2,E3,E4,E5,E6,E7,E8,E9"', 500000.00, 'VA-1245102833-38', 'upload/wdwd', '2025-06-10 12:21:49', '2025-06-10 12:42:16'),
-	(7, 1, 'Ramadhani Prasetyo22', 'ramadhani22@gmail.com', 19, 2, '"C1,C2,C3,D1,D3,E1,E2,E3"', 280000.00, 'VA-8656994171-65', NULL, '2025-06-10 12:53:18', '2025-06-10 12:53:25'),
-	(8, 1, 'Nadia Ayu Rahmawati', 'Nadia@gmail.com', 19, 2, '"D2"', 35000.00, 'VA-4136994792-36', NULL, '2025-06-10 13:03:11', '2025-06-10 13:05:49'),
-	(9, 1, 'Nadia Ayu Rahmawati', 'Nadia@gmail.com', 19, 3, '[61, 62, 63]', 150000.00, NULL, NULL, '2025-06-10 17:19:45', '2025-06-10 17:19:45'),
-	(10, 1, 'Nadia Ayu Rahmawati22', 'Nadia@gmail.com', 19, 2, '[64, 65, 66]', 105000.00, NULL, NULL, '2025-06-12 12:44:51', '2025-06-12 12:44:51'),
-	(11, 1, 'Ramadhani Prasetyo22', 'ramadhani22@gmail.com', 19, 2, '"E11,E12"', 70000.00, 'VA-4130124688-55', NULL, '2025-06-12 13:35:40', '2025-06-12 13:45:43');
+-- Dumping data for table findfun_db.tickets: ~11 rows (approximately)
+INSERT INTO `tickets` (`id`, `user_id`, `nama`, `email`, `film_id`, `schedule_id`, `seats`, `total_price`, `payment_id`, `image`, `status`, `created_at`, `updated_at`) VALUES
+	(1, 1, 'Dhani', 'dhani@gmail.com', 19, 3, '[18, 19]', 120000.00, NULL, NULL, 'REJECT', '2025-06-08 09:01:45', '2025-06-09 09:37:50'),
+	(2, 1, '', '', 19, 2, '[20, 21]', 70000.00, NULL, NULL, 'REJECT', '2025-06-08 10:19:24', '2025-06-09 09:37:50'),
+	(3, 1, 'testt', 'findfund@gmail.com', 19, 3, '[22, 23, 24, 25, 26]', 250000.00, NULL, NULL, 'REJECT', '2025-06-08 10:26:05', '2025-06-09 09:37:50'),
+	(4, 1, 'Fajarsurya', 'fajar@gmail.com', 19, 1, '[27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39]', 455000.00, NULL, NULL, 'REJECT', '2025-06-09 05:06:27', '2025-06-09 09:37:50'),
+	(5, 1, 'Nadia Ayu Rahmawati', 'Nadia@gmail.com', 19, 3, '"F6,F7"', 100000.00, 'VA-8542703408-32', 'uploads/artists/0783f4d21cedd9075cff9b5499dae463', 'ACCEPT', '2025-06-09 09:31:18', '2025-06-13 09:23:09'),
+	(6, 1, 'Ramadhani Prasetyo', 'ramadhani@gmail.com', 19, 3, '"E1,E10,E2,E3,E4,E5,E6,E7,E8,E9"', 500000.00, 'VA-1245102833-38', 'uploads/artists/0783f4d21cedd9075cff9b5499dae463', 'ACCEPT', '2025-06-10 12:21:49', '2025-06-13 09:23:04'),
+	(7, 1, 'Ramadhani Prasetyo22', 'ramadhani22@gmail.com', 19, 2, '"C1,C2,C3,D1,D3,E1,E2,E3"', 280000.00, 'VA-8656994171-65', NULL, 'REJECT', '2025-06-10 12:53:18', '2025-06-10 12:53:25'),
+	(8, 1, 'Nadia Ayu Rahmawati', 'Nadia@gmail.com', 19, 2, '"D2"', 35000.00, 'VA-4136994792-36', 'uploads/artists/0783f4d21cedd9075cff9b5499dae463', 'ACCEPT', '2025-06-10 13:03:11', '2025-06-13 09:11:42'),
+	(9, 1, 'Nadia Ayu Rahmawati', 'Nadia@gmail.com', 19, 3, '[61, 62, 63]', 150000.00, NULL, NULL, 'REJECT', '2025-06-10 17:19:45', '2025-06-10 17:19:45'),
+	(10, 1, 'Nadia Ayu Rahmawati22', 'Nadia@gmail.com', 19, 2, '[64, 65, 66]', 105000.00, NULL, 'uploads/artists/0783f4d21cedd9075cff9b5499dae463', 'REJECT', '2025-06-12 12:44:51', '2025-06-13 09:11:59'),
+	(11, 1, 'Ramadhani Prasetyo22', 'ramadhani22@gmail.com', 19, 2, '"E11,E12"', 70000.00, 'VA-4130124688-55', 'uploads/artists/0783f4d21cedd9075cff9b5499dae463', 'ACCEPT', '2025-06-12 13:35:40', '2025-06-13 10:04:55'),
+	(12, 1, 'Surya', 'surya20@gmail.com', 19, 3, '"E12,E13,F12,F13"', 200000.00, 'VA-8999550022-31', NULL, 'WAITING', '2025-06-13 09:27:36', '2025-06-13 09:27:50');
 
 -- Dumping structure for table findfun_db.ticket_prices
 CREATE TABLE IF NOT EXISTS `ticket_prices` (
@@ -414,33 +421,35 @@ CREATE TABLE IF NOT EXISTS `ticket_seats` (
 
 -- Dumping structure for table findfun_db.ulasan
 CREATE TABLE IF NOT EXISTS `ulasan` (
-  `id_ulasan` int NOT NULL AUTO_INCREMENT,
+  `id` int NOT NULL AUTO_INCREMENT,
   `user_id` int NOT NULL,
-  `film_id` int NOT NULL,
-  `title_review` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT '',
+  `film_id` int DEFAULT NULL,
+  `music_id` int DEFAULT NULL,
+  `album_id` int DEFAULT NULL,
   `alur_review` text,
   `sinematografi_review` text,
   `pemeran_review` text,
   `review_lain` text,
-  `kategori` int DEFAULT NULL,
-  `rating` decimal(2,1) DEFAULT NULL,
+  `kategori` varchar(50) DEFAULT NULL,
+  `rating` decimal(3,1) DEFAULT '0.0',
   `like_ulasan` int DEFAULT '0',
   `dislike_ulasan` int DEFAULT '0',
   `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  PRIMARY KEY (`id_ulasan`),
-  KEY `ulasan_ibfk_1` (`user_id`),
-  KEY `ulasan_ibfk_2` (`film_id`),
-  CONSTRAINT `ulasan_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE,
-  CONSTRAINT `ulasan_ibfk_2` FOREIGN KEY (`film_id`) REFERENCES `films` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  PRIMARY KEY (`id`),
+  KEY `fk_user` (`user_id`),
+  KEY `fk_album` (`album_id`),
+  KEY `fk_film` (`film_id`),
+  KEY `fk_music` (`music_id`),
+  CONSTRAINT `fk_album` FOREIGN KEY (`album_id`) REFERENCES `albums` (`id`) ON DELETE SET NULL,
+  CONSTRAINT `fk_film` FOREIGN KEY (`film_id`) REFERENCES `films` (`id`) ON DELETE SET NULL,
+  CONSTRAINT `fk_music` FOREIGN KEY (`music_id`) REFERENCES `music` (`id`) ON DELETE SET NULL,
+  CONSTRAINT `fk_user` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Dumping data for table findfun_db.ulasan: ~3 rows (approximately)
-INSERT INTO `ulasan` (`id_ulasan`, `user_id`, `film_id`, `title_review`, `alur_review`, `sinematografi_review`, `pemeran_review`, `review_lain`, `kategori`, `rating`, `like_ulasan`, `dislike_ulasan`, `created_at`, `updated_at`) VALUES
-	(2, 1, 20, '“Horror menurun, cerita masih cukup solid.”', 'Alur cerita sangat menarik dan tidak membosankan dari awal hingga akhir.', 'Sinematografi sangat memukau dengan pencahayaan yang dramatis dan framing yang estetik.', 'Para pemeran tampil sangat meyakinkan dan mendalami perannya masing-masing.', 'Soundtrack juga sangat mendukung emosi setiap adegan.', 2, 8.7, 12, 1, '2025-06-09 22:08:44', '2025-06-09 22:37:29'),
-	(3, 1, 20, '"Film seruuu sekali"', 'Alur cerita sangat menarik dan tidak membosankan dari awal hingga akhir.', 'Sinematografi sangat memukau dengan pencahayaan yang dramatis dan framing yang estetik.', 'Para pemeran tampil sangat meyakinkan dan mendalami perannya masing-masing.', 'Soundtrack juga sangat mendukung emosi setiap adegan.', 2, 3.7, 12, 1, '2025-06-09 23:06:38', '2025-06-10 05:36:39'),
-	(4, 1, 20, '', 'dawdw', 'dwdwqdqw', 'dawdawd', 'adwadw', 1, 2.0, 0, 0, '2025-06-10 11:53:39', '2025-06-10 11:53:39'),
-	(5, 1, 19, '', 'ajdkjjahjwkdhk', 'adkdhakwhdk', 'ahkjdhakdhk', 'ajgdjagdajgdjw', 2, 2.0, 0, 0, '2025-06-11 09:49:11', '2025-06-11 09:49:11');
+-- Dumping data for table findfun_db.ulasan: ~1 rows (approximately)
+INSERT INTO `ulasan` (`id`, `user_id`, `film_id`, `music_id`, `album_id`, `alur_review`, `sinematografi_review`, `pemeran_review`, `review_lain`, `kategori`, `rating`, `like_ulasan`, `dislike_ulasan`, `created_at`, `updated_at`) VALUES
+	(2, 3, 19, NULL, NULL, 'tadad', 'ladjla', 'dadkakjd', 'adajl;dja', '1', 2.0, 0, 0, '2025-06-13 18:13:54', '2025-06-13 18:13:54');
 
 -- Dumping structure for table findfun_db.users
 CREATE TABLE IF NOT EXISTS `users` (
@@ -458,7 +467,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   KEY `idx_role` (`role`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Dumping data for table findfun_db.users: ~0 rows (approximately)
+-- Dumping data for table findfun_db.users: ~3 rows (approximately)
 INSERT INTO `users` (`id`, `email`, `username`, `password`, `role`, `image`, `created_at`, `updated_at`) VALUES
 	(1, 'admin@finfun.com', 'Admin', '$2b$10$VG7JvZZ8orYsRBLHhqY0YOaT.4wxK07Sq3kNXKJWHtqJ9.t8psOMK', 'user', NULL, '2025-06-12 06:01:35', '2025-06-12 07:01:49'),
 	(2, 'userAdmin@admin.com', 'AdminDhani', '$2b$10$K2Sex44Flk7FL2oeeFW.HueGO/sFAhUX1nLBHl8hgCkwYGI43qpiG', 'admin', 'uploads/artists/0783f4d21cedd9075cff9b5499dae463', '2025-06-12 06:55:28', '2025-06-12 11:00:24'),

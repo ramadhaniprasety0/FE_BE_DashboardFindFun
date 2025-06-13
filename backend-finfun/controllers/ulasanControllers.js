@@ -30,7 +30,6 @@ const ulasanControllers = {
     console.log("Received ulasan data:", req.body);
 
     const ulasan = req.body;
-    // Tambahkan user_id dari token yang sudah diverifikasi
     ulasan.user_id = req.user.id;
 
     if (!ulasan) {

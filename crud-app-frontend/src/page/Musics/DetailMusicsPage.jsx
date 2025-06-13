@@ -111,7 +111,7 @@ const DetailMusicsPage = () => {
             <div className="col-md-3 mb-4 mb-md-0">
               <img
                 src={
-                  music.image ||
+                  `http://localhost:3000/${music.image}` ||
                   "https://placehold.co/300x300/EBF4FA/1F2937?text=No+Cover"
                 }
                 alt={music.title || "Cover Lagu"}
