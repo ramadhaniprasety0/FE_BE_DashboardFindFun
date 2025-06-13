@@ -33,7 +33,7 @@ const RegisterForm = () => {
     try {
       // Panggil API register di backend
       await axios.post('http://localhost:3000/api/register', {
-        name,
+        username,
         email,
         password
       });

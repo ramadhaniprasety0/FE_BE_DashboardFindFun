@@ -70,6 +70,26 @@ const Film = {
     const query = 'SELECT f.*,  cl.* FROM films f JOIN cinema_locations cl ON f.id = cl.film_id WHERE f.id = ?';
     db.query(query, [id], callback);
   },
+
+  getAllTikets:(callback) => {
+    const query = `SELECT 
+    f.id AS film_id, 
+    f.title, 
+    f.image, 
+    f.director, 
+    cl.venue_name, 
+    cl.cinema_type, 
+    GROUP_CONCAT(sc.show_time ORDER BY sc.show_time) AS show_times, 
+    p.ticket_type, 
+    p.price  
+    FROM schedules sc 
+    JOIN cinema_locations cl ON sc.cinema_location_id = cl.id 
+    JOIN films f ON sc.film_id = f.id 
+    JOIN ticket_prices p ON sc.price_id = p.id
+    GROUP BY f.id, cl.venue_name, cl.cinema_type, p.ticket_type, p.price;
+    `;
+    db.query(query, callback);
+  },
   
   getById: (id, callback) => {
     db.query('SELECT * FROM films WHERE id = ?', [id], callback);

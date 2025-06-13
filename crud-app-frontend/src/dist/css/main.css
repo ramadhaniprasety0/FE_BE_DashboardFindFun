@@ -4309,6 +4309,11 @@ text-transform: uppercase;
   }
 }
 
+
+/* Popular Music */
+
+
+
 /* reviewfilms  */
 .reviewfilms {
   padding-top: 30px;
@@ -4356,6 +4361,21 @@ text-transform: uppercase;
   margin-top: -15px;
 }
 
+.title-review p {
+  font-size: 1.5rem; /* Ukuran font untuk judul */
+  font-weight: bold;
+  color: #9176b7;
+  font-style: italic;
+}
+
+.title-review h2 {
+  font-size: 2rem; /* Ukuran font untuk teks */
+  font-weight: normal;
+  margin: 0; /* Menghapus margin default h2 */
+  color: #fff;
+  margin-top: -15px;
+}
+
 /* Tombol dropdown */
 .btn-review {
   background-color: #5562fc; /* Warna latar belakang tombol */
@@ -4376,6 +4396,10 @@ text-transform: uppercase;
   background-color: rgb(66, 77, 199); /* Warna latar belakang saat hover */
 }
 
+.dropdown-menu-review-film {
+  display: none; 
+}
+/* Menu dropdown */
 .dropdown-menu-review-film {
   display: none; 
   position: absolute;
@@ -4494,12 +4518,46 @@ text-transform: uppercase;
   margin-top: -40px;
   margin-left: 10px;
 }
+
+/* Menghapus garis bawah pada item terakhir */
+.dropdown-menu-review-film li:last-child {
+  border-bottom: none;
+}
+
+/* Styling untuk Icon Bocoran */
+.icon-bocoran {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 5px;
+  border-radius: 20px; /* Sudut membulat */
+  background-color: #a9b0fe; /* Warna latar belakang saat belum dipilih */
+  cursor: pointer;
+  transition: background-color 0.3s ease; /* Animasi untuk perubahan latar belakang */
+  width: 150px;
+  height: 35px;
+}
+
+.icon-bocoran:hover {
+  background-color: #d8d6fc; /* Warna latar belakang saat di-hover */
+}
+
+.icon-bocoran i {
+  transition: color 0.3s ease; /* Animasi perubahan warna icon */
+}
+
+/* Styling teks */
+.icon-bocoran span {
+  font-size: 16px;
+  font-weight: bold;
+  margin-left: 8px;
+  transition: color 0.3s ease;
+}
 .like-dislike p {
   margin-top: 15px;
   margin-left: 10px;
   font-size: 13px;
   color: #332a2a;
-
 }
 
 /* === CSS BARU UNTUK SEKSI MUSIK HITS === */
@@ -4675,92 +4733,5 @@ text-transform: uppercase;
 }
 .stars-interactive span:hover,
 .stars-interactive span.star-filled {
-    color: #ffc107;
-}
-
-.title-input,
-.title-input:focus {
-    font-size: 30px;
-    font-weight: bold;
-    color: #000;
-    border: none;
-    border-radius: 0;
-    background-color: transparent;
-    padding: 10px 5px;
-    box-shadow: none;
-    width: 100%;
-}
-.title-input::placeholder {
-    color: #000;
-    font-weight: bold;
-}
-
-.custom-form-group {
-    background-color: #DCDDFF;
-    border-radius: 15px;
-    padding: 12px 20px;
-    margin-bottom: 20px;
-    position: relative;
-}
-.custom-form-group label {
-    font-weight: bold;
-    font-size: 25px;
-    margin-bottom: 8px;
-    display: block;
-}
-.custom-form-group textarea, 
-.custom-form-group input {
-    width: 100%;
-    border: none;
-    background: transparent;
-    resize: none;
-    outline: none;
-    font-size: 20px;
-    padding: 0;
-}
-.custom-form-group input::placeholder,
-.custom-form-group textarea::placeholder {
-    color: #aaa;
-}
-
-.spoiler-section {
-    background-color: #f7f7ff;
-    border-radius: 15px;
-    padding: 20px;
-}
-.spoiler-section p {
-    font-weight: bold;
-    font-size: 25px;
-    margin-top: 0;
-    margin-bottom: 15px;
-}
-.spoiler-section .form-check {
-    margin-right: 20px;
-    font-size: 20px;
-}
-.spoiler-section .form-check-input:checked {
-    background-color: #4f46e5;
-    border-color: #4f46e5;
-}
-
-.review-modal .modal-footer {
-    border-top: none;
-    justify-content: flex-end;
-    padding: 1rem 0 0 0;
-}
-.btn-custom {
-    border-radius: 20px;
-    padding: 10px 25px;
-    font-weight: bold;
-    border: none;
-    width: 140px;
-    height: 40px;
-}
-.btn-cancel {
-    background-color: #e0e0e0;
-    color: #333;
-}
-.btn-submit {
-    background-color: #6366f1;
-    color: white;
+    color: #ffc107; /* Warna kuning saat terisi atau di-hover */
 }

@@ -18,6 +18,14 @@ import 'sweetalert2/dist/sweetalert2.min.css';
 
 const FormPembayaranFilmComponent = ({ film }) => {
   const { id } = useParams();
+  const userId = localStorage.getItem("userId");
+  const token = localStorage.getItem("token");
+  console.log(token);
+  if (!token) {
+    // Token tidak ditemukan
+    console.error("Token tidak ditemukan.");
+    return;
+  }
 
   const [seats, setSeats] = useState([]);
   const [cinemaLocations, setCinemaLocations] = useState([]);
@@ -202,7 +210,7 @@ const FormPembayaranFilmComponent = ({ film }) => {
       }
     
       const tiketData = {
-        user_id: 1,
+        user_id: userId,
         nama: nama,
         email: email,
         schedule_id: selectSeatSchedule,
@@ -214,7 +222,11 @@ const FormPembayaranFilmComponent = ({ film }) => {
       try {
         const response = await axios.post(
           "http://localhost:3000/api/films/beli/tiket", 
-          tiketData
+          tiketData, {
+            headers:{
+              'Authorization': `Bearer ${token}`
+            }
+          }
         );
 
         const testing = true;
