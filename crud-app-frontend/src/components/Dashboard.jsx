@@ -46,6 +46,9 @@ import FormEditAlbum from "./AlbumsComponentsDashboard/FormEditAlbum";
 
 // Tiket Managemen
 import TiketApp from "./TiketComponentDashboard/TiketFilmApp";
+import TiketKonserApp from "./TiketComponentDashboard/TiketKonserApp";
+import AddTiketKonser from "./TiketComponentDashboard/AddTiketKonser";
+import KonserTiketJenisApp from "./TiketComponentDashboard/KonserTiketJenisApp";
 
 import axios from "axios";
 
@@ -374,6 +377,10 @@ const Dashboard = () => {
             <Route path="/editalbums/:id" element={<FormEditAlbum />} />
             {/* Route Tiket Film */}
             <Route path="/tiket-film" element={<TiketFilmManagement />} />
+            {/* Route Tiket Konser */}
+            <Route path="/konser" element={<TiketKonserManagement />} />
+            <Route path="/add-tiket/konser" element={<AddTiketKonser />} />
+            <Route path="/konser/jenis-tiket" element={<KonserTiketJenisManagement />} />
             {/* Route User */}
             <Route path="/users" element={<UsersManagement />} />
             <Route path="/settings" element={<SettingsPage />} />
@@ -696,13 +703,22 @@ const TiketFilmManagement = () => {
     <div>
       <div className="d-flex justify-content-between align-items-center mb-4">
         <h4>Manajemen Tiket Bioskop </h4>
-        <button
-          className="btn btn-add"
-          onClick={() => navigate("/dashboard/add-tiket/film")}
-        >
-          <i className="bi bi-plus-circle me-2"></i>
-          Tambah Tiket
-        </button>
+        <div>
+          <button
+              className="btn btn-secondary me-2"
+              onClick={() => navigate("/dashboard/konser/jenis-tiket")}
+            >
+              <i className="bi bi-tags me-2"></i>
+              Kelola Jenis Tiket 
+          </button>
+          <button
+            className="btn btn-add"
+            onClick={() => navigate("/dashboard/add-tiket/film")}
+          >
+            <i className="bi bi-plus-circle me-2"></i>
+            Tambah Tiket
+          </button>
+        </div>
       </div>
 
       <div className="card border-0 shadow-sm">
@@ -715,6 +731,62 @@ const TiketFilmManagement = () => {
     </div>
   );
 };
+
+// Tiket Konser Management page
+const TiketKonserManagement = () => {
+  const navigate = useNavigate();
+  return (
+    <div>
+      <div className="d-flex justify-content-between align-items-center mb-4">
+        <h4>Manajemen Tiket Konser </h4>
+        <div>
+          <button
+            className="btn btn-secondary me-2"
+            onClick={() => navigate("/dashboard/konser/jenis-tiket")}
+          >
+            <i className="bi bi-tags me-2"></i>
+            Kelola Jenis Tiket
+          </button>
+          <button
+            className="btn btn-add"
+            onClick={() => navigate("/dashboard/add-tiket/konser")}
+          >
+            <i className="bi bi-plus-circle me-2"></i>
+            Tambah Tiket
+          </button>
+        </div>
+      </div>
+
+      <div className="card border-0 shadow-sm">
+        <div className="card-body">
+          <div className="table-responsive">
+            <TiketKonserApp />
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+// Konser Tiket Jenis Management page
+const KonserTiketJenisManagement = () => {
+  return (
+    <div>
+      <div className="d-flex justify-content-between align-items-center mb-4">
+        <h4>Manajemen Jenis Tiket Konser</h4>
+      </div>
+
+      <div className="card border-0 shadow-sm">
+        <div className="card-body">
+          <div className="table-responsive">
+            <KonserTiketJenisApp />
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
 // Users Management Page
 const UsersManagement = () => {
   return (

@@ -1,8 +1,17 @@
-import { useState, useEffect } from "react";
-import { Accordion, Button, Spinner, Modal, Form } from "react-bootstrap";
+import React, { useState, useEffect } from "react";
+import {
+  Accordion,
+  Button,
+  Spinner,
+  Modal,
+  Form,
+  Tabs,
+  Tab,
+} from "react-bootstrap";
 import axios from "axios";
 import Swal from "sweetalert2";
 import "sweetalert2/dist/sweetalert2.min.css";
+import { useNavigate } from "react-router-dom";
 
 const TiketFilmApp = () => {
   const [tikets, setTikets] = useState([]);
@@ -11,8 +20,16 @@ const TiketFilmApp = () => {
   const [filteredPaymentData, setFilteredPaymentData] = useState([]);
   const [statusFilter, setStatusFilter] = useState("WAITING");
   const [showModal, setShowModal] = useState(false);
+  const [showEditModal, setShowEditModal] = useState(false);
   const [loading, setLoading] = useState(true);
   const [selectedPayment, setSelectedPayment] = useState(null);
+  const [selectedShowTime, setSelectedShowTime] = useState("");
+  const [newShowTime, setNewShowTime] = useState("");
+  const [schedules, setSchedules] = useState([]);
+  const [selectedSchedule, setSelectedSchedule] = useState([]);
+  const [filmId, setFilmId] = useState(null);
+
+  const navigate = useNavigate();
 
   const handleOpenModal = (payment) => {
     setSelectedPayment(payment);
@@ -20,6 +37,167 @@ const TiketFilmApp = () => {
   };
 
   const handleCloseModal = () => setShowModal(false);
+
+  const handleOpenEditModal = (tiket) => {
+    setSchedules(tiket);
+    const id = tiket.film_id;
+    const cinemaId = tiket.cinema_location_id;
+    setFilmId(id);
+    getShowtime(id, cinemaId);
+    setShowEditModal(true);
+  };
+
+  const handleCloseEditModal = () => setShowEditModal(false);
+
+  const handleShowTimeChange = (e) => {
+    const scheduleId = e.target.value;
+    setSelectedShowTime(scheduleId);
+
+    // Jika ada schedule yang dipilih, ambil jam tayang dari schedule tersebut
+    if (scheduleId) {
+      const selectedScheduleData = selectedSchedule.find(
+        (schedule) => schedule.schedule_id.toString() === scheduleId.toString()
+      );
+      if (selectedScheduleData) {
+        // Set nilai newShowTime dengan jam tayang yang dipilih
+        setNewShowTime(selectedScheduleData.show_time);
+        console.log("Selected schedule data:", selectedScheduleData);
+      }
+    } else {
+      // Reset newShowTime jika tidak ada schedule yang dipilih
+      setNewShowTime("");
+    }
+  };
+
+  const handleEditSubmit = async (e) => {
+    e.preventDefault();
+    if (!selectedShowTime) {
+      Swal.fire(
+        "Peringatan!",
+        "Silakan pilih jam tayang yang ingin di ubah.",
+        "warning"
+      );
+      return;
+    }
+
+    if (!newShowTime) {
+      Swal.fire("Peringatan!", "Silakan masukkan jam tayang baru.", "warning");
+      return;
+    }
+
+    try {
+      await axios.put(
+        `http://localhost:3000/api/films/${filmId}/schedule/${selectedShowTime}`,
+        {
+          showtime: newShowTime,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      Swal.fire("Sukses!", "Jam tayang berhasil diupdate.", "success");
+      setNewShowTime("");
+      setSelectedShowTime("");
+      // Refresh data
+      getShowtime(filmId, schedules.cinema_location_id);
+      getDataTiket();
+    } catch (error) {
+      console.error("Error updating showtime:", error);
+      Swal.fire(
+        "Gagal!",
+        "Terjadi kesalahan saat mengupdate jam tayang.",
+        "error"
+      );
+    }
+  };
+
+  const handleAddShowTime = async () => {
+    if (!newShowTime) {
+      Swal.fire("Peringatan!", "Silakan masukkan jam tayang baru.", "warning");
+      return;
+    }
+
+    try {
+      await axios.post(
+        `http://localhost:3000/api/films/schedule`,
+        {
+          film_id: filmId,
+          cinema_location_id: schedules.cinema_location_id,
+          show_time: newShowTime,
+          price_id: schedules.price_id,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      Swal.fire("Sukses!", "Jam tayang baru berhasil ditambahkan.", "success");
+      setNewShowTime("");
+      handleCloseEditModal();
+      // Refresh data
+      getShowtime(filmId, schedules.cinema_location_id);
+      getDataTiket();
+    } catch (error) {
+      console.error("Error adding new showtime:", error);
+      Swal.fire(
+        "Gagal!",
+        "Terjadi kesalahan saat menambahkan jam tayang baru.",
+        "error"
+      );
+    }
+  };
+
+  const handleDeleteShowTime = async () => {
+    if (!selectedShowTime) {
+      Swal.fire(
+        "Peringatan!",
+        "Silakan pilih jam tayang yang ingin dihapus.",
+        "warning"
+      );
+      return;
+    }
+
+    // Konfirmasi penghapusan
+    const result = await Swal.fire({
+      title: "Konfirmasi Hapus",
+      text: "Apakah Anda yakin ingin menghapus jam tayang ini?",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#d33",
+      cancelButtonColor: "#3085d6",
+      confirmButtonText: "Ya, hapus!",
+      cancelButtonText: "Batal",
+    });
+
+    if (result.isConfirmed) {
+      try {
+        await axios.delete(
+          `http://localhost:3000/api/films/delete-schedule/${selectedShowTime}`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+        Swal.fire("Sukses!", "Jam tayang berhasil dihapus.", "success");
+        setSelectedShowTime("");
+        setNewShowTime("");
+        // Refresh data
+        getShowtime(filmId, schedules.cinema_location_id);
+        getDataTiket();
+      } catch (error) {
+        console.error("Error deleting showtime:", error);
+        Swal.fire(
+          "Gagal!",
+          "Terjadi kesalahan saat menghapus jam tayang.",
+          "error"
+        );
+      }
+    }
+  };
 
   const getDataTiket = async () => {
     try {
@@ -50,7 +228,20 @@ const TiketFilmApp = () => {
     }
   };
 
+  const getShowtime = async (id, cinemaId) => {
+    try {
+      const { data: data } = await axios.get(
+        `http://localhost:3000/api/films/${id}/schedule/${cinemaId}`
+      );
+      setSelectedSchedule(data.data || []);
+      console.log(data.data);
+    } catch (error) {
+      console.error("Error fetching schedules:", error);
+    }
+  };
+
   useEffect(() => {
+    getShowtime(schedules.film_id);
     getDataTiket();
   }, []);
 
@@ -72,6 +263,7 @@ const TiketFilmApp = () => {
   };
   // Format showtime
   const formatShowtimes = (show_times) => {
+    if (!show_times) return []; // Menangani kasus ketika show_times adalah undefined atau null
     return show_times.split(",").map((showtime, index) => (
       <div key={index} className="btn btn-sm btn-outline-secondary">
         {showtime.slice(0, 5)}
@@ -215,6 +407,7 @@ const TiketFilmApp = () => {
                 <th>Cinema</th>
                 <th>Waktu Tayang</th>
                 <th>Harga</th>
+                <th>Aksi</th>
               </tr>
             </thead>
             <tbody>
@@ -259,6 +452,18 @@ const TiketFilmApp = () => {
                       {formatShowtimes(tiket.show_times)}
                     </td>
                     <td>{formatCurrency(tiket.price, "Rp")}</td>
+                    <td>
+                      <div className="d-flex gap-2 justify-content-center">
+                        <Button
+                          variant="outline-secondary"
+                          title="Edit Jam Tayang"
+                          size="sm"
+                          onClick={() => handleOpenEditModal(tiket)}
+                        >
+                          <i className="bi bi-clock"></i>
+                        </Button>
+                      </div>
+                    </td>
                   </tr>
                 ))
               )}
@@ -267,6 +472,7 @@ const TiketFilmApp = () => {
         </div>
       )}
 
+      {/* Modal Detail Pesanan Tiket */}
       <Modal show={showModal} onHide={handleCloseModal} size="lg">
         <Modal.Header closeButton>
           <Modal.Title>Detail Pesanan Tiket</Modal.Title>
@@ -437,6 +643,155 @@ const TiketFilmApp = () => {
               </Button>
             </>
           )}
+        </Modal.Footer>
+      </Modal>
+
+      {/* Modal Edit Schedules */}
+      <Modal show={showEditModal} onHide={handleCloseEditModal} size="lg">
+        <Modal.Header closeButton>
+          <Modal.Title>Detail Schedule Tiket </Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          {schedules && (
+            <div className="row">
+              <div className="col-md-6">
+                <div className="mb-3">
+                  <h5>Informasi Tiket Bioskop</h5>
+                  <table className="table table-bordered">
+                    <tbody>
+                      <tr>
+                        <td className="fw-bold">Nama Film</td>
+                        <td>{schedules.title}</td>
+                      </tr>
+                      <tr>
+                        <td className="fw-bold">Nama Tempat</td>
+                        <td>{schedules.venue_name}</td>
+                      </tr>
+                      <tr>
+                        <td className="fw-bold">Cinema</td>
+                        <td>{schedules.cinema_type}</td>
+                      </tr>
+                      <tr>
+                        <td className="fw-bold">Harga</td>
+                        <td>{formatCurrency(schedules.price, "Rp")}</td>
+                      </tr>
+                      <tr>
+                        <td className="fw-bold">Jam Tayang</td>
+                        <td className="d-flex flex-wrap gap-2 h-100">
+                          {formatShowtimes(schedules.show_times)}
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <div className="col-md-6">
+                <div className="mb-3">
+                  <h5>Edit Schedule</h5>
+                </div>
+                <Form.Group>
+                  <Form.Label>Jam Tayang</Form.Label>
+                  <Form.Select onChange={handleShowTimeChange} required>
+                    <option value="">Pilih Jam Tayang</option>
+                    {selectedSchedule.map((schedule) => (
+                      <option
+                        key={schedule.schedule_id}
+                        value={schedule.schedule_id}
+                      >
+                        {formatShowtimes(schedule.show_time)} -{" "}
+                        {schedule.venue_name}
+                      </option>
+                    ))}
+                  </Form.Select>
+                </Form.Group>
+                {loading ? (
+                  <div className="d-flex justify-content-center">
+                    <Spinner animation="border" />
+                  </div>
+                ) : (
+                  <Form onSubmit={handleEditSubmit} className="mt-3">
+                    <Form.Group>
+                      <Form.Label>Jam Tayang Baru</Form.Label>
+                      <Form.Control
+                        type="time"
+                        value={newShowTime}
+                        onChange={(e) => setNewShowTime(e.target.value)}
+                        required
+                      />
+                    </Form.Group>
+                    <div className="d-flex justify-content-between gap-2 mb-3 mt-3">
+                      <Button
+                        variant="outline-success"
+                        title="Tambah Jam Tayang"
+                        type="button"
+                        onClick={() => {
+                          if (selectedShowTime) {
+                            // Konfirmasi jika ingin menambah jam tayang baru saat ada jam tayang yang dipilih
+                            Swal.fire({
+                              title: "Konfirmasi",
+                              text: "Anda telah memilih jam tayang. Apakah Anda ingin menambahkan jam tayang baru?",
+                              icon: "question",
+                              showCancelButton: true,
+                              confirmButtonText: "Ya, tambahkan baru",
+                              cancelButtonText: "Batal",
+                            }).then((result) => {
+                              if (result.isConfirmed) {
+                                handleAddShowTime();
+                              }
+                            });
+                          } else {
+                            // Langsung tambah jam tayang baru
+                            handleAddShowTime();
+                          }
+                        }}
+                      >
+                        <i className="fas fa-plus"></i>
+                      </Button>
+                      <Button
+                        variant="outline-danger"
+                        title="Hapus Jam Tayang"
+                        type="button"
+                        disabled={!selectedShowTime}
+                        onClick={handleDeleteShowTime}
+                      >
+                        <i className="fas fa-trash"></i>
+                      </Button>
+                      <Button
+                        variant="outline-primary"
+                        title="Simpan Perubahan"
+                        type="submit"
+                        disabled={!selectedShowTime}
+                      >
+                        <i className="fas fa-save"></i>
+                      </Button>
+                    </div>
+                  </Form>
+                )}
+              </div>
+              {/* <div className="col-md-6">
+                <div className="mb-3">
+                  <h5>Bukti Pembayaran</h5>
+                  {selectedPayment.Bukti ? (
+                    <img
+                      src={`http://localhost:3000/${selectedPayment.Bukti}`}
+                      alt="Bukti Pembayaran"
+                      className="img-fluid border rounded"
+                      style={{ maxHeight: "300px" }}
+                    />
+                  ) : (
+                    <div className="alert alert-warning">
+                      Belum ada bukti pembayaran
+                    </div>
+                  )}
+                </div>
+              </div> */}
+            </div>
+          )}
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleCloseEditModal}>
+            Tutup
+          </Button>
         </Modal.Footer>
       </Modal>
     </div>

@@ -59,7 +59,6 @@ const ReviewFilmsComponent = () => {
       if (data.data.length === 0) {
         setNoReview(true);
       }
-      console.log(film.data);
     } catch (error) {
       Swal.fire(
         "Gagal!",
@@ -71,9 +70,6 @@ const ReviewFilmsComponent = () => {
       setLoading(false);
     }
   };
-
-  const totalReview = review.length;
-  console.log(totalReview);
 
   useEffect(() => {
     getReview();
@@ -102,7 +98,7 @@ const ReviewFilmsComponent = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const ulasanData = {
-      user_id: userId, // Assuming the user ID is 1 for now. This should be dynamically fetched
+      user_id: userId,
       film_id: id,
       title_review: titleReview,
       alur_review: plotReview,
@@ -110,7 +106,7 @@ const ReviewFilmsComponent = () => {
       pemeran_review: actorReview,
       review_lain: otherReview,
       kategori: spoiler ? 1 : 2,
-      rating: 2,
+      rating: ratinguser,
       like_ulasan: 0,
       dislike_ulasan: 0,
     };
@@ -124,16 +120,12 @@ const ReviewFilmsComponent = () => {
             Authorization: `Bearer ${token}`,
           },
         });
-      console.log("Ulasan berhasil ditambahkan:", response.data);
+      getReview();
       handleCloseModal();
     } catch (error) {
       console.error("Gagal mengirim ulasan:", error);
     }
   };
-
-  // const handleRating = (newRating) => {
-  //   // setRating(newRating);
-  // };
 
   // Fungsi untuk toggle dropdown Bintang
   const toggleBintangDropdown = () => {
@@ -327,7 +319,7 @@ const ReviewFilmsComponent = () => {
 
               {/* Isi ulasan */}
               <div className="reviewer-film-isi">
-                <h1>{item.title_review}</h1>
+                <h1>"{item.title_review}"</h1>
                 <div className="alur-film">
                   <h5>Alur</h5>
                   <p>{item.alur_review}</p>

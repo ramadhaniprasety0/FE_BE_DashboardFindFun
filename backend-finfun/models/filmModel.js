@@ -45,7 +45,8 @@ const Film = {
         p.price, 
         l.venue_name, 
         l.cinema_type, 
-        s.film_id 
+        s.film_id,
+        s.cinema_location_id 
     FROM 
         schedules s
     JOIN 
@@ -56,6 +57,12 @@ const Film = {
         s.film_id = ? AND l.id = ?;
     `;
     db.query(query, [id, locationId], callback); // Menyaring hasil berdasarkan id film dan id lokasi
+  },
+
+  getSchedules: (id, locationId, callback) => {
+    const query =
+      "SELECT * FROM schedules WHERE film_id = ? AND cinema_location_id = ?";
+    db.query(query, [id, locationId], callback);
   },
 
   getCinemaLocation: (id, callback) => {
@@ -84,7 +91,9 @@ const Film = {
     f.image, 
     f.director, 
     cl.venue_name, 
-    cl.cinema_type, 
+    cl.cinema_type,
+    sc.cinema_location_id,
+    sc.price_id,
     GROUP_CONCAT(sc.show_time ORDER BY sc.show_time) AS show_times, 
     p.ticket_type, 
     p.price  
@@ -92,9 +101,24 @@ const Film = {
     JOIN cinema_locations cl ON sc.cinema_location_id = cl.id 
     JOIN films f ON sc.film_id = f.id 
     JOIN ticket_prices p ON sc.price_id = p.id
-    GROUP BY f.id, cl.venue_name, cl.cinema_type, p.ticket_type, p.price;
+    GROUP BY 
+    f.id, 
+    f.title,
+    f.image,
+    f.director,
+    cl.venue_name, 
+    cl.cinema_type,
+    sc.cinema_location_id,
+    sc.price_id,
+    p.ticket_type, 
+    p.price
     `;
     db.query(query, callback);
+  },
+
+  updateShowtime: (id, schedule_id, showtime, callback) => {
+    const query = "UPDATE schedules SET show_time = ? WHERE id = ? AND film_id = ?";
+    db.query(query, [showtime, schedule_id, id], callback);
   },
 
   getPaymentUser: (callback) => {
@@ -267,6 +291,25 @@ const Film = {
     WHERE tickets.id = ? AND tickets.schedule_id = ? 
     GROUP BY tickets.id, films.title, films.image, schedules.show_time, cinema_locations.venue_name`;
     db.query(query, [id, schedule_id], callback);
+  },
+
+  createSchedule: (schedule, callback) => {
+    const {
+      film_id,
+      cinema_location_id,
+      show_time,
+      price_id,
+    } = schedule;
+    if (!show_time || !price_id || !cinema_location_id || !film_id) {
+      return res.status(400).json({ error: 'Invalid schedule data format' });
+    }
+    const query = `INSERT INTO schedules (film_id, cinema_location_id, show_time, price_id) VALUES (?, ?, ?, ?)`;
+    db.query(query, [film_id, cinema_location_id, show_time, price_id], callback);
+  },
+
+  deleteSchedule: (schedule_id, callback) => {
+    const query = `DELETE FROM schedules WHERE id = ?`;
+    db.query(query, [schedule_id], callback);
   },
 
   create: (film, callback) => {

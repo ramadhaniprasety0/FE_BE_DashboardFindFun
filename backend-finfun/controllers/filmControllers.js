@@ -135,6 +135,22 @@ const filmControllers = {
     });
   },
 
+  getSchedule: (req, res) => {
+    const id = req.params.id;
+    const locationId = req.params.locationId;
+    Film.getSchedules(id, locationId, (err, results) => {
+      if (err) {
+        console.error('Error fetching schedule:', err);
+        return res.status(500).json({ error: 'Failed to fetch schedule' });
+      }
+      res.json({
+        success: true,
+        data: results,
+        count: results.length
+      });
+    });
+  },
+
   getScheduleFilm: (req, res) => {
     // Mendapatkan id film dan id lokasi dari parameter URL
     const { id, locationId } = req.params;
@@ -278,6 +294,78 @@ updatePayTiket: (req, res) => {
       data: result
     })
   })
+},
+
+updateShowtime: (req, res) => {
+  const { id, schedule_id } = req.params;
+  const { showtime } = req.body;
+
+  if (!id || isNaN(id) || !schedule_id || isNaN(schedule_id) || !showtime) {
+    return res.status(400).json({ error: 'Invalid showtime data format' });
+  }
+
+  Film.updateShowtime(id, schedule_id, showtime, (err, result) => {
+    if (err) {
+      console.error('Error updating showtime:', err);
+      return res.status(500).json({ error: 'Failed to update showtime' });
+    }
+
+    res.json({
+      success: true,
+      data: result
+    });
+  });
+},
+
+createSchedule: (req, res) => {
+  const schedule = {
+    film_id: req.body.film_id,
+    cinema_location_id: req.body.cinema_location_id,
+    show_time: req.body.show_time,
+    price_id: req.body.price_id,
+  }
+
+  console.log(schedule);
+
+  if (!schedule) {
+    return res.status(400).json({ error: 'Invalid schedule data format' });
+  }
+
+  Film.createSchedule(schedule, (err, result) => {
+    if (err) {
+      console.error('Error creating schedule:', err);
+      return res.status(500).json({ error: 'Failed to create schedule' });
+    }
+
+    res.json({
+      success: true,
+      data: result
+    });
+  });
+},
+
+deleteSchedule: (req, res) => {
+  const schedule_id = req.params.schedule_id;
+
+  if (!schedule_id || isNaN(schedule_id)) {
+    return res.status(400).json({ error: 'Invalid schedule ID' });
+  }
+
+  Film.deleteSchedule(schedule_id, (err, result) => {
+    if (err) {
+      console.error('Error deleting schedule:', err);
+      return res.status(500).json({ error: 'Failed to delete schedule' });
+    }
+
+    if (result.affectedRows === 0) {
+      return res.status(404).json({ error: 'Schedule not found' });
+    }
+
+    res.json({
+      success: true,
+      message: 'Schedule deleted successfully'
+    });
+  });
 },
 
   create: (req, res) => {

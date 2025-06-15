@@ -4291,12 +4291,6 @@ line-height: 1.1;
 text-transform: uppercase; 
 }
 
-
-
-
-
-
-
 /* Responsive adjustments */
 @media (max-width: 992px) {
   .sidebar {
@@ -4563,6 +4557,23 @@ text-transform: uppercase;
   font-size: 13px;
   color: #332a2a;
 }
+/* === CSS BARU UNTUK SEKSI MUSIK HITS === */
+.homepage .music-grid-container {
+  display: flex;
+  flex-wrap: wrap; 
+  gap: 20px; 
+  padding-bottom: 20px;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+.homepage .music-card-wrapper {
+  flex-grow: 1; 
+  flex-basis: calc(20% - 20px); /* Kalkulasi: 100% / 5 = 20%. Kurangi dengan gap */
+  
+  /* Ukuran minimal agar tidak terlalu kecil */
+  min-width: 160px;
+}
 
 /* === CSS BARU UNTUK SEKSI MUSIK HITS === */
 .homepage .music-grid-container {
@@ -4738,4 +4749,105 @@ text-transform: uppercase;
 .stars-interactive span:hover,
 .stars-interactive span.star-filled {
     color: #ffc107; /* Warna kuning saat terisi atau di-hover */
+    color: #ffc107;
+}
+
+.title-input,
+.title-input:focus {
+    font-size: 30px;
+    font-weight: bold;
+    color: #000;
+    border: none;
+    border-radius: 0;
+    background-color: transparent;
+    box-shadow: none;
+    width: 100%;
+}
+.title-input::placeholder {
+    color: #000;
+    font-weight: bold;
+}
+
+.custom-form-group {
+    background-color: #DCDDFF;
+    border-radius: 15px;
+    padding: 12px 20px;
+    margin-bottom: 20px;
+    position: relative;
+}
+.custom-form-group label {
+    font-weight: bold;
+    font-size: 25px;
+    margin-bottom: 8px;
+    display: block;
+}
+.custom-form-group textarea, 
+.custom-form-group input {
+    width: 100%;
+    border: none;
+    background: transparent;
+    resize: none;
+    outline: none;
+    font-size: 20px;
+    padding: 0;
+}
+.custom-form-group input::placeholder,
+.custom-form-group textarea::placeholder {
+    color: #aaa;
+}
+
+.spoiler-section {
+    background-color: #DCDDFF;
+    border-radius: 15px;
+    padding: 20px;
+}
+.spoiler-section p {
+    font-weight: bold;
+    font-size: 25px;
+    margin-top: 0;
+    margin-bottom: 15px;
+}
+
+/* Beri jarak bawah pada setiap pilihan radio untuk spasi vertikal */
+.radio-options-container .form-check {
+    margin-bottom: 10px; /* <-- ATUR JARAK VERTIKAL DI SINI */
+}
+
+/* Anda tetap bisa mengatur ukuran font di sini */
+.radio-options-container .form-check-label {
+    font-size: 20px; 
+    font-weight: 500;
+    padding-left: 5px;
+}
+
+.radio-options-container .form-check-input {
+    width: 1.2em;
+    height: 1.2em;
+}
+
+/* Pastikan tidak ada sisa margin dari pilihan radio terakhir */
+.radio-options-container .form-check:last-child {
+    margin-bottom: 0;
+}
+
+.review-modal .modal-footer {
+    border-top: none;
+    justify-content: flex-end;
+    padding: 1rem 0 0 0;
+}
+.btn-custom {
+    border-radius: 20px;
+    padding: 10px 25px;
+    font-weight: bold;
+    border: none;
+    width: 140px;
+    height: 40px;
+}
+.btn-cancel {
+    background-color: #B8BAFF;
+    color: #333;
+}
+.btn-submit {
+    background-color: #5562FC;
+    color: white;
 }

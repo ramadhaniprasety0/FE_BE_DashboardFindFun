@@ -161,45 +161,6 @@ const FormPembayaranFilmComponent = ({ film }) => {
   
 
   const cancelLink = film.id ? `/films/detail/${film.film_id}` : "#";
-  // const confirmPaymentLink = film.id
-  //   ? `/konfirm-bayar-film/${film.id}`
-  //   : "#";
-
-    // const handeleconfirmPaymentLink = async (e) => {
-    //   e.preventDefault();
-    
-    //   if (selectedSeats.size === 0) {
-    //     Swal.fire("Oppss!", "Harap pilih kursi terlebih dahulu.", "warning");
-    //     return;
-    //   }
-    
-    //   const tiketData = {
-    //     user_id: 1,  
-    //     nama: nama,  
-    //     email: email, 
-    //     schedule_id: selectSeatSchedule,  
-    //     seat_id: Array.from(selectedSeats), 
-    //     film_id: film.film_id, 
-    //     total_price: calculateTotalPrice(),  
-    //   };
-    
-    //   try {
-      
-    //     const response = await axios.post(
-    //       "http://localhost:3000/api/films/beli/tiket", 
-    //       tiketData
-    //     );
-        
-    //     if (response.data.success) {
-    //       Swal.fire("Berhasil!", "Pembelian tiket berhasil.", "success");
-    //     } else {
-    //       Swal.fire("Gagal!", "Terjadi kesalahan saat pembelian tiket.", "error");
-    //     }
-    //   } catch (error) {
-    //     console.error(error);
-    //     Swal.fire("Gagal!", "Terjadi kesalahan saat melakukan pembayaran.", "error");
-    //   }
-    // };
     
     const handeleconfirmPaymentLink = async (e) => {
       e.preventDefault();
@@ -229,7 +190,6 @@ const FormPembayaranFilmComponent = ({ film }) => {
           }
         );
 
-        const testing = true;
     
         if (response.data.success) {
           // Swal.fire("Berhasil!", "Pembelian tiket berhasil.", "success");
