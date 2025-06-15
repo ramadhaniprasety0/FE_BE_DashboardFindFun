@@ -13,7 +13,7 @@ const PaymentFilmPage = () => {
 
   const fileInputRef = useRef(null);
   const [data, setData] = useState([]);
-  const [user_id, setUserId] = useState("");
+  const [user_id, setUserId] = useState(0);
   const [nama, setNama] = useState("");
   const [email, setEmail] = useState("");
   const [film_id, setFilmId] = useState("");
@@ -51,7 +51,7 @@ const PaymentFilmPage = () => {
       setPaymentId(ticketData.payment_id);
 
       if (ticketData.image) {
-        setExistingImage(ticketData.image);
+        setExistingImage(image);
         setPreviewImage(`http://localhost:3000/${ticketData.image}`);
       }
     } catch (error) {
@@ -153,7 +153,7 @@ const PaymentFilmPage = () => {
   const handleConfirmPayment = async (e) => {
     e.preventDefault();
 
-    const user_id = 1;
+  
 
     // Send the payment data along with the proof of payment to the backend
     const formData = new FormData();
@@ -390,17 +390,6 @@ const PaymentFilmPage = () => {
             </Row>
           </form>
 
-          <p className="payment-va-name">
-            {/* Virtual Account a.n {data.virtualAccountName} */}
-          </p>
-
-          {/* <h4 className="upload-prompt-heading mt-5">{data.uploadPrompt}</h4> */}
-
-          {/* {fileName && (
-                <p className="mt-2 selected-file-name">
-                  File terpilih: {fileName}
-                </p>
-              )} */}
 
           {/* Bagian Cara Pembayaran */}
           <Row className="justify-content-center mt-4">

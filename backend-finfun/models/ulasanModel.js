@@ -33,15 +33,15 @@ const Ulasan = {
 
     create: (ulasan, callback) => {
         const { 
-            user_id, film_id, music_id, album_id, alur_review, sinematografi_review, pemeran_review,
+            user_id, film_id, music_id, album_id, title_review, alur_review, sinematografi_review, pemeran_review,
             review_lain, kategori, rating, like_ulasan, dislike_ulasan
         } = ulasan;
         const query = `INSERT INTO ulasan (
-            user_id, film_id, music_id, album_id, alur_review, sinematografi_review, pemeran_review,
+            user_id, film_id, music_id, album_id, title_review, alur_review, sinematografi_review, pemeran_review,
             review_lain, kategori, rating, like_ulasan, dislike_ulasan
-        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
+        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
         db.query(query, [
-            user_id, film_id || null, music_id || null, album_id || null, alur_review || null, 
+            user_id, film_id || null, music_id || null, album_id || null, title_review || null,  alur_review || null, 
             sinematografi_review || null, pemeran_review || null, review_lain || null, 
             kategori || null, rating || 0, like_ulasan || 0, dislike_ulasan || 0
         ], callback);
