@@ -431,12 +431,12 @@ const Konser = {
   
   getAllPayments: (callback) => {
     const query = `
-      SELECT kp.*, kt.nama_konser, kt.email, kt.lokasi, kt.tanggal, kt.poster, u.username,
-             ktd.jenis_tiket, ktd.harga, ktd.jumlah
+      SELECT kp.payment_id, kp.nama, kp.email, kp.bukti_pembayaran, k.nama_konser, k.lokasi, k.tanggal, k.image, u.username,
+             ktd.jenis_tiket, kp.total_harga, ktd.jumlah
       FROM konser_pembayaran kp
-      JOIN konser_tiket kt ON kp.konser_tiket_id = kt.id
-      LEFT JOIN users u ON kt.user_id = u.id
-      LEFT JOIN konser_tiket_detail ktd ON kt.id = ktd.konser_tiket_id
+      JOIN konser k ON kp.konser_tiket_id = k.id
+      LEFT JOIN users u ON kp.users_id = u.id
+      LEFT JOIN konser_tiket_detail ktd ON kp.konser_tiket_id = ktd.konser_tiket_id
       ORDER BY kp.created_at DESC
     `;
     db.query(query, callback);

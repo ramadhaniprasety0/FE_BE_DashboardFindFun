@@ -14,7 +14,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
 
 // Login
-import Login from "./LoginComponents/Login";
+import Login from "./LoginComponents/LoginFormComponent";
 
 // Carausel
 import CarouselComponent from "./CarouselItemsComponentsHome/CarouselHomePage";

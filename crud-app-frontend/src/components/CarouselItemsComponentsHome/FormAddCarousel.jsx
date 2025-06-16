@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
+import api from "../../api/axios";
 import { useNavigate } from "react-router-dom";
 import Swal from 'sweetalert2';
 import 'sweetalert2/dist/sweetalert2.min.css';
@@ -8,21 +8,20 @@ const FormAddCarousel = () => {
     const navigate = useNavigate();
     const token = localStorage.getItem("token");
 
-    const [carausel_name, setCarauselName] = useState("");  // Nama Carousel
-    const [titleImage, setTitleImage] = useState(null);     // Gambar Title Carousel
-    const [image, setImage] = useState(null);                // Gambar Carousel
-    const [previewImage, setPreviewImage] = useState("");    // Preview Gambar
-    const [previewTitleImage, setPreviewTitleImage] = useState(""); // Preview Gambar Title
-    const [deskripsi, setDeskripsi] = useState("");          // Deskripsi Carousel
-    const [status, setStatus] = useState(1);                 // Status default 'Aktif' (1)
+    const [carausel_name, setCarauselName] = useState("");  
+    const [titleImage, setTitleImage] = useState(null);    
+    const [image, setImage] = useState(null);                
+    const [previewImage, setPreviewImage] = useState("");    
+    const [previewTitleImage, setPreviewTitleImage] = useState(""); 
+    const [deskripsi, setDeskripsi] = useState("");          
+    const [status, setStatus] = useState(1);                 
     const [submitting, setSubmitting] = useState(false);
-    const [carouselData, setCarouselData] = useState([]);    // Data Carousel untuk validasi
+    const [carouselData, setCarouselData] = useState([]);   
 
-    // Mengambil data carousel untuk validasi
     const getCarouselData = async () => {
         try {
-            const { data } = await axios.get("http://localhost:3000/api/carousel");
-            setCarouselData(data.data);  // Menyimpan data carousel untuk validasi
+            const { data } = await api.get("/carousel");
+            setCarouselData(data.data);  
         } catch (error) {
             console.error(error);
             Swal.fire('Gagal!', 'Terjadi kesalahan saat mengambil data carousel.', 'error');
@@ -30,14 +29,14 @@ const FormAddCarousel = () => {
     };
 
     useEffect(() => {
-        getCarouselData(); // Ambil data carousel saat pertama kali render
+        getCarouselData(); 
     }, []);
 
     const handleTitleImageChange = (e) => {
         const file = e.target.files[0];
         if (file) {
             setTitleImage(file);
-            setPreviewTitleImage(URL.createObjectURL(file)); // Menampilkan preview gambar title
+            setPreviewTitleImage(URL.createObjectURL(file)); 
         }
     };
 
@@ -45,19 +44,19 @@ const FormAddCarousel = () => {
         const file = e.target.files[0];
         if (file) {
             setImage(file);
-            setPreviewImage(URL.createObjectURL(file)); // Menampilkan preview gambar
+            setPreviewImage(URL.createObjectURL(file)); 
         }
     };
 
     const handleAddCarousel = async (e) => {
         e.preventDefault();
 
-        // Validasi jika ada form yang kosong
+        
         if (!carausel_name || !titleImage || !deskripsi || !status || !image) {
             return Swal.fire('Gagal!', 'Harap lengkapi semua data.', 'error');
         }
 
-        // Validasi untuk memeriksa apakah carausel_name sudah ada
+        
         const existingCarousel = carouselData.find(carousel =>
             carousel.carausel_name.toLowerCase() === carausel_name.toLowerCase()
         );
@@ -71,43 +70,37 @@ const FormAddCarousel = () => {
         formData.append("deskripsi", deskripsi);
         formData.append("status", status);
 
-        // Menambahkan file gambar title dan gambar utama carousel
+        
         if (titleImage) {
-            formData.append("titleImage", titleImage);  // Menyertakan gambar title
+            formData.append("titleImage", titleImage);  
         }
 
         if (image) {
-            formData.append("image", image);  // Menyertakan gambar carousel
+            formData.append("image", image); 
         }
 
         try {
-            setSubmitting(true); // Menandakan sedang submit
+            setSubmitting(true); 
 
-            // Debugging: Cek isi formData
-            for (let [key, value] of formData.entries()) {
-                console.log(`${key}:`, value);
-            }
 
-            const response = await axios.post("http://localhost:3000/api/carousel", formData, {
+            const response = await api.post("/carousel", formData, {
                 headers: {
                     "Content-Type": "multipart/form-data",
-                    Authorization: `Bearer ${token}`
                 }
             });
 
             if (response.data.success) {
                 Swal.fire('Berhasil!', 'Carousel berhasil ditambahkan.', 'success');
-                navigate("/dashboard/carousel"); // Redirect ke halaman carousel
+                navigate("/dashboard/carousel"); 
             }
         } catch (error) {
             console.error(error);
             Swal.fire('Gagal!', 'Terjadi kesalahan saat menambahkan carousel.', 'error');
         } finally {
-            setSubmitting(false); // Mengubah status setelah submit selesai
+            setSubmitting(false); 
         }
     };
 
-    // Menghapus URL object setelah preview image berubah
     useEffect(() => {
         return () => {
             if (previewImage) {

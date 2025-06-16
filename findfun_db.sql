@@ -218,6 +218,8 @@ CREATE TABLE IF NOT EXISTS `konser_pembayaran` (
   `id` int NOT NULL AUTO_INCREMENT,
   `users_id` int NOT NULL,
   `konser_tiket_id` int NOT NULL,
+  `nama` varchar(255) NOT NULL,
+  `email` varchar(255) NOT NULL,
   `total_harga` decimal(10,2) NOT NULL,
   `payment_id` varchar(255) DEFAULT NULL,
   `bukti_pembayaran` varchar(255) DEFAULT NULL,
@@ -232,13 +234,13 @@ CREATE TABLE IF NOT EXISTS `konser_pembayaran` (
 ) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- Dumping data for table findfun_db.konser_pembayaran: ~6 rows (approximately)
-INSERT INTO `konser_pembayaran` (`id`, `users_id`, `konser_tiket_id`, `total_harga`, `payment_id`, `bukti_pembayaran`, `status`, `created_at`, `updated_at`) VALUES
-	(1, 1, 7, 3000000.00, 'PAY-ROCK-001', 'bukti_bayar_1.jpg', 'REJECT', '2025-06-14 08:13:36', '2025-06-16 18:42:30'),
-	(2, 1, 8, 2800000.00, 'PAY-JAZZ-001', 'bukti_bayar_2.jpg', 'ACCEPT', '2025-06-14 08:13:36', '2025-06-16 18:42:29'),
-	(3, 1, 9, 3000000.00, 'PAY-POP-001', 'bukti_bayar_3.jpg', 'PENDING', '2025-06-14 08:13:36', '2025-06-16 18:42:27'),
-	(4, 1, 10, 2400000.00, 'PAY-KLASIK-001', 'bukti_bayar_4.jpg', 'ACCEPT', '2025-06-14 08:13:36', '2025-06-16 18:42:26'),
-	(5, 1, 11, 2600000.00, 'PAY-INDIE-001', 'bukti_bayar_5.jpg', 'REJECT', '2025-06-14 08:13:36', '2025-06-16 18:42:24'),
-	(6, 1, 11, 2000000.00, 'PAY-JAZZ-002', 'bukti_bayar_6.jpg', 'PENDING', '2025-06-14 08:13:36', '2025-06-16 18:42:25');
+INSERT INTO `konser_pembayaran` (`id`, `users_id`, `konser_tiket_id`, `nama`, `email`, `total_harga`, `payment_id`, `bukti_pembayaran`, `status`, `created_at`, `updated_at`) VALUES
+	(1, 1, 7, 'wqdq', 'ada', 3000000.00, 'PAY-ROCK-001', 'bukti_bayar_1.jpg', 'REJECT', '2025-06-14 08:13:36', '2025-06-16 19:52:17'),
+	(2, 5, 8, 'wwq', 'ada', 2800000.00, 'PAY-JAZZ-001', 'bukti_bayar_2.jpg', 'ACCEPT', '2025-06-14 08:13:36', '2025-06-16 20:12:23'),
+	(3, 2, 9, 'sss', 'ada', 3000000.00, 'PAY-POP-001', 'bukti_bayar_3.jpg', 'PENDING', '2025-06-14 08:13:36', '2025-06-16 20:12:18'),
+	(4, 3, 10, 'ss', 'dada', 2400000.00, 'PAY-KLASIK-001', 'bukti_bayar_4.jpg', 'ACCEPT', '2025-06-14 08:13:36', '2025-06-16 20:12:14'),
+	(5, 4, 11, 's', 'ada', 2600000.00, 'PAY-INDIE-001', 'bukti_bayar_5.jpg', 'REJECT', '2025-06-14 08:13:36', '2025-06-16 20:12:06'),
+	(6, 2, 13, 'ss', 'adad', 2000000.00, 'PAY-JAZZ-002', 'bukti_bayar_6.jpg', 'PENDING', '2025-06-14 08:13:36', '2025-06-16 20:12:09');
 
 -- Dumping structure for table findfun_db.konser_tiket
 CREATE TABLE IF NOT EXISTS `konser_tiket` (
@@ -274,19 +276,17 @@ CREATE TABLE IF NOT EXISTS `konser_tiket_detail` (
   `harga` decimal(10,2) NOT NULL,
   `jumlah` int NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`),
-  KEY `konser_tiket_id` (`konser_tiket_id`),
-  CONSTRAINT `FK_konser_tiket_detail_konser` FOREIGN KEY (`konser_tiket_id`) REFERENCES `konser` (`id`) ON DELETE CASCADE
+  KEY `konser_tiket_id` (`konser_tiket_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- Dumping data for table findfun_db.konser_tiket_detail: ~7 rows (approximately)
 INSERT INTO `konser_tiket_detail` (`id`, `konser_tiket_id`, `jenis_tiket`, `harga`, `jumlah`) VALUES
-	(8, 7, 'VIP', 1500000.00, 2),
-	(9, 8, 'Gold', 1200000.00, 1),
-	(10, 9, 'Silver', 800000.00, 2),
-	(11, 10, 'Festival', 1000000.00, 3),
-	(12, 11, 'Premium', 1200000.00, 2),
-	(13, 12, 'Presale', 650000.00, 4),
-	(14, 7, 'Premium', 2000000.00, 1);
+	(8, 3, 'VIP', 1500000.00, 2),
+	(9, 1, 'Gold', 1200000.00, 1),
+	(11, 4, 'Festival', 1000000.00, 3),
+	(12, 3, 'Premium', 1200000.00, 2),
+	(13, 2, 'Presale', 650000.00, 4),
+	(14, 1, 'Premium', 2000000.00, 1);
 
 -- Dumping structure for table findfun_db.konser_tiket_jenis
 CREATE TABLE IF NOT EXISTS `konser_tiket_jenis` (
@@ -361,7 +361,7 @@ CREATE TABLE IF NOT EXISTS `music` (
   `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- Dumping data for table findfun_db.music: ~6 rows (approximately)
 INSERT INTO `music` (`id`, `title`, `lirik`, `release_year`, `rating`, `genre1`, `genre2`, `genre3`, `image`, `like_user`, `dislike`, `spotify_link`, `apple_link`, `youtube_link`, `deezer_link`, `created_at`, `updated_at`) VALUES
@@ -370,7 +370,8 @@ INSERT INTO `music` (`id`, `title`, `lirik`, `release_year`, `rating`, `genre1`,
 	(6, 'Dandelions', 'gfdhghgfh', 2020, 1, 'POP', 'Happy', '', 'uploads/fd2e814980474ca3d118cd91974acf90', 0, 0, 'http://localhost:5173/dashboard/addmusic', 'http://localhost:5173/dashboard/addmusic', 'http://localhost:3000/api/music/', 'http://localhost:5173/dashboard/addmusic', '2025-06-01 08:15:07', '2025-06-06 14:02:33'),
 	(7, 'Dive Into You', 'awad', 2012, 1, 'POP', '', '', 'uploads/c974003d9cb2f01f4cf4aaa3a210bb27', 0, 0, 'http://localhost:5173/dashboard/addmusic', 'http://localhost:5173/dashboard/addmusic', 'http://localhost:3000/api/music/', 'http://localhost:5173/dashboard/addmusic', '2025-06-01 08:28:41', '2025-06-04 11:13:27'),
 	(8, 'TULUS - Tujuh Belas', '(Muda jiwa, selamanya muda)\r\n(Kisah kita abadi selamanya)\r\n(Muda jiwa, selamanya muda)\r\n(Kisah kita abadi selamanya)\r\nMasihkah kau mengingat di saat kita masih 17?\r\nWaktu di mana tanggal-tanggal merah terasa sungguh meriah\r\nMasihkah kauingat cobaan terberat kita, Matematika?\r\nMasihkah engkau ingat lagu di radio yang merdu mengudara?\r\nKita masih sebebas itu\r\nRasa takut yang tak pernah mengganggu\r\nBatas naluri bahaya\r\nDulu tingginya lebihi logika\r\nPutaran Bumi dan waktu yang terus berjalan menempa kita\r\nWalau kini kita terpisah, namun, jiwaku tetap di sana (hey)\r\n(Di masa masih sebebas itu) oh, di masa\r\nRasa takut yang tak pernah mengganggu\r\nDi masa naluri bahaya\r\nDulu tingginya lebihi logika\r\nMuda jiwa, selamanya muda\r\nKisah kita abadi selamanya\r\n(Kita masih sebebas itu) kita masih sebebas itu\r\n(Rasa takut yang tak pernah mengganggu)\r\nRasa takut yang tak pernah mengganggu\r\n(Batas naluri bahaya, oh-oh)\r\n(Dulu tingginya lebihi logika)\r\nSederas apa pun arus di hidupmu\r\nGenggam terus kenangan tentang kita\r\nSeberapa pun dewasa mengujimu\r\nTakkan lebih dari yang engkau bisa\r\nDan kisah kita abadi untuk s\'lama-lamanya', 2022, 1, 'POP', 'Jazz', '', 'uploads/2165bef95407b5614bb922d2c6b7f9bf', 0, 0, 'http://localhost:5173/dashboard/addmusic', 'http://localhost:5173/dashboard/addmusic', 'http://localhost:3000/api/music/', 'http://localhost:5173/dashboard/addmusic', '2025-06-04 02:34:56', '2025-06-04 02:34:56'),
-	(9, 'Cupid', 'adawd', 2022, 1, 'adada', '', '', 'uploads/96974b6b2d7676459f15772e7a2ae6db', 0, 0, '-', '-', '-', '-', '2025-06-12 16:06:24', '2025-06-12 16:07:33');
+	(9, 'Cupid', 'adawd', 2022, 1, 'adada', '', '', 'uploads/96974b6b2d7676459f15772e7a2ae6db', 0, 0, '-', '-', '-', '-', '2025-06-12 16:06:24', '2025-06-12 16:07:33'),
+	(10, 'testt', 'adada', 2002, 10, 'adada12', 'ada gebre', '', 'uploads/f3ceeaf0f2441df6187b264ac0a9b223', 0, 0, '-', '-', '-', '-', '2025-06-16 19:12:42', '2025-06-16 19:14:40');
 
 -- Dumping structure for table findfun_db.music_albums
 CREATE TABLE IF NOT EXISTS `music_albums` (
@@ -392,7 +393,8 @@ INSERT INTO `music_albums` (`music_id`, `album_id`) VALUES
 	(7, 3),
 	(8, 3),
 	(9, 3),
-	(6, 5);
+	(6, 5),
+	(10, 21);
 
 -- Dumping structure for table findfun_db.music_artists
 CREATE TABLE IF NOT EXISTS `music_artists` (
@@ -413,7 +415,8 @@ INSERT INTO `music_artists` (`music_id`, `artist_id`) VALUES
 	(3, 7),
 	(5, 7),
 	(6, 7),
-	(8, 7);
+	(8, 7),
+	(10, 8);
 
 -- Dumping structure for table findfun_db.reserved_seats
 CREATE TABLE IF NOT EXISTS `reserved_seats` (
@@ -641,7 +644,7 @@ CREATE TABLE IF NOT EXISTS `ulasan` (
   CONSTRAINT `fk_film` FOREIGN KEY (`film_id`) REFERENCES `films` (`id`) ON DELETE SET NULL,
   CONSTRAINT `fk_music` FOREIGN KEY (`music_id`) REFERENCES `music` (`id`) ON DELETE SET NULL,
   CONSTRAINT `fk_user` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- Dumping data for table findfun_db.ulasan: ~5 rows (approximately)
 INSERT INTO `ulasan` (`id`, `user_id`, `film_id`, `music_id`, `album_id`, `title_review`, `alur_review`, `sinematografi_review`, `pemeran_review`, `review_lain`, `kategori`, `rating`, `like_ulasan`, `dislike_ulasan`, `created_at`, `updated_at`) VALUES
@@ -652,7 +655,8 @@ INSERT INTO `ulasan` (`id`, `user_id`, `film_id`, `music_id`, `album_id`, `title
 	(6, 3, 20, NULL, NULL, NULL, 'akdjlajdl', 'dajldjal', 'aldkjaldj', 'dlkajlda', '1', 4.0, 0, 0, '2025-06-13 19:35:58', '2025-06-13 19:35:58'),
 	(7, 3, 20, NULL, NULL, 'Oke Mantap sekali', 'adaw', 'adad', 'adad', 'adada', '2', 0.0, 0, 0, '2025-06-13 19:40:33', '2025-06-13 19:40:33'),
 	(8, 3, 22, NULL, NULL, 'jahdkjhk', 'adw', 'dadw', 'dawdaw', 'dawdw', '1', 5.0, 0, 0, '2025-06-16 11:41:43', '2025-06-16 11:41:43'),
-	(9, 3, 22, NULL, NULL, 'lkajdlkjldw', 'djakldlw', 'ajkldjalwjl', 'dkalwjdlkjwlk', 'adjaklwdjlk', '1', 5.0, 0, 0, '2025-06-16 11:42:05', '2025-06-16 11:42:05');
+	(9, 3, 22, NULL, NULL, 'lkajdlkjldw', 'djakldlw', 'ajkldjalwjl', 'dkalwjdlkjwlk', 'adjaklwdjlk', '1', 5.0, 0, 0, '2025-06-16 11:42:05', '2025-06-16 11:42:05'),
+	(10, 4, 19, NULL, NULL, 'adad', 'adad', 'adada', 'adad', 'adad', '1', 0.0, 0, 0, '2025-06-16 18:51:49', '2025-06-16 18:51:49');
 
 -- Dumping structure for table findfun_db.users
 CREATE TABLE IF NOT EXISTS `users` (
@@ -670,14 +674,15 @@ CREATE TABLE IF NOT EXISTS `users` (
   UNIQUE KEY `email` (`email`),
   KEY `idx_email` (`email`),
   KEY `idx_role` (`role`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- Dumping data for table findfun_db.users: ~4 rows (approximately)
 INSERT INTO `users` (`id`, `email`, `username`, `password`, `role`, `image`, `created_at`, `updated_at`, `reset_token`, `reset_token_expires`) VALUES
 	(1, 'admin@finfun.com', 'Admin', '$2b$10$VG7JvZZ8orYsRBLHhqY0YOaT.4wxK07Sq3kNXKJWHtqJ9.t8psOMK', 'user', NULL, '2025-06-12 06:01:35', '2025-06-12 07:01:49', NULL, NULL),
 	(2, 'rd711705@gmail.com', 'AdminDhani', '$2b$10$PBeO/HPDXnQa.PmeSrRpUurw9m8DIKLuLIIzxXcr9zi/.OTTdxbTS', 'admin', 'uploads/artists/0783f4d21cedd9075cff9b5499dae463', '2025-06-12 06:55:28', '2025-06-16 11:15:27', NULL, NULL),
 	(3, 'softwareseleb20@gmail.com', 'dhani', '$2b$10$fUpPnDrBBA69tyO5QmRBkOzi0JDP8HgUtWfC3fkvlF359wwsIjn/C', 'user', NULL, '2025-06-12 10:00:15', '2025-06-16 10:57:53', NULL, NULL),
-	(4, 'ramadhaniprasetyo2000@gmail.com', 'dhani', '$2b$10$H1uEtOLwllNuXXAcodje0e1hHOlpTsZCAbYhLJuCxiUBEN3WMfL/W', 'user', NULL, '2025-06-16 12:21:44', '2025-06-16 12:44:58', NULL, NULL);
+	(4, 'ramadhaniprasetyo2000@gmail.com', 'dhani', '$2b$10$H1uEtOLwllNuXXAcodje0e1hHOlpTsZCAbYhLJuCxiUBEN3WMfL/W', 'user', NULL, '2025-06-16 12:21:44', '2025-06-16 12:44:58', NULL, NULL),
+	(5, 'adada@gmail.com', 'dajdgaj', '$2b$10$5Df8xwSOzyyK/axoJ9ZnFeQNNB5b/Tz.BGiZ.AOylFeE7PH4Bn8.C', 'user', NULL, '2025-06-16 19:02:15', '2025-06-16 19:02:15', NULL, NULL);
 
 /*!40103 SET TIME_ZONE=IFNULL(@OLD_TIME_ZONE, 'system') */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;

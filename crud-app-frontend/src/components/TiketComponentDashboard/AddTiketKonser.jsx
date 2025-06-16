@@ -7,11 +7,12 @@ import {
   Col,
   Card,
   Alert,
+  Modal,
 } from "react-bootstrap";
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import { FaPlus, FaTrash } from "react-icons/fa";
+import api from "../../api/axios";
 
 const AddTiketKonser = () => {
   const navigate = useNavigate();
@@ -38,7 +39,7 @@ const AddTiketKonser = () => {
   useEffect(() => {
     const fetchArtists = async () => {
       try {
-        const response = await axios.get("http://localhost:3000/api/artists");
+        const response = await api.get("/artists");
         setArtists(response.data.data);
       } catch (error) {
         console.error("Error fetching artists:", error);
@@ -48,7 +49,7 @@ const AddTiketKonser = () => {
 
     const fetchMusic = async () => {
       try {
-        const response = await axios.get("http://localhost:3000/api/music");
+        const response = await api.get("/music");
         setMusic(response.data.data);
       } catch (error) {
         console.error("Error fetching music:", error);
@@ -179,9 +180,8 @@ const AddTiketKonser = () => {
         formDataToSend.append("image", formData.image);
       }
 
-      const response = await axios.post("http://localhost:3000/api/konser", formDataToSend, {
+      const response = await api.post("/konser", formDataToSend, {
         headers: {
-          Authorization: `Bearer ${token}`,
           "Content-Type": "multipart/form-data",
         },
       });

@@ -1,8 +1,9 @@
 import { useState, useEffect } from "react";
-import axios from "axios";
+import api from "../../api/axios"; // Ganti import axios dengan api dari file axios.js
 import Swal from 'sweetalert2';
 import 'sweetalert2/dist/sweetalert2.min.css';
 import { data, Link, useNavigate } from "react-router-dom";
+
 const MusicApp = () => {
    const [dataMusic, setDataMusic] = useState([]);
    const [loading, setLoading] = useState(false);
@@ -11,7 +12,7 @@ const MusicApp = () => {
    const getData = async () => {
       try {
          setLoading(true);
-         const { data } = await axios.get("http://localhost:3000/api/music?include=all");
+         const { data } = await api.get("/music?include=all"); // Hapus URL hardcoded, gunakan endpoint relatif
          setDataMusic(data.data);
          
          setLoading(false);
@@ -21,8 +22,6 @@ const MusicApp = () => {
          setLoading(false);
       }
    };
-
-
 
 //    Hapus Music
    const handleDeleteMusic = async (id, title) => {
@@ -38,7 +37,7 @@ const MusicApp = () => {
       }).then(async (result) => {
       if (result.isConfirmed) {
         try {
-          await axios.delete(`http://localhost:3000/api/music/${id}`);
+          await api.delete(`/music/${id}`); // Hapus URL hardcoded, gunakan endpoint relatif
           await Swal.fire('Terhapus!', 'Music berhasil dihapus.', 'success');
           getData(); // refresh data
         } catch (error) {
@@ -97,7 +96,7 @@ const MusicApp = () => {
                                             {music.image ?(
 
                                                 <img 
-                                                src={`http://localhost:3000/${music.image}`} 
+                                                src={`${import.meta.env.VITE_API_URL_IMAGE}/${music.image}`} 
                                                 style={{width: "50px", height: "50px", objectFit: "cover"}} 
                                                 alt={music.title} 
                                                 className="img-thumbnail"
@@ -139,4 +138,4 @@ const MusicApp = () => {
     );
 };
 
-export default MusicApp
+export default MusicApp;

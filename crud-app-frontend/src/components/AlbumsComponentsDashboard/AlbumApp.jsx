@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import axios from "axios";
+import api from "../../api/axios"; // Ganti import axios dengan api dari file axios.js
 import { Link } from "react-router-dom";
 import Swal from 'sweetalert2';
 import 'sweetalert2/dist/sweetalert2.min.css';
@@ -11,7 +11,7 @@ const AlbumApp = () => {
     const getAlbums = async () => {
         try {
             setLoading(true);
-            const { data } = await axios.get("http://localhost:3000/api/albums");
+            const { data } = await api.get("/albums"); // Hapus URL hardcoded, gunakan endpoint relatif
             setAlbums(data.data);
             setLoading(false);
         } catch (error) {
@@ -39,7 +39,7 @@ const AlbumApp = () => {
         }).then(async (result) => {
         if (result.isConfirmed) {
             try {
-                await axios.delete(`http://localhost:3000/api/albums/${id}`);
+                await api.delete(`/albums/${id}`); // Hapus URL hardcoded, gunakan endpoint relatif
                 await Swal.fire('Terhapus!', 'Album berhasil dihapus.', 'success');
                 getAlbums(); // refresh data
             } catch (error) {
@@ -91,7 +91,7 @@ const AlbumApp = () => {
                                         <td>{index + 1}</td>
                                         <td>{album.image ? (
                                             <img 
-                                            src={`http://localhost:3000/${album.image}`}
+                                            src={`${import.meta.env.VITE_API_URL_IMAGE}/${album.image}`}
                                             style={{width: "50px", height: "50px", objectFit: "cover"}} 
                                             alt={album.title}
                                             className="img-thumbnail"

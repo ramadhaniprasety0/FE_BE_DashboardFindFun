@@ -3,7 +3,7 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import {Table} from 'react-bootstrap';
-import axios from "axios";
+import api from "../../api/axios"; // Ganti import axios dengan api dari file axios.js
 import Swal from 'sweetalert2';
 import 'sweetalert2/dist/sweetalert2.min.css';
 
@@ -13,11 +13,10 @@ const FilmsApp = () => {
     const [dataFilms, setDataFilms] = useState([]);
     const [loading, setLoading] = useState(false);
 
-    // Ambil data film
     const getData = async () => {
         try {
             setLoading(true);
-            const { data } = await axios.get("http://localhost:3000/api/films?include=all");
+            const { data } = await api.get("/films"); // Hapus URL hardcoded, gunakan endpoint relatif
             setDataFilms(data.data);
             setLoading(false);
         } catch (error) {
@@ -42,9 +41,9 @@ const FilmsApp = () => {
         }).then(async (result) => {
           if (result.isConfirmed) {
             try {
-              await axios.delete(`http://localhost:3000/api/films/${id}`);
-              await Swal.fire('Terhapus!', 'Film berhasil dihapus.', 'success');
-              getData(); 
+                await api.delete(`/films/${id}`); // Hapus URL hardcoded, gunakan endpoint relatif
+                await Swal.fire('Terhapus!', 'Film berhasil dihapus.', 'success');
+                getData(); 
             } catch (error) {
               console.error(error);
               Swal.fire('Gagal!', 'Terjadi kesalahan saat menghapus film.', 'error');
@@ -108,7 +107,7 @@ const FilmsApp = () => {
                                         <td>
                                             {data.image ? (
                                                 <img 
-                                                    src={`http://localhost:3000/${data.image}`} 
+                                                    src={`${import.meta.env.VITE_API_URL_IMAGE}/${data.image}`} 
                                                     alt={data.title}
                                                     className="img-thumbnail"
                                                     style={{ width: "50px", height: "50px", objectFit: "cover" }}
