@@ -48,6 +48,7 @@ import FormEditAlbum from "./AlbumsComponentsDashboard/FormEditAlbum";
 import TiketApp from "./TiketComponentDashboard/TiketFilmApp";
 import TiketKonserApp from "./TiketComponentDashboard/TiketKonserApp";
 import AddTiketKonser from "./TiketComponentDashboard/AddTiketKonser";
+import AddTiketFilm from "./TiketComponentDashboard/AddTiketFilm";
 import KonserTiketJenisApp from "./TiketComponentDashboard/KonserTiketJenisApp";
 
 import axios from "axios";
@@ -377,6 +378,7 @@ const Dashboard = () => {
             <Route path="/editalbums/:id" element={<FormEditAlbum />} />
             {/* Route Tiket Film */}
             <Route path="/tiket-film" element={<TiketFilmManagement />} />
+            <Route path="/add-tiket/film" element={<AddTiketFilm />}/>
             {/* Route Tiket Konser */}
             <Route path="/konser" element={<TiketKonserManagement />} />
             <Route path="/add-tiket/konser" element={<AddTiketKonser />} />

@@ -18,7 +18,9 @@ import FormTiketFilm from "./page/Films/FormTiketFilmPage";
 import PaymentFilmPage from "./page/Films/PaymentFilmPage";
 import PopulerMusicsPage from "./page/Musics/PopulerMusicsPage";
 import KonserMusicsPage from "./page/Musics/KonserMusicsPage";
-
+import ForgotPasswordPage from "./page/ForgotPasswordPage";
+import OTPVerificationPage from "./page/OTPVerificationPage";
+import ResetPasswordPage from "./page/ResetPasswordPage";
 
 // import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -52,6 +54,9 @@ function App() {
         {/* Rute autentikasi */}
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/forgot-password" element={<ForgotPasswordPage />} />
+        <Route path="/verify-otp" element={<OTPVerificationPage />} />
+        <Route path="/reset-password" element={<ResetPasswordPage />} />
         
         {/* Rute admin yang dilindungi */}
         <Route element={<PrivateRoute />}>
