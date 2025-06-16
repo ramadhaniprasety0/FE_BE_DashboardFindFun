@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from "react";
-import api from "../../api/axios";
+import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
+// Base API URL
+const API_URL = "http://localhost:3000/api";
 
 const AddTiketFilm = () => {
   const navigate = useNavigate();
@@ -71,8 +73,8 @@ const AddTiketFilm = () => {
       const token = localStorage.getItem("token");
 
       // Menggunakan API baru yang menangani pembuatan data di tiga tabel sekaligus
-      const response = await api.post(
-        `/tiket-film`,
+      const response = await axios.post(
+        `${API_URL}/tiket-film`,
         {
           film_id: formData.film_id,
           venue_name: formData.venue_name,
@@ -81,6 +83,11 @@ const AddTiketFilm = () => {
           price: parseInt(formData.price),
           show_time: formData.show_time,
         },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
       );
 
       setLoading(false);

@@ -1,13 +1,12 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import api from "../../api/axios"; // Ganti import axios dengan api dari file axios.js
+import axios from "axios";
 import Swal from "sweetalert2";
 import "sweetalert2/dist/sweetalert2.min.css";
 
 const FormAddArtist = () => {
   const navigate = useNavigate();
-  // Token tidak perlu diambil manual karena sudah ditangani oleh axios.js
-  // const token = localStorage.getItem("token");
+  const token = localStorage.getItem("token");
 
   // State for form data
   const [name, setName] = useState("");
@@ -30,7 +29,7 @@ const FormAddArtist = () => {
   // Fetch existing artists to check for duplicates
   const getData = async () => {
     try {
-      const { data } = await api.get("/artists");
+      const { data } = await axios.get("http://localhost:3000/api/artists");
       setDataArtists(data.data);
     } catch (error) {
       console.error(error);
@@ -98,10 +97,10 @@ const FormAddArtist = () => {
         console.log(`${key}:`, value);
       }
 
-      await api.post("/artists", formData, { // Hapus URL hardcoded, gunakan endpoint relatif
+      await axios.post("http://localhost:3000/api/artists", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
-          // Authorization header tidak perlu karena sudah ditangani oleh axios.js
+          Authorization: `Bearer ${token}`,
         },
       });
 
@@ -109,7 +108,7 @@ const FormAddArtist = () => {
       navigate("/dashboard/artists");
     } catch (error) {
       console.error(error);
-      Swal.fire("Gagal!", "Terjadi kesalahan saat menambahkan artist.", "error");
+      Swal.fire("Gagal!", "Artist gagal ditambahkan.", "error");
     } finally {
       setSubmitting(false);
     }

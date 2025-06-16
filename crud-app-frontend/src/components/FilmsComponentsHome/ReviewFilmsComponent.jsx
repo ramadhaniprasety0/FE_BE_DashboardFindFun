@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { Row, Col, Spinner, Modal, Button, Form } from "react-bootstrap";
-import api from "../../api/axios";
+import axios from "axios";
 import Swal from "sweetalert2";
 import "sweetalert2/dist/sweetalert2.min.css";
 // import { Link } from "react-router-dom";
@@ -24,17 +24,17 @@ const ReviewFilmsComponent = () => {
 
   const [bintangDropdownOpen, setBintangDropdownOpen] = useState(false);
   const [urutkanDropdownOpen, setUrutkanDropdownOpen] = useState(false);
-  const [isChecked, setIsChecked] = useState(false); 
-  const [rating, setRating] = useState(review.rating); 
+  const [isChecked, setIsChecked] = useState(false); // Untuk menangani status icon Bocoran
+  const [rating, setRating] = useState(review.rating); // Rating state initialized with default value
   const totalStars = 5;
 
-  
+  // New state for like and dislike count and color change
   const [likeCount, setLikeCount] = useState(100);
   const [dislikeCount, setDislikeCount] = useState(13);
   const [likeClicked, setLikeClicked] = useState(false);
   const [dislikeClicked, setDislikeClicked] = useState(false);
 
-  
+  // Referensi untuk tombol dropdown dan menu dropdown
   const bintangDropdownRef = useRef(null);
   const urutkanDropdownRef = useRef(null);
 
@@ -48,11 +48,11 @@ const ReviewFilmsComponent = () => {
   const getReview = async () => {
     try {
       setLoading(true);
-      const { data: film } = await api.get(
-        `/films/${id}`
+      const { data: film } = await axios.get(
+        `http://localhost:3000/api/films/${id}`
       );
-      const { data } = await api.get(
-        `/ulasan/film/${id}`
+      const { data } = await axios.get(
+        `http://localhost:3000/api/ulasan/film/${id}`
       );
       setReview(data.data);
       setFilm(film.data);
@@ -114,9 +114,11 @@ const ReviewFilmsComponent = () => {
     console.log(ulasanData);
 
     try {
-      const response = await api.post(
-        `/ulasan`, ulasanData, {
-         
+      const response = await axios.post(
+        `http://localhost:3000/api/ulasan`, ulasanData, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
         });
       getReview();
       handleCloseModal();
@@ -153,25 +155,25 @@ const ReviewFilmsComponent = () => {
 
   const handleLikeClick = () => {
     if (!likeClicked) {
-      setLikeClicked(true); 
-      setDislikeClicked(false); 
-      setLikeCount(likeCount + 1); 
-      setDislikeCount(dislikeCount - (dislikeClicked ? 1 : 0)); 
+      setLikeClicked(true); // Select like
+      setDislikeClicked(false); // Deselect dislike
+      setLikeCount(likeCount + 1); // Increase like count
+      setDislikeCount(dislikeCount - (dislikeClicked ? 1 : 0)); // Decrease dislike count if it was selected
     } else {
-      setLikeClicked(false); 
-      setLikeCount(likeCount - 1); 
+      setLikeClicked(false); // Deselect like
+      setLikeCount(likeCount - 1); // Decrease like count
     }
   };
 
   // Handle dislike click event
   const handleDislikeClick = () => {
     if (!dislikeClicked) {
-      setDislikeClicked(true); 
-      setLikeClicked(false); 
-      setDislikeCount(dislikeCount + 1); 
-      setLikeCount(likeCount - (likeClicked ? 1 : 0)); 
+      setDislikeClicked(true); // Select dislike
+      setLikeClicked(false); // Deselect like
+      setDislikeCount(dislikeCount + 1); // Increase dislike count
+      setLikeCount(likeCount - (likeClicked ? 1 : 0)); // Decrease like count if it was selected
     } else {
-      setDislikeClicked(false); 
+      setDislikeClicked(false); // Deselect dislike
       setDislikeCount(dislikeCount - 1);
     }
   };
@@ -194,7 +196,7 @@ const ReviewFilmsComponent = () => {
       <div className="poster-section-review d-flex justify-content-center">
         <img
           className="rounded-4 film-poster"
-          src={`${import.meta.env.VITE_API_URL_IMAGE}/${film.image_poster}`}
+          src={`http://localhost:3000/${film.image_poster}`}
           alt={film.title}
         />
         <div className="title-review">
@@ -396,7 +398,7 @@ const ReviewFilmsComponent = () => {
         <Modal.Body>
           <div className="modal-film-header">
             <img
-              src={`${import.meta.env.VITE_API_URL_IMAGE}/${film.image}`}
+              src={`http://localhost:3000/${film.image}`}
               alt={film.title}
               className="film-poster-modal"
             />
@@ -498,7 +500,7 @@ const ReviewFilmsComponent = () => {
 
               <div className="radio-options-container">
                 <Form.Check
-                  
+                  // prop "inline" DIHAPUS dari sini
                   label="Ya"
                   name="spoiler-group"
                   type="radio"
@@ -506,7 +508,7 @@ const ReviewFilmsComponent = () => {
                   onChange={() => setSpoiler(true)}
                 />
                 <Form.Check
-                  
+                  // prop "inline" DIHAPUS dari sini juga
                   label="Tidak"
                   name="spoiler-group"
                   type="radio"
