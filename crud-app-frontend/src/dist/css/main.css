@@ -1622,6 +1622,12 @@ header .container .btn-explore:hover {
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
+.homepage-musics .box-konser-musics h1 {
+  font-size: 40px;
+  color: #251551;
+  font-weight: bold;
+}
+
 .homepage-musics .card-konser-musics {
   position: relative;
   border-radius: 17px;

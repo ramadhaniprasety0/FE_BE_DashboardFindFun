@@ -32,10 +32,6 @@ function App() {
           <Route path="/*" element={<HomePage />} />
           <Route path="/films" element={<FilmHomepage />} />
           <Route path="/music" element={<MusicsPage />} />
-          <Route path="/music/popular" element={<PopulerMusicsPage />} />
-          <Route path="/music/konser" element={<KonserMusicsPage />} />
-          <Route path="/music/:id" element={<DetailMusicsPage />} />
-          <Route path="/films/detail/:id" element={<DetailFilmPage />} />
         </Route>
 
         {/* Rute yang dilindungi untuk pengguna yang sudah login (admin atau user) */}
@@ -46,6 +42,10 @@ function App() {
             <Route path="/payment-tiket/:id/schedule/:tiketId" element={<PaymentFilmPage />} />
             {/* Rute untuk review film */}
             <Route path="/film/review/:id" element={<ReviewFilmsPage />} />
+            <Route path="/music/popular" element={<PopulerMusicsPage />} />
+          <Route path="/music/konser" element={<KonserMusicsPage />} />
+          <Route path="/music/:id" element={<DetailMusicsPage />} />
+          <Route path="/films/detail/:id" element={<DetailFilmPage />} />
           </Route>
         </Route>
 
