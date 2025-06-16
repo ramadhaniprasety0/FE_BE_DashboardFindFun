@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import axios from "axios";
+import api from "../../api/axios"; // Ganti import axios dengan api dari file axios.js
 import Swal from "sweetalert2";
 import { Link, useNavigate } from "react-router-dom";
 
@@ -12,7 +12,7 @@ const ArtisApp = () => {
    const getData = async () => {
       try {
          setLoading(true);
-         const { data } = await axios.get("http://localhost:3000/api/artists");
+         const { data } = await api.get("/artists"); // Hapus URL hardcoded, gunakan endpoint relatif
          setDataArtists(data.data);
          setLoading(false);
       } catch (error) {
@@ -36,7 +36,7 @@ const ArtisApp = () => {
        }).then(async (result) => {
        if (result.isConfirmed) {
          try {
-           await axios.delete(`http://localhost:3000/api/artists/${id}`);
+           await api.delete(`/artists/${id}`); // Hapus URL hardcoded, gunakan endpoint relatif
            await Swal.fire('Terhapus!', 'Music berhasil dihapus.', 'success');
            getData();
          } catch (error) {
@@ -102,7 +102,7 @@ const ArtisApp = () => {
                               <td>
                                  {artist.image ? (
                                     <img 
-                                       src={`http://localhost:3000/${artist.image}`} 
+                                       src={`${import.meta.env.VITE_API_URL_IMAGE}/${artist.image}`} 
                                        style={{width: "50px", height: "50px", objectFit: "cover"}} 
                                        alt={artist.name} 
                                        className="img-thumbnail rounded-circle"

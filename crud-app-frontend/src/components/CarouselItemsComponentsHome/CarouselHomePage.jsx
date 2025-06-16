@@ -1,6 +1,6 @@
 import { Carousel, Spinner, Col } from "react-bootstrap";
 import { useState, useEffect } from "react";
-import axios from "axios";
+import api, { api_image } from "../../api/axios"; // Ganti import axios dengan api dan api_image dari file axios.js
 import Swal from "sweetalert2";
 
 const CarouselComponent = () => {
@@ -10,7 +10,7 @@ const CarouselComponent = () => {
   useEffect(() => {
     const getData = async () => {
       try {
-        const { data } = await axios.get("http://localhost:3000/api/carousel/all");
+        const { data } = await api.get("/carousel/all"); // Hapus URL hardcoded, gunakan endpoint relatif
         setData(data.data);
         setLoading(false);
       } catch (error) {
@@ -37,13 +37,13 @@ const CarouselComponent = () => {
         {data.map((item) => (
           <Carousel.Item key={item.id}>
             <img className='caraousel-img-dashboard'
-              src={`http://localhost:3000/${item.image}`}
+              src={`${import.meta.env.VITE_API_URL_IMAGE}/${item.image}`} // Gunakan variabel lingkungan
               alt="Carousel"
               style={{ height: '433px', objectFit: 'cover' }} 
             />
             <Carousel.Caption className="d-flex flex-column align-items-start gap-1 justify-content-center" style={{ textAlign: 'left' }}>
               <img
-                src={`http://localhost:3000/${item.titleImage}`}
+                src={`${import.meta.env.VITE_API_URL_IMAGE}/${item.titleImage}`} // Gunakan variabel lingkungan
                 alt="Carousel Title"
                 className="img-fluid"
               />
@@ -56,7 +56,6 @@ const CarouselComponent = () => {
         ))}
       </Carousel>
     </Col>
-
   );
 };
 

@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
-import axios from "axios";
+import api from "../../api/axios"; // Ganti import axios dengan api dari file axios.js
 import Swal from 'sweetalert2';
 import 'sweetalert2/dist/sweetalert2.min.css';
 
@@ -56,7 +56,7 @@ const FormAddMusic = () => {
 
     const getData = async () => {
         try {
-            const { data } = await axios.get("http://localhost:3000/api/music/");
+            const { data } = await api.get("/music");
             setDataMusic(data.data);
         } catch (error) {
             console.error(error);
@@ -65,7 +65,7 @@ const FormAddMusic = () => {
 
     const getArtists = async () => {
         try {
-            const { data } = await axios.get("http://localhost:3000/api/artists");
+            const { data } = await api.get("/artists"); // Hapus URL hardcoded, gunakan endpoint relatif
             setArtists(data.data);
         } catch (error) {
             console.error(error);
@@ -75,7 +75,7 @@ const FormAddMusic = () => {
 
     const getAlbums = async () => {
         try {
-            const { data } = await axios.get("http://localhost:3000/api/albums");
+            const { data } = await api.get("/albums"); // Hapus URL hardcoded, gunakan endpoint relatif
             setAlbums(data.data);
         } catch (error) {
             console.error(error);
@@ -137,10 +137,9 @@ const FormAddMusic = () => {
             console.log(`${key}:`, value);
           }
       
-          await axios.post("http://localhost:3000/api/music", formData, {
+          await api.post("/music", formData, {
             headers: {
               "Content-Type": "multipart/form-data",
-              Authorization: `Bearer ${token}`,
             },
           });
       

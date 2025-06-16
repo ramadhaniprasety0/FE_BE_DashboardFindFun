@@ -5,7 +5,7 @@ const sgMail = require("@sendgrid/mail");
 
 // Konfigurasi SendGrid API Key
 sgMail.setApiKey(
-  "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"
+  "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"
 ); // Ganti dengan API key SendGrid Anda
 
 const authController = {

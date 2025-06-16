@@ -2,6 +2,7 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const routes = require("./routes/index");
 const cors = require("cors");
+require('dotenv').config();
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -12,7 +13,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 // Simple CORS middleware
 app.use(cors({
-  origin: "*", // Ganti dengan domain frontend Anda jika perlu
+  origin: process.env.FRONTEND_URL || "*", // Menggunakan URL frontend dari .env
   methods: "GET, POST, PUT, DELETE, OPTIONS", // Methods yang diizinkan
   allowedHeaders: "Content-Type, Authorization" // Header yang diizinkan
 }));
