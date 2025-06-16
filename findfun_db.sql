@@ -102,12 +102,13 @@ CREATE TABLE IF NOT EXISTS `cinema_locations` (
   PRIMARY KEY (`id`),
   KEY `film_id` (`film_id`),
   CONSTRAINT `cinema_locations_ibfk_1` FOREIGN KEY (`film_id`) REFERENCES `films` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- Dumping data for table findfun_db.cinema_locations: ~2 rows (approximately)
 INSERT INTO `cinema_locations` (`id`, `venue_name`, `cinema_type`, `film_id`) VALUES
 	(1, 'AEON MALL TANJUNG BARAT', 'XXI', 19),
-	(2, 'BLOK M SQUARE', 'XXI', 19);
+	(2, 'BLOK M SQUARE', 'XXI', 19),
+	(3, 'AEON MALL TANJUNG BARAT2', 'XXI', 20);
 
 -- Dumping structure for table findfun_db.films
 CREATE TABLE IF NOT EXISTS `films` (
@@ -175,7 +176,7 @@ CREATE TABLE IF NOT EXISTS `konser` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Dumping data for table findfun_db.konser: ~12 rows (approximately)
+-- Dumping data for table findfun_db.konser: ~11 rows (approximately)
 INSERT INTO `konser` (`id`, `nama_konser`, `deskripsi_acara`, `lokasi`, `tanggal`, `image`, `created_at`, `updated_at`) VALUES
 	(1, 'Konser Musik Rock', 'Konser musik rock dengan penampilan band-band terkenal Indonesia', 'Gelora Bung Karno, Jakarta', '2023-12-15', 'konser_rock.jpg', '2025-06-14 08:09:42', '2025-06-14 08:09:42'),
 	(2, 'Festival Jazz Tahunan', 'Festival jazz dengan musisi jazz internasional dan lokal', 'Prambanan, Yogyakarta', '2023-11-20', 'jazz_festival.jpg', '2025-06-14 08:09:42', '2025-06-14 08:09:42'),
@@ -204,7 +205,7 @@ CREATE TABLE IF NOT EXISTS `konser_artist` (
   CONSTRAINT `konser_artist_ibfk_2` FOREIGN KEY (`artist_id`) REFERENCES `artists` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Dumping data for table findfun_db.konser_artist: ~0 rows (approximately)
+-- Dumping data for table findfun_db.konser_artist: ~2 rows (approximately)
 INSERT INTO `konser_artist` (`id`, `konser_id`, `artist_id`, `created_at`, `updated_at`) VALUES
 	(1, 11, 8, '2025-06-14 09:40:24', '2025-06-14 09:40:24'),
 	(2, 12, 7, '2025-06-14 11:51:43', '2025-06-14 11:51:43');
@@ -224,7 +225,7 @@ CREATE TABLE IF NOT EXISTS `konser_pembayaran` (
   CONSTRAINT `konser_pembayaran_ibfk_1` FOREIGN KEY (`konser_tiket_id`) REFERENCES `konser_tiket` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Dumping data for table findfun_db.konser_pembayaran: ~0 rows (approximately)
+-- Dumping data for table findfun_db.konser_pembayaran: ~6 rows (approximately)
 INSERT INTO `konser_pembayaran` (`id`, `konser_tiket_id`, `total_harga`, `payment_id`, `bukti_pembayaran`, `status`, `created_at`, `updated_at`) VALUES
 	(1, 7, 3000000.00, 'PAY-ROCK-001', 'bukti_bayar_1.jpg', 'ACCEPT', '2025-06-14 08:13:36', '2025-06-14 14:07:28'),
 	(2, 8, 2800000.00, 'PAY-JAZZ-001', 'bukti_bayar_2.jpg', 'ACCEPT', '2025-06-14 08:13:36', '2025-06-14 08:13:36'),
@@ -250,7 +251,7 @@ CREATE TABLE IF NOT EXISTS `konser_tiket` (
   CONSTRAINT `konser_tiket_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE SET NULL
 ) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Dumping data for table findfun_db.konser_tiket: ~0 rows (approximately)
+-- Dumping data for table findfun_db.konser_tiket: ~6 rows (approximately)
 INSERT INTO `konser_tiket` (`id`, `user_id`, `nama_konser`, `deskripsi_acara`, `email`, `lokasi`, `tanggal`, `poster`, `created_at`, `updated_at`) VALUES
 	(7, 1, 'Konser Musik Rock', 'Konser musik rock dengan penampilan band-band terkenal Indonesia', 'user1@example.com', 'Gelora Bung Karno, Jakarta', '2023-12-15', 'konser_rock.jpg', '2025-06-14 08:10:38', '2025-06-14 08:10:38'),
 	(8, 2, 'Festival Jazz Tahunan', 'Festival jazz dengan musisi jazz internasional dan lokal', 'user2@example.com', 'Prambanan, Yogyakarta', '2023-11-20', 'jazz_festival.jpg', '2025-06-14 08:10:38', '2025-06-14 08:10:38'),
@@ -271,7 +272,7 @@ CREATE TABLE IF NOT EXISTS `konser_tiket_detail` (
   CONSTRAINT `konser_tiket_detail_ibfk_1` FOREIGN KEY (`konser_tiket_id`) REFERENCES `konser_tiket` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Dumping data for table findfun_db.konser_tiket_detail: ~0 rows (approximately)
+-- Dumping data for table findfun_db.konser_tiket_detail: ~7 rows (approximately)
 INSERT INTO `konser_tiket_detail` (`id`, `konser_tiket_id`, `jenis_tiket`, `harga`, `jumlah`) VALUES
 	(8, 7, 'VIP', 1500000.00, 2),
 	(9, 8, 'Gold', 1200000.00, 1),
@@ -420,7 +421,7 @@ CREATE TABLE IF NOT EXISTS `reserved_seats` (
   CONSTRAINT `reserved_seats_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=81 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Dumping data for table findfun_db.reserved_seats: ~78 rows (approximately)
+-- Dumping data for table findfun_db.reserved_seats: ~77 rows (approximately)
 INSERT INTO `reserved_seats` (`id`, `schedule_id`, `seat_id`, `user_id`, `status`, `reserved_at`) VALUES
 	(3, 1, 'A2', 1, 'reserved', '2025-06-08 08:49:00'),
 	(4, 1, 'A1', 1, 'reserved', '2025-06-08 08:49:00'),
@@ -517,16 +518,18 @@ CREATE TABLE IF NOT EXISTS `schedules` (
   CONSTRAINT `schedules_ibfk_1` FOREIGN KEY (`film_id`) REFERENCES `films` (`id`) ON DELETE CASCADE,
   CONSTRAINT `schedules_ibfk_2` FOREIGN KEY (`price_id`) REFERENCES `ticket_prices` (`id`) ON DELETE CASCADE,
   CONSTRAINT `schedules_ibfk_3` FOREIGN KEY (`cinema_location_id`) REFERENCES `cinema_locations` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Dumping data for table findfun_db.schedules: ~6 rows (approximately)
+-- Dumping data for table findfun_db.schedules: ~8 rows (approximately)
 INSERT INTO `schedules` (`id`, `film_id`, `cinema_location_id`, `show_time`, `price_id`, `created_at`, `updated_at`) VALUES
 	(1, 19, 1, '10:20:00', 1, '2025-06-07 17:31:23', '2025-06-15 04:29:45'),
 	(2, 19, 1, '11:55:00', 1, '2025-06-07 17:52:36', '2025-06-15 04:55:50'),
 	(3, 19, 2, '10:30:29', 1, '2025-06-07 18:16:32', '2025-06-15 05:55:59'),
 	(5, 19, 2, '13:42:00', 1, '2025-06-15 05:36:46', '2025-06-15 05:36:46'),
 	(7, 19, 1, '17:00:00', 1, '2025-06-15 05:54:39', '2025-06-15 05:54:39'),
-	(8, 19, 2, '15:00:00', 1, '2025-06-15 05:54:53', '2025-06-15 05:54:53');
+	(8, 19, 2, '15:00:00', 1, '2025-06-15 05:54:53', '2025-06-15 05:54:53'),
+	(11, 20, 3, '23:44:00', 3, '2025-06-15 16:44:50', '2025-06-15 16:44:50'),
+	(12, 20, 3, '15:26:00', 3, '2025-06-16 06:24:56', '2025-06-16 06:24:56');
 
 -- Dumping structure for table findfun_db.tickets
 CREATE TABLE IF NOT EXISTS `tickets` (
@@ -564,7 +567,7 @@ INSERT INTO `tickets` (`id`, `user_id`, `nama`, `email`, `film_id`, `schedule_id
 	(8, 1, 'Nadia Ayu Rahmawati', 'Nadia@gmail.com', 19, 2, '"D2"', 35000.00, 'VA-4136994792-36', 'uploads/artists/0783f4d21cedd9075cff9b5499dae463', 'ACCEPT', '2025-06-10 13:03:11', '2025-06-13 09:11:42'),
 	(9, 1, 'Nadia Ayu Rahmawati', 'Nadia@gmail.com', 19, 3, '[61, 62, 63]', 150000.00, NULL, NULL, 'REJECT', '2025-06-10 17:19:45', '2025-06-10 17:19:45'),
 	(10, 1, 'Nadia Ayu Rahmawati22', 'Nadia@gmail.com', 19, 2, '[64, 65, 66]', 105000.00, NULL, 'uploads/artists/0783f4d21cedd9075cff9b5499dae463', 'REJECT', '2025-06-12 12:44:51', '2025-06-13 09:11:59'),
-	(11, 1, 'Ramadhani Prasetyo22', 'ramadhani22@gmail.com', 19, 2, '"E11,E12"', 70000.00, 'VA-4130124688-55', 'uploads/artists/0783f4d21cedd9075cff9b5499dae463', 'ACCEPT', '2025-06-12 13:35:40', '2025-06-13 10:04:55'),
+	(11, 1, 'Ramadhani Prasetyo22', 'ramadhani22@gmail.com', 19, 2, '"E11,E12"', 70000.00, 'VA-4130124688-55', 'uploads/artists/0783f4d21cedd9075cff9b5499dae463', 'ACCEPT', '2025-06-12 13:35:40', '2025-06-15 11:34:16'),
 	(12, 1, 'Surya', 'surya20@gmail.com', 19, 3, '"E12,E13,F12,F13"', 200000.00, 'VA-8999550022-31', NULL, 'WAITING', '2025-06-13 09:27:36', '2025-06-13 09:27:50'),
 	(13, 1, 'SuryaGanteng', 'ramadhani22@gmail.com', 19, 2, '"E5,E6,F6,G6,H6,H7"', 210000.00, 'VA-3354704524-55', NULL, 'WAITING', '2025-06-13 19:53:01', '2025-06-13 19:53:13'),
 	(14, 3, 'SuryaGanteng', 'ramadhani22@gmail.com', 19, 1, '"G6,G7"', 70000.00, 'VA-7890409710-9', NULL, 'WAITING', '2025-06-13 20:01:18', '2025-06-13 20:01:28');
@@ -581,12 +584,13 @@ CREATE TABLE IF NOT EXISTS `ticket_prices` (
   KEY `FK_ticket_prices_cinema_locations` (`cinema_id`),
   CONSTRAINT `FK_ticket_prices_cinema_locations` FOREIGN KEY (`cinema_id`) REFERENCES `cinema_locations` (`id`),
   CONSTRAINT `ticket_prices_ibfk_1` FOREIGN KEY (`film_id`) REFERENCES `films` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- Dumping data for table findfun_db.ticket_prices: ~2 rows (approximately)
 INSERT INTO `ticket_prices` (`id`, `ticket_type`, `price`, `film_id`, `cinema_id`) VALUES
 	(1, 'Silver', 35000, 19, 1),
-	(2, 'Gold', 50000, 19, 2);
+	(2, 'Gold', 50000, 19, 2),
+	(3, 'Reguler', 20000, 20, 3);
 
 -- Dumping structure for table findfun_db.ticket_seats
 CREATE TABLE IF NOT EXISTS `ticket_seats` (
@@ -649,6 +653,8 @@ CREATE TABLE IF NOT EXISTS `users` (
   `image` varchar(255) DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `reset_token` varchar(255) DEFAULT NULL,
+  `reset_token_expires` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `email` (`email`),
   KEY `idx_email` (`email`),
@@ -656,10 +662,10 @@ CREATE TABLE IF NOT EXISTS `users` (
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- Dumping data for table findfun_db.users: ~3 rows (approximately)
-INSERT INTO `users` (`id`, `email`, `username`, `password`, `role`, `image`, `created_at`, `updated_at`) VALUES
-	(1, 'admin@finfun.com', 'Admin', '$2b$10$VG7JvZZ8orYsRBLHhqY0YOaT.4wxK07Sq3kNXKJWHtqJ9.t8psOMK', 'user', NULL, '2025-06-12 06:01:35', '2025-06-12 07:01:49'),
-	(2, 'userAdmin@admin.com', 'AdminDhani', '$2b$10$K2Sex44Flk7FL2oeeFW.HueGO/sFAhUX1nLBHl8hgCkwYGI43qpiG', 'admin', 'uploads/artists/0783f4d21cedd9075cff9b5499dae463', '2025-06-12 06:55:28', '2025-06-12 11:00:24'),
-	(3, 'dhani@admin.com', 'dhani', '$2b$10$cch3.x/AC3iV4g5bkrSRzOZjYvMEPUcEPUplQvHhSG5eYffgUpMOG', 'user', NULL, '2025-06-12 10:00:15', '2025-06-12 10:00:15');
+INSERT INTO `users` (`id`, `email`, `username`, `password`, `role`, `image`, `created_at`, `updated_at`, `reset_token`, `reset_token_expires`) VALUES
+	(1, 'admin@finfun.com', 'Admin', '$2b$10$VG7JvZZ8orYsRBLHhqY0YOaT.4wxK07Sq3kNXKJWHtqJ9.t8psOMK', 'user', NULL, '2025-06-12 06:01:35', '2025-06-12 07:01:49', NULL, NULL),
+	(2, 'userAdmin@admin.com', 'AdminDhani', '$2b$10$K2Sex44Flk7FL2oeeFW.HueGO/sFAhUX1nLBHl8hgCkwYGI43qpiG', 'admin', 'uploads/artists/0783f4d21cedd9075cff9b5499dae463', '2025-06-12 06:55:28', '2025-06-12 11:00:24', NULL, NULL),
+	(3, 'softwareseleb20@gmail.com', 'dhani', '$2b$10$3gf0txClwV53HvB.KOu9Neq5VKxZ1pzMgXAf4s0wT8196UtNeVEmm', 'user', NULL, '2025-06-12 10:00:15', '2025-06-16 06:22:28', NULL, NULL);
 
 /*!40103 SET TIME_ZONE=IFNULL(@OLD_TIME_ZONE, 'system') */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
