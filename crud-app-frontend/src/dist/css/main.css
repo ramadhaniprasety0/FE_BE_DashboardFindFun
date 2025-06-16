@@ -5054,3 +5054,14 @@ text-transform: uppercase;
     background-color: #5562FC;
     color: white;
 }
+
+.btn-update:hover a,
+.btn-update:hover i {
+  color: #fff !important;
+}
+
+.btn-delete:hover a,
+.btn-delete:hover i {
+  color: #fff !important;
+}
+

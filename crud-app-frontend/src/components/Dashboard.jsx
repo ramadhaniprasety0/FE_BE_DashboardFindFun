@@ -14,7 +14,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
 
 // Login
-import Login from "./LoginComponents/LoginFormComponent";
+import Login from "./LoginComponents/Login";
 
 // Carausel
 import CarouselComponent from "./CarouselItemsComponentsHome/CarouselHomePage";
@@ -52,6 +52,7 @@ import AddTiketFilm from "./TiketComponentDashboard/AddTiketFilm";
 import KonserTiketJenisApp from "./TiketComponentDashboard/KonserTiketJenisApp";
 
 import axios from "axios";
+import { Table } from "react-bootstrap";
 
 // Komponen baru untuk dashboard
 const Dashboard = () => {
@@ -795,7 +796,7 @@ const UsersManagement = () => {
     <div>
       <div className="d-flex justify-content-between align-items-center mb-4">
         <h4>Daftar Pengguna FindFun</h4>
-        <button className="btn btn-primary">
+        <button className="btn btn-add">
           <i className="bi bi-plus-circle me-2"></i>
           Tambah Pengguna
         </button>
@@ -804,7 +805,7 @@ const UsersManagement = () => {
       <div className="card border-0 shadow-sm">
         <div className="card-body">
           <div className="table-responsive">
-            <table className="table table-hover">
+            <Table striped bordered hover responsive="sm">
               <thead>
                 <tr>
                   <th scope="col">#</th>
@@ -825,11 +826,11 @@ const UsersManagement = () => {
                     <span className="badge bg-success">Aktif</span>
                   </td>
                   <td>
-                    <button className="btn btn-sm btn-light me-2">
-                      <i className="bi bi-pencil"></i>
+                    <button className="btn btn-sm me-2 btn-outline-secondary btn-update">
+                      <i className="bi bi-pencil text-secondary"></i>
                     </button>
-                    <button className="btn btn-sm btn-light">
-                      <i className="bi bi-trash"></i>
+                    <button className="btn btn-sm btn-outline-danger btn-delete">
+                      <i className="bi bi-trash text-danger"></i>
                     </button>
                   </td>
                 </tr>
@@ -842,11 +843,11 @@ const UsersManagement = () => {
                     <span className="badge bg-success">Aktif</span>
                   </td>
                   <td>
-                    <button className="btn btn-sm btn-light me-2">
-                      <i className="bi bi-pencil"></i>
+                  <button className="btn btn-sm me-2 btn-outline-secondary btn-update">
+                      <i className="bi bi-pencil text-secondary"></i>
                     </button>
-                    <button className="btn btn-sm btn-light">
-                      <i className="bi bi-trash"></i>
+                    <button className="btn btn-sm btn-outline-danger btn-delete">
+                      <i className="bi bi-trash text-danger"></i>
                     </button>
                   </td>
                 </tr>
@@ -859,11 +860,11 @@ const UsersManagement = () => {
                     <span className="badge bg-success">Aktif</span>
                   </td>
                   <td>
-                    <button className="btn btn-sm btn-light me-2">
-                      <i className="bi bi-pencil"></i>
+                  <button className="btn btn-sm me-2 btn-outline-secondary btn-update">
+                      <i className="bi bi-pencil text-secondary"></i>
                     </button>
-                    <button className="btn btn-sm btn-light">
-                      <i className="bi bi-trash"></i>
+                    <button className="btn btn-sm btn-outline-danger btn-delete">
+                      <i className="bi bi-trash text-danger"></i>
                     </button>
                   </td>
                 </tr>
@@ -876,11 +877,11 @@ const UsersManagement = () => {
                     <span className="badge bg-warning">Pending</span>
                   </td>
                   <td>
-                    <button className="btn btn-sm btn-light me-2">
-                      <i className="bi bi-pencil"></i>
+                  <button className="btn btn-sm me-2 btn-outline-secondary btn-update">
+                      <i className="bi bi-pencil text-secondary"></i>
                     </button>
-                    <button className="btn btn-sm btn-light">
-                      <i className="bi bi-trash"></i>
+                    <button className="btn btn-sm btn-outline-danger btn-delete">
+                      <i className="bi bi-trash text-danger"></i>
                     </button>
                   </td>
                 </tr>
@@ -893,16 +894,16 @@ const UsersManagement = () => {
                     <span className="badge bg-danger">Nonaktif</span>
                   </td>
                   <td>
-                    <button className="btn btn-sm btn-light me-2">
-                      <i className="bi bi-pencil"></i>
+                  <button className="btn btn-sm me-2 btn-outline-secondary btn-update">
+                      <i className="bi bi-pencil text-secondary"></i>
                     </button>
-                    <button className="btn btn-sm btn-light">
-                      <i className="bi bi-trash"></i>
+                    <button className="btn btn-sm btn-outline-danger btn-delete">
+                      <i className="bi bi-trash text-danger"></i>
                     </button>
                   </td>
                 </tr>
               </tbody>
-            </table>
+            </Table>
           </div>
         </div>
       </div>
@@ -957,7 +958,7 @@ const SettingsPage = () => {
           </div>
           <div className="row">
             <div className="col-sm-9 offset-sm-3">
-              <button type="button" className="btn btn-primary">
+              <button type="button" className="btn btn-add">
                 Simpan Perubahan
               </button>
             </div>
@@ -1014,7 +1015,7 @@ const SettingsPage = () => {
               Pemberitahuan sistem
             </label>
           </div>
-          <button type="button" className="btn btn-primary">
+          <button type="button" className="btn btn-add">
             Simpan Perubahan
           </button>
         </div>
@@ -1079,7 +1080,7 @@ const SettingsPage = () => {
           </div>
           <div className="row">
             <div className="col-sm-9 offset-sm-3">
-              <button type="button" className="btn btn-primary">
+              <button type="button" className="btn btn-add">
                 Perbarui Password
               </button>
             </div>

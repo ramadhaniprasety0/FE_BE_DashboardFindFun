@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import api from "../../api/axios";
+import axios from "axios";
 import Swal from 'sweetalert2';
 import 'sweetalert2/dist/sweetalert2.min.css';
 
@@ -10,7 +10,7 @@ function MusicTerbaruComponents() {
   const getMusicTebaru = async () => {
     try {
       setLoading(true);
-      const { data } = await api.get("/music");
+      const { data } = await axios.get("http://localhost:3000/api/music");
       setMusics(data.data);
       setLoading(false);
     } catch (error) {
@@ -49,7 +49,7 @@ function MusicTerbaruComponents() {
                     <div className="rounded d-flex justify-content-center align-items-center me-3">
                 {music.image ? (
                     <img 
-                    src={`${import.meta.env.VITE_API_URL_IMAGE}/${music.image}`} 
+                    src={`http://localhost:3000/${music.image}`} 
                     alt={music.title}  
                     style={{ width: '38px', height: '38px' }}/>
                     ):(
