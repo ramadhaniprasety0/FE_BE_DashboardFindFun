@@ -426,7 +426,6 @@ router.post(
 );
 
 // Payment management
-
 router.get("/konser/payments/all", authenticateToken, isAdmin, konserControllers.getAllPayments);
 router.get(
   "/konser/payments",

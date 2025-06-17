@@ -37,6 +37,26 @@ const Konser = {
     db.query(query, [konserId], callback);
   },
 
+  getDetailById: (paymentId, callback) => {
+        const query = `
+            SELECT 
+                p.id,
+                p.payment_id,
+                p.total_harga,
+                k.nama_konser,
+                k.image AS konser_image
+            FROM 
+                konser_pembayaran p
+            JOIN 
+                konser_tiket_jenis ktj ON p.konser_tiket_id = ktj.id
+            JOIN 
+                konser k ON ktj.konser_id = k.id
+            WHERE 
+                p.payment_id = ?
+        `;
+        db.query(query, [paymentId], callback);
+    },
+
   addKonserArtist: (konserId, artistId, callback) => {
     db.query(
       'INSERT INTO konser_artist (konser_id, artist_id) VALUES (?, ?)',

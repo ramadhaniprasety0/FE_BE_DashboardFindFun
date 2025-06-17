@@ -119,7 +119,7 @@ const KonserMendatangComponent = ({ filterBy, sortByPrice }) => {
       {processedKonser.length > 0 ? (
         processedKonser.map((item) => (
           <Col key={item.id} xs={12} className="konser-item-wrapper mb-3">
-            <Link to={`/konser/${item.id}`} className="text-decoration-none">
+            <Link to={`/music/konser/detail/${item.id}`} className="text-decoration-none">
               <div className="konser-item-card new-layout">
                 {/* ... Isi Kartu (Gambar, Judul, dll) ... */}
                 <div className="konser-image-section">
