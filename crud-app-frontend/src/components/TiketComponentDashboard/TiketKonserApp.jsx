@@ -366,18 +366,18 @@ const TiketKonserApp = () => {
                     <td>
                       <div className="d-flex gap-2">
                         <Button
-                          variant="warning"
+                          variant="outline-secondary"
                           size="sm"
                           onClick={() => handleOpenEditModal(tiket)}
                         >
-                          <i className="bi bi-pencil-fill"></i>
+                          <i className="bi bi-pencil"></i>
                         </Button>
                         <Button
-                          variant="danger"
+                          variant="outline-danger"
                           size="sm"
                           onClick={() => handleDelete(tiket)}
                         >
-                          <i className="bi bi-trash-fill"></i>
+                          <i className="bi bi-trash"></i>
                         </Button>
                       </div>
                     </td>

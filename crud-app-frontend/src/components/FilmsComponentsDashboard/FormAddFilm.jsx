@@ -264,10 +264,10 @@ const FormAddFilm = () => {
                     {index > 0 && (
                     <button
                         type="button"
-                        className="btn btn-danger btn-sm ms-2"
+                        className="btn btn-delete btn-sm ms-2 btn-outline-danger" 
                         onClick={() => handleRemoveGenre(index)}
                     >
-                        <i className="bi bi-trash"></i>
+                        <i className="bi bi-trash text-danger"></i>
                     </button>
                     )}
                 </div>
@@ -313,10 +313,10 @@ const FormAddFilm = () => {
                   {index > 0 && (
                     <button
                       type="button"
-                      className="btn btn-danger btn-sm ms-2"
+                      className="btn btn-delete btn-sm ms-2 btn-outline-danger" 
                       onClick={() => handleRemoveArtist(index)}
                     >
-                      <i className="bi bi-trash"></i>
+                      <i className="bi bi-trash text-danger"></i>
                     </button>
                   )}
                 </div>

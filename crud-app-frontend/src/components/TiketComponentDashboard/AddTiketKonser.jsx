@@ -215,7 +215,7 @@ const AddTiketKonser = () => {
   return (
     <Container>
       <Card className="shadow-sm">
-        <Card.Header as="h5" className="bg-primary text-white">
+        <Card.Header as="h5" className="text-white" style={{ backgroundColor: "#8e97fd" }}>
           Tambah Tiket Konser
         </Card.Header>
         <Card.Body>
@@ -291,9 +291,9 @@ const AddTiketKonser = () => {
 
             <Row className="mb-3">
               <Col md={12} className="d-flex justify-content-end align-items-center mb-2">
-                <Button variant="success" size="sm" onClick={handleAddArtist}>
+                <button className="btn btn-add" size="sm" onClick={handleAddArtist}>
                   <FaPlus className="me-1" /> Tambah Artis
-                </Button>
+                </button>
               </Col>
               
               {selectedArtists.map((artistId, index) => (
@@ -319,12 +319,12 @@ const AddTiketKonser = () => {
                       </Form.Select>
                       {index > 0 && (
                         <Button
-                          variant="danger"
+                          variant="outline-danger"
                           size="sm"
-                          className="ms-2"
+                          className="ms-2 btn-delete"
                           onClick={() => handleRemoveArtist(index)}
                         >
-                          <FaTrash />
+                          <i className="bi bi-trash text-danger"></i>
                         </Button>
                       )}
                     </div>
@@ -338,8 +338,15 @@ const AddTiketKonser = () => {
               Tambahkan jenis tiket dan harganya
             </p>
 
+            <Col className="d-flex justify-content-end align-items-center mb-2">
+            
+            <button  onClick={addJenisTiket} className="mb-4 btn btn-add">
+              <FaPlus className="me-2" /> Tambah Jenis Tiket
+            </button>
+            </Col>
+
             {formData.jenis_tiket.map((tiket, index) => (
-              <Row key={index} className="mb-3 align-items-end">
+              <Row key={index} className="mb-3 align-items-end ">
                 <Col md={5}>
                   <Form.Group>
                     <Form.Label>Jenis Tiket {index + 1}</Form.Label>
@@ -371,30 +378,28 @@ const AddTiketKonser = () => {
                 </Col>
                 <Col md={2}>
                   <Button
-                    variant="danger"
+                    variant="outline-danger"
                     onClick={() => removeJenisTiket(index)}
-                    className="mb-0"
+                    className="mb-0  btn-delete"
                   >
-                    <FaTrash />
+                    <i className="bi bi-trash text-danger"></i>
                   </Button>
                 </Col>
               </Row>
             ))}
 
-            <Button variant="success" onClick={addJenisTiket} className="mb-4">
-              <FaPlus className="me-2" /> Tambah Jenis Tiket
-            </Button>
+           
 
-            <div className="d-flex justify-content-between mt-4">
-              <Button
-                variant="secondary"
+            <div className="d-flex justify-content-end gap-2 mb-1" style={{marginTop: "80px"}}>
+              <button
+                className="btn btn-secondary"
                 onClick={() => navigate("/dashboard/konser")}
               >
                 Kembali
-              </Button>
-              <Button variant="primary" type="submit" disabled={loading}>
+              </button>
+              <button className="btn btn-add" type="submit" disabled={loading}>
                 {loading ? "Menyimpan..." : "Simpan Tiket Konser"}
-              </Button>
+              </button>
             </div>
           </Form>
         </Card.Body>

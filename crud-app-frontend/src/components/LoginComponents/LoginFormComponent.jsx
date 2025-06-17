@@ -59,7 +59,7 @@ const LoginForm = () => {
       style={{ maxWidth: "400px" }}
     >
       <Form onSubmit={handleSubmit}>
-        <h2 className="text-primary fw-bold mb-4">Masuk</h2>
+        <h2 className="fw-bold mb-4" style={{color: "#8e97fd"}}>Masuk</h2>
         {error && <div className="alert alert-danger">{error}</div>}
         <div className="mb-3 text-start">
           <label className="form-label">Email atau nama pengguna</label>
@@ -97,7 +97,11 @@ const LoginForm = () => {
           Daftar disini
         </Link>
       </p>
-      <p className="text-muted small fst-italic">Lupa kata sandi Anda?</p>
+      <p className="text-muted small">
+        <Link to="/forgot-password" className="text-decoration-none">
+          Lupa kata sandi Anda?
+        </Link>
+      </p>
 
       <p className="mt-5 text-muted fst-italic">FindFun - 2025</p>
     </div>

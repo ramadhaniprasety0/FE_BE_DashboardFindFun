@@ -14,6 +14,8 @@ const ulasanControllers = require("../controllers/ulasanControllers");
 const artistControllers = require("../controllers/artistControllers");
 const caroselControllers = require("../controllers/caroselControllers");
 const konserControllers = require("../controllers/konserControllers");
+const scheduleControllers = require("../controllers/scheduleControllers");
+const tiketFilmController = require("../controllers/tiketFilmController");
 
 // Basic middleware for logging
 router.use((req, res, next) => {
@@ -34,6 +36,9 @@ const uploadKonserPayment = multer({ dest: "uploads/konser_payment/" });
 // ===== AUTH ROUTES =====
 router.post("/login", authController.login);
 router.post("/register", authController.register);
+router.post("/forgot-password", authController.forgotPassword);
+router.post("/verify-otp", authController.verifyOTP);
+router.post("/reset-password", authController.resetPassword);
 
 // ==== ADMIN ROUTES (PROTECTED) ====
 router.get("/admin/dashboard", authenticateToken, isAdmin, (req, res) => {
@@ -398,6 +403,40 @@ router.delete(
   konserControllers.deleteJenisTiket
 );
 
+// ===== SCHEDULE ROUTES =====
+// Public endpoints
+router.get("/schedules", scheduleControllers.getAll); // ?include=all
+router.get("/schedules/:id", scheduleControllers.getById); // ?include=all
+router.get("/films/:filmId/schedules", scheduleControllers.getByFilmId);
+
+// Admin only operations
+router.post(
+  "/schedules",
+  authenticateToken,
+  isAdmin,
+  scheduleControllers.create
+);
+router.put(
+  "/schedules/:id",
+  authenticateToken,
+  isAdmin,
+  scheduleControllers.update
+);
+router.delete(
+  "/schedules/:id",
+  authenticateToken,
+  isAdmin,
+  scheduleControllers.delete
+);
+
+// Endpoint untuk membuat tiket film (membuat data di 3 tabel sekaligus)
+router.post(
+  "/tiket-film",
+  authenticateToken,
+  isAdmin,
+  tiketFilmController.createTiketFilm
+);
+
 // Tiket konser management
 router.get(
   "/tikets/konser",
@@ -426,7 +465,12 @@ router.post(
 );
 
 // Payment management
+
 router.get("/konser/payments/all", authenticateToken, isAdmin, konserControllers.getAllPayments);
+
+
+router.get("/konser/payments/all",  konserControllers.getAllPayments);
+
 router.get(
   "/konser/payments",
   authenticateToken,

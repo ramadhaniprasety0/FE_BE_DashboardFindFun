@@ -232,6 +232,43 @@ header .container .btn-explore:hover {
   background-color: #251551;
 }
 
+/* Styling untuk forgot-password-form */
+.forgot-password-form .form-control {
+  background-color: #dcddff;
+  border: 1px solid #dcddff;
+  border-radius: 1rem;
+  padding: 0.75rem 1rem;
+  font-size: 0.95rem;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.forgot-password-form .form-control:focus {
+  border-color: #8e97fd;
+  box-shadow: 0 0 0 0.15rem rgba(142, 151, 253, 0.3);
+}
+
+.forgot-password-form .btn-primary {
+  background-color: #8e97fd;
+  border: none;
+}
+
+.forgot-password-form .btn-primary:hover {
+  background-color: #8fa8ff;
+}
+
+.forgot-password-form .form-label {
+  font-weight: 500;
+  color: #6c63ff;
+}
+
+.forgot-password-form hr {
+  border: none;
+  border-top: 2px solid #8e97fd;
+  width: 150%;
+  margin: 2rem -25% 2rem -25%;
+  opacity: 0.9;
+}
+
 /* src/styles/LoginPage.css */
 .login-page {
   font-family: "Segoe UI", sans-serif;
@@ -2219,6 +2256,172 @@ header .container .btn-explore:hover {
 
   .homepage .news-card .news-caption p {
     font-size: 8px;
+  }
+}
+
+/* Styling untuk OTP Verification Form */
+.otp-verification-form .form-control {
+  background-color: #dcddff;
+  border: 1px solid #dcddff;
+  border-radius: 1rem;
+  padding: 0.75rem 1rem;
+  font-size: 0.95rem;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.otp-verification-form .form-control:focus {
+  border-color: #8e97fd;
+  box-shadow: 0 0 0 0.15rem rgba(142, 151, 253, 0.3);
+}
+
+.otp-verification-form .btn-primary {
+  background-color: #8e97fd;
+  border: none;
+}
+
+.otp-verification-form .btn-primary:hover {
+  background-color: #8fa8ff;
+}
+
+.otp-verification-form .form-label {
+  font-weight: 500;
+  color: #6c63ff;
+}
+
+.otp-verification-form hr {
+  border: none;
+  border-top: 2px solid #8e97fd;
+  width: 150%;
+  margin: 2rem -25% 2rem -25%;
+  opacity: 0.9;
+}
+
+.otp-verification-form h2 {
+  color: #8e97fd !important;
+}
+
+/* Styling untuk Reset Password Form */
+.reset-password-form .form-control {
+  background-color: #dcddff;
+  border: 1px solid #dcddff;
+  border-radius: 1rem;
+  padding: 0.75rem 1rem;
+  font-size: 0.95rem;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.reset-password-form .form-control:focus {
+  border-color: #8e97fd;
+  box-shadow: 0 0 0 0.15rem rgba(142, 151, 253, 0.3);
+}
+
+.reset-password-form .btn-primary {
+  background-color: #8e97fd;
+  border: none;
+}
+
+.reset-password-form .btn-primary:hover {
+  background-color: #8fa8ff;
+}
+
+.reset-password-form .form-label {
+  font-weight: 500;
+  color: #6c63ff;
+}
+
+.reset-password-form h2 {
+  color: #8e97fd !important;
+}
+
+/* Styling untuk halaman OTP Verification dan Reset Password */
+.otp-verification-page, .reset-password-page {
+  font-family: "Segoe UI", sans-serif;
+}
+
+/* Media queries untuk responsif */
+@media (max-width: 992px) {
+  .login-right, .login-left, 
+  .otp-verification-page .login-right,
+  .otp-verification-page .login-left,
+  .reset-password-page .login-right,
+  .reset-password-page .login-left {
+    width: 50% !important;
+  }
+}
+
+@media (max-width: 768px) {
+  .login-page, .forgot-password-page,
+  .otp-verification-page,
+  .reset-password-page {
+    flex-direction: column;
+  }
+  
+  .login-left, .login-right,
+  .otp-verification-page .login-left,
+  .otp-verification-page .login-right,
+  .reset-password-page .login-left,
+  .reset-password-page .login-right {
+    width: 100% !important;
+    height: 50vh;
+  }
+  
+  .login-left,
+  .otp-verification-page .login-left,
+  .reset-password-page .login-left {
+    height: 40vh;
+  }
+  
+  .login-right,
+  .otp-verification-page .login-right,
+  .reset-password-page .login-right {
+    height: 60vh;
+    overflow-y: auto;
+  }
+  
+  .login-form, .forgot-password-form,
+  .otp-verification-form,
+  .reset-password-form {
+    padding: 1rem !important;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+  }
+  
+  .login-form hr, .forgot-password-form hr,
+  .otp-verification-form hr {
+    width: 100%;
+    margin: 1.5rem 0;
+  }
+}
+
+@media (max-width: 576px) {
+  .login-left,
+  .otp-verification-page .login-left,
+  .reset-password-page .login-left {
+    height: 35vh;
+  }
+  
+  .login-right,
+  .otp-verification-page .login-right,
+  .reset-password-page .login-right {
+    height: 65vh;
+  }
+  
+  .login-left h2, .forgot-password-page .login-left h2,
+  .otp-verification-page .login-left h2,
+  .reset-password-page .login-left h2 {
+    font-size: 1.8rem !important;
+  }
+  
+  .login-left p.lead, .forgot-password-page .login-left p.lead,
+  .otp-verification-page .login-left p.lead,
+  .reset-password-page .login-left p.lead {
+    font-size: 1rem !important;
+  }
+  
+  .login-form h2, .forgot-password-form h2,
+  .otp-verification-form h2,
+  .reset-password-form h2 {
+    font-size: 1.5rem;
   }
 }
 
@@ -5182,3 +5385,14 @@ text-transform: uppercase;
     width: 100%;
   }
 }
+
+.btn-update:hover a,
+.btn-update:hover i {
+  color: #fff !important;
+}
+
+.btn-delete:hover a,
+.btn-delete:hover i {
+  color: #fff !important;
+}
+

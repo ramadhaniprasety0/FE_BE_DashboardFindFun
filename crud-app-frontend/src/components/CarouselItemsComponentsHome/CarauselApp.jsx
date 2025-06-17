@@ -3,6 +3,7 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 import Swal from 'sweetalert2';
 import 'sweetalert2/dist/sweetalert2.min.css';
+import Button from 'react-bootstrap/Button';
 
 const CaraouselApp = () => {
     const [carousel, setCarousel] = useState([]);
@@ -190,8 +191,14 @@ const CaraouselApp = () => {
 
                                         <td>
                                             <div className="d-flex gap-2 align-items-center">
-                                                <Link to={`/dashboard/editcarousel/${carausels.id}`} title="Edit Carausel"><i className="bi bi-pencil text-primary"></i></Link>
+                                                <Button className="btn-update" variant="outline-secondary" size="sm">
+
+                                                <Link to={`/dashboard/editcarousel/${carausels.id}`} title="Edit Carausel"><i className="bi bi-pencil text-secondary"></i></Link>
+                                                </Button>
+                                                <Button className="btn-delete" variant="outline-danger" size="sm">
+
                                                 <Link onClick={() => handleDelete(carausels.id, carausels.title)} title="Hapus Carausel"><i className="bi bi-trash text-danger"></i></Link>
+                                                </Button>
                                             </div>
                                         </td>              
                                     </tr>

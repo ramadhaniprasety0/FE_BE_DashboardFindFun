@@ -33,7 +33,7 @@ const CarouselComponent = () => {
 
   return (
     <Col lg={12}>
-      <Carousel indicators={true} controls={false} interval={5000} className="carousel-container p-4">
+      <Carousel indicators={true} controls={false} interval={5000} className="carousel-container">
         {data.map((item) => (
           <Carousel.Item key={item.id}>
             <img className='caraousel-img-dashboard'

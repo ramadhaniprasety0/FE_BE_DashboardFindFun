@@ -241,12 +241,12 @@ const KonserTiketJenisApp = () => {
           className="d-flex justify-content-between align-items-center"
         >
           <span>Manajemen Jenis Tiket Konser</span>
-          <Button
-            variant="primary"
+          <button
+            className="btn btn-add"
             onClick={() => navigate("/dashboard/konser")}
           >
             Kembali ke Daftar Tiket
-          </Button>
+          </button>
         </Card.Header>
         <Card.Body>
           <Form.Group className="mb-3">
@@ -267,9 +267,9 @@ const KonserTiketJenisApp = () => {
 
           {selectedKonserId && (
             <div className="d-flex justify-content-end mb-3">
-              <Button variant="success" onClick={handleOpenAddModal}>
+              <button className="btn btn-add" onClick={handleOpenAddModal}>
                 Tambah Jenis Tiket
-              </Button>
+              </button>
             </div>
           )}
 
@@ -300,26 +300,29 @@ const KonserTiketJenisApp = () => {
                   jenisTiket.map((tiket, index) => (
                     <tr key={tiket.id}>
                       <td className="text-center">{index + 1}</td>
-                      <td>{tiket.jenis_tiket}</td>
+                      <td className="text-center">{tiket.jenis_tiket}</td>
                       <td className="text-end">
                         {formatCurrency(tiket.harga)}
                       </td>
                       <td className="text-center">
-                        <Button
-                          variant="warning"
-                          size="sm"
-                          className="me-2"
+                      <div className="d-flex gap-2 justify-content-center">
+                        <Button variant="outline-secondary" size="sm" className="btn-update"
+                        
                           onClick={() => handleOpenEditModal(tiket)}
                         >
-                          Edit
+                          
+                            <i className="bi bi-pencil text-secondary"></i>
+                       
+                        </Button >
+                        <Button variant="outline-danger" size="sm"
+                          className="btn-delete"
+                            onClick={() => handleDelete(tiket)}
+                          >
+                            <i className="bi bi-trash text-danger"></i>
+                         
                         </Button>
-                        <Button
-                          variant="danger"
-                          size="sm"
-                          onClick={() => handleDelete(tiket)}
-                        >
-                          Hapus
-                        </Button>
+                      </div>
+                        
                       </td>
                     </tr>
                   ))
@@ -366,12 +369,12 @@ const KonserTiketJenisApp = () => {
             </Form.Group>
           </Modal.Body>
           <Modal.Footer>
-            <Button variant="secondary" onClick={handleCloseModal}>
+            <button className="btn btn-secondary" onClick={handleCloseModal}>
               Batal
-            </Button>
-            <Button variant="primary" type="submit">
+            </button>
+            <button className="btn btn-add" type="submit">
               Simpan
-            </Button>
+            </button>
           </Modal.Footer>
         </Form>
       </Modal>
