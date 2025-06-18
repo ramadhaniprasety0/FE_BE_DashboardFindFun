@@ -11,6 +11,7 @@ const LoginForm = () => {
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
   const navigate = useNavigate();
+  const [showPassword, setShowPassword] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -59,7 +60,9 @@ const LoginForm = () => {
       style={{ maxWidth: "400px" }}
     >
       <Form onSubmit={handleSubmit}>
-        <h2 className="fw-bold mb-4" style={{color: "#8e97fd"}}>Masuk</h2>
+        <h2 className="fw-bold mb-4" style={{ color: "#8e97fd" }}>
+          Masuk
+        </h2>
         {error && <div className="alert alert-danger">{error}</div>}
         <div className="mb-3 text-start">
           <label className="form-label">Email atau nama pengguna</label>
@@ -72,15 +75,23 @@ const LoginForm = () => {
           />
         </div>
 
-        <div className="mb-3 text-start">
+        <div className="mb-3 text-start position-relative">
           <label className="form-label">Kata sandi</label>
           <input
-            type="password"
+            type={showPassword ? "text" : "password"}
             className="form-control rounded-4 bg-light border-0 px-3 py-2"
             placeholder="Kata Sandi"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
+            required
           />
+          <i
+            className={`bi bi-eye-slash${
+              showPassword ? "bi bi-eye" : ""
+            } position-absolute end-0 translate-middle-y me-3`}
+            onClick={() => setShowPassword(!showPassword)}
+            style={{ cursor: "pointer", zIndex: 100, marginTop: "-18px" }}
+          ></i>
         </div>
 
         <Button

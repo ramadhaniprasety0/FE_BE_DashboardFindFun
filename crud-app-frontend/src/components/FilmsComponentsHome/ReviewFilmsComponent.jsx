@@ -115,11 +115,14 @@ const ReviewFilmsComponent = () => {
 
     try {
       const response = await axios.post(
-        `http://localhost:3000/api/ulasan`, ulasanData, {
+        `http://localhost:3000/api/ulasan`,
+        ulasanData,
+        {
           headers: {
             Authorization: `Bearer ${token}`,
           },
-        });
+        }
+      );
       getReview();
       handleCloseModal();
     } catch (error) {
@@ -220,10 +223,15 @@ const ReviewFilmsComponent = () => {
             </button>
             {bintangDropdownOpen && (
               <ul className="dropdown-menu-review-film text-center">
-                <li>Unggulan</li>
-                <li>Tanggal Ulasan</li>
-                <li>Disukai Terbanyak</li>
+                <li>Bintang 1</li>
+                <li>Bintang 2</li>
+                <li>Bintang 3</li>
               </ul>
+              // <ul className="dropdown-menu-review-film text-center">
+              //   <li>Unggulan</li>
+              //   <li>Tanggal Ulasan</li>
+              //   <li>Disukai Terbanyak</li>
+              // </ul>
             )}
           </div>
 
@@ -237,10 +245,15 @@ const ReviewFilmsComponent = () => {
               Urutkan
             </button>
             {urutkanDropdownOpen && (
+              // <ul className="dropdown-menu-review-film text-center">
+              //   <li>Bintang 1</li>
+              //   <li>Bintang 2</li>
+              //   <li>Bintang 3</li>
+              // </ul>
               <ul className="dropdown-menu-review-film text-center">
-                <li>Bintang 1</li>
-                <li>Bintang 2</li>
-                <li>Bintang 3</li>
+                <li>Unggulan</li>
+                <li>Tanggal Ulasan</li>
+                <li>Disukai Terbanyak</li>
               </ul>
             )}
           </div>
@@ -437,7 +450,7 @@ const ReviewFilmsComponent = () => {
                       ☆
                     </span>
                   );
-                })} 
+                })}
               </div>
             </div>
           </div>
